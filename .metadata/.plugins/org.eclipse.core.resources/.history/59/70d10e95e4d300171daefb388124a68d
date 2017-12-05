@@ -1,0 +1,21 @@
+package test;
+
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		Student stu = new Student();
+		stu.smile();
+		Map<Integer,Integer> map=new Hashtable<Integer,Integer>();
+		map.put(1, 2);
+		map.put(1, 3);
+		map.put(2, 3);
+//		map.put(1, "dsd");
+		map.entrySet();
+		Iterator<Map.Entry<Integer,Integer>> it=map.entrySet().iterator();
+		while(it.hasNext()){
+			System.out.println(it.next());
+		}
+	}
+	
+}

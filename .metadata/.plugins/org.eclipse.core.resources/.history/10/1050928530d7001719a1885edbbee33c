@@ -1,0 +1,64 @@
+package mod;
+
+class Person{
+	public String getHead() {
+		return head;
+	}
+	public void setHead(String head) {
+		this.head = head;
+	}
+	public String getBody() {
+		return body;
+	}
+	public void setBody(String body) {
+		this.body = body;
+	}
+	public String getFoot() {
+		return foot;
+	}
+	public void setFoot(String foot) {
+		this.foot = foot;
+	}
+	private String head;
+	private String body;
+	private String foot;
+}
+
+interface BuildPerson{
+	void buildHead();
+	void buildBody();
+	void buildFoot();
+	Person buildPerson();
+}
+
+class BuildMan implements BuildPerson{
+	Person man;
+	public BuildMan{
+		man = new Person();
+	}
+	@Override
+	public void buildHead() {
+		man.setHead("一个男人的头");
+	}
+
+	@Override
+	public void buildBody() {
+		man.setBody("一个男人的身体");
+	}
+
+	@Override
+	public void buildFoot() {
+		man.setFoot("一个男人的脚");
+	}
+
+	@Override
+	public Person buildPerson() {
+		return man;
+	}
+	
+}
+public class BuildDemo {
+	public static void main(String[] args) {
+		
+	}
+}

@@ -1,0 +1,7 @@
+package com.lanou3g.finals;
+
+public class FinalDemo {
+	/*
+	 * final关键字表示最终，不可变
+	 */
+}

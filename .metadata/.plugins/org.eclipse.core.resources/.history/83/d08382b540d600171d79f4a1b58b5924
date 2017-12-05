@@ -1,0 +1,15 @@
+package com.lanou3g.inter;
+
+public class Main {
+
+	public static void main(String[] args) {
+		/*
+		 * interface：接口
+		 * class：类
+		 * 
+		 * 这辆东西在java中是一个级别的
+		 * 属于一种并列的关系
+		 */
+	}
+
+}

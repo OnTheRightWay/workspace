@@ -1,0 +1,6 @@
+
+public class Student {
+	public void smile(){
+		System.out.println("心里是乐开了花啊");
+	}
+}

@@ -1,0 +1,7 @@
+package LeiDemo;
+
+public class Car {
+	private String chePai;
+	private String color;
+	private int height;
+}

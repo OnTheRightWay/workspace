@@ -1,0 +1,85 @@
+package family;
+
+class Father{
+	private Mother wife;
+	private Child son;
+	private String name;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Mother getWife() {
+		return wife;
+	}
+	public void setWife(Mother wife) {
+		this.wife = wife;
+	}
+	public Child getSon() {
+		return son;
+	}
+	public void setSon(Child son) {
+		this.son = son;
+	}
+}
+class Mother{
+	private Father husband;
+	private Child son;
+	private String name;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Father getHusband() {
+		return husband;
+	}
+	public void setHusband(Father husband) {
+		this.husband = husband;
+	}
+	public Child getSon() {
+		return son;
+	}
+	public void setSon(Child son) {
+		this.son = son;
+	}
+}
+class Child{
+	private Father papa;
+	private Mother mama;
+	private String name;
+	public Father getPapa() {
+		return papa;
+	}
+	public void setPapa(Father papa) {
+		this.papa = papa;
+	}
+	public Mother getMama() {
+		return mama;
+	}
+	public void setMama(Mother mama) {
+		this.mama = mama;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+
+
+public class Family {
+
+	public static void main(String[] args) {
+		Father f = new Father();
+		f.setName("张三");
+		Mother m = new Mother();
+		m.setName("李四");
+		Child c = new Child();
+		c.setName("王五");
+	}
+
+}

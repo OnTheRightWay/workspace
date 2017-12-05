@@ -1,0 +1,7 @@
+package com.lanou3g.finals;
+
+public class ChildDemo extends FinalDemo{
+	public static void main(String[] args) {
+		
+	}n
+}

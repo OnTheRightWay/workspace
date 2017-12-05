@@ -1,0 +1,17 @@
+package mod;
+interface Food{
+	public void eat();
+}
+
+class Apple implements Food{
+	public void eat(){
+		System.out.println("³ÔÆ»¹û");
+	}
+}
+
+
+public class FactoryMod {
+	public static void main(String[] args) {
+		
+	}
+}

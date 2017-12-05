@@ -1,0 +1,7 @@
+package mod;
+
+public class BuildDemo {
+	public static void main(String[] args) {
+		
+	}
+}

@@ -1,0 +1,16 @@
+package test;
+//每个类四个属性
+//一个不带参数不带返回值的方法
+//一个不带参数带返回值的方法
+//一个带参数不带返回值的方法
+//一个带参数带返回值的方法
+public class Saleman {
+	String name;
+	int age;
+	String sex;
+	int number;
+	public void work(){
+		System.out.println("工作");
+	}
+	public int getMoney
+}

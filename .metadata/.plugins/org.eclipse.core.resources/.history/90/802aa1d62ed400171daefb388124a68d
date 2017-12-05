@@ -1,0 +1,5 @@
+package LeiDemo;
+
+public class Pig {
+	private int weight;
+}

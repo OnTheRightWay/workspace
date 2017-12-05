@@ -1,0 +1,13 @@
+package mod;
+class A{
+	public static void print(){
+		System.out.println("zhu");
+	} 
+}
+public class StaticDemo {
+
+	public static void main(String[] args) {
+		
+	}
+
+}

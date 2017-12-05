@@ -1,0 +1,13 @@
+package mod;
+interface Food{
+	public void eat();
+}
+
+
+
+
+public class FactoryMod {
+	public static void main(String[] args) {
+		
+	}
+}

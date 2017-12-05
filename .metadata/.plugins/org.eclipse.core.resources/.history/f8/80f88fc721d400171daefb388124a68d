@@ -1,0 +1,37 @@
+package mod;
+interface Food{
+	public void eat();
+}
+
+class Apple implements Food{
+	public void eat(){
+		System.out.println("≥‘∆ªπ˚");
+	}
+}
+class Banana implements Food{
+	public void eat(){
+		System.out.println("≥‘œ„Ω∂");
+	}
+}
+class Cherry implements Food{
+	public void eat(){
+		System.out.println("≥‘”£Ã“");
+	}
+}
+
+class Factory{
+	public static Food getInstence(String s){
+		if("Apple".equals(s)){
+			return new Apple();
+		}else if("Banana".equals(s)){
+			return new Banana();
+		}else return null;
+	}
+}
+
+public class FactoryDemo {
+	public static void main(String[] args) {
+		Food food=Factory.getInstence("ss");
+		food.eat();
+	}
+}

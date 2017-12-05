@@ -1,0 +1,20 @@
+package contact;
+
+public class Contact {
+	private String name;
+	private String sex="";
+	private String phoneNo;
+	private String address="";
+	private String groupName="";
+	
+	public Contact(String name,String phoneNo){
+		this.name=name;
+		this.phoneNo=phoneNo;
+	}
+	public void showInformation(){
+		System.out.println("姓名："+name
+				+"\n性别："+sex
+				+"\n电话号码：");
+	}
+	
+}

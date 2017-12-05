@@ -1,0 +1,10 @@
+package com.lanou3g.homework;
+
+public class Cooker extends Person{
+	public Cooker(){
+		this.setJob("³øÊ¦");
+	}
+	public void µßÉ×(){
+		System.out.println("³øÊ¦»áµßÉ×");
+	}
+}

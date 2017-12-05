@@ -1,0 +1,10 @@
+
+public class Student {
+	public void smile(){
+		System.out.println("心里是乐开了花啊");
+	}
+	
+	private void cry(){
+		System.out.println("哭的向一个可怜人");
+	}
+}

@@ -1,0 +1,13 @@
+package LeiDemo;
+
+public class Pig {
+	private int weight;
+	private String name;
+	private int foot;
+	public void setWeight(int weight){
+		this.weight=weight;
+	}
+	public int getWeight(){
+		return weight;
+	}
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="contact.Contact"/>
+<fullyQualifiedTypeName name="com.lanou3g.extend.Car"/>
+<fullyQualifiedTypeName name="com.lanou3g.extend.BigCar"/>
+<fullyQualifiedTypeName name="com.lanou3g.abs.RainDay"/>
+<fullyQualifiedTypeName name="com.lanou3g.abs.Weather"/>
+<fullyQualifiedTypeName name="com.lanou3g.abs.Person"/>
+<fullyQualifiedTypeName name="com.lanou3g.finals.ChildDemo"/>
+<fullyQualifiedTypeName name="com.lanou3g.statics.T"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="pets.Pets"/>
+<fullyQualifiedTypeName name="pets.Dog"/>
+<fullyQualifiedTypeName name="pets.Penguin"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="com.lanou3g.study.Company"/>
+<fullyQualifiedTypeName name="com.lanou3g.study.Person"/>
+<fullyQualifiedTypeName name="com.lanou3g.study.Student"/>
+<fullyQualifiedTypeName name="com.lanou3g.inter.WatchDog"/>
+<fullyQualifiedTypeName name="com.lanou3g.study.Doctor"/>
+<fullyQualifiedTypeName name="com.lanou3g.inter.Work"/>
+<fullyQualifiedTypeName name="com.lanou3g.study.Teacher"/>
+<fullyQualifiedTypeName name="com.lanou3g.change.Apple"/>
+<fullyQualifiedTypeName name="com.lanou3g.change.Fruit"/>
+<fullyQualifiedTypeName name="com.lanou3g.change.Banana"/>
+<fullyQualifiedTypeName name="com.lanou3g.normal.RandomDemo"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="com.lanou3g.normal.CalendarDemo"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+</qualifiedTypeNameHistroy>

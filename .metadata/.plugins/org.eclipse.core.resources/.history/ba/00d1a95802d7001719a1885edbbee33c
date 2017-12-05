@@ -1,0 +1,13 @@
+package com.lanou3g.homework;
+
+public class Login {
+	public UserInter login(String userName,String passWord){
+		for(int i = 0; i<UserData.getUserData().length;i++){
+			if(userName.equals(UserData.getUserData()[i][2])){
+				if(passWord.equals(UserData.getUserData()[i][3])){
+					if("Woker".equals(UserData.getUserData()[i][4]))
+				}
+			}
+		}
+	}
+}

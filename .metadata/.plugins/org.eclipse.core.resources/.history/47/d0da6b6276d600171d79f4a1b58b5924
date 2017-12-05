@@ -1,0 +1,27 @@
+package com.lanou3g.normal;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class CalendarDemo {
+	public static void main(String[] args) {
+		Date date = new Date();
+		System.out.println(date);
+		System.out.println(new CalendarDemo());
+		System.out.println
+		(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").format(date));
+		
+		System.out.println();
+		long l = System.currentTimeMillis();
+		
+		DateFormat df = new SimpleDateFormat();
+	}
+
+//	@Override
+//	public String toString() {
+//		return "我调用了这个类的toString方法";
+//	}
+	
+	
+}

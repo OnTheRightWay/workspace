@@ -1,0 +1,33 @@
+package family;
+
+class Father{
+	private String wife;
+	private String son;
+	private String name;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getWife() {
+		return wife;
+	}
+	public void setWife(String wife) {
+		this.wife = wife;
+	}
+	public String getSon() {
+		return son;
+	}
+	public void setSon(String son) {
+		this.son = son;
+	}
+}
+
+public class Family {
+
+	public static void main(String[] args) {
+
+	}
+
+}

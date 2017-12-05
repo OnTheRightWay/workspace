@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;InsertionSort.java&apos; to &apos;mytest/src/sort&apos;&#x0D;&#x0A;- Original project: &apos;mytest&apos;&#x0D;&#x0A;- Destination element: &apos;mytest/src/sort&apos;&#x0D;&#x0A;- Original element: &apos;mod.InsertionSort.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;sort" element1="/src&lt;mod{InsertionSort.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1512028956897" units="1" version="1.0"/>
+</session>

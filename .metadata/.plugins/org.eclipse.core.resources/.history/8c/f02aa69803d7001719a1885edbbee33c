@@ -1,0 +1,13 @@
+package com.lanou3g.homework;
+
+public class Boss extends Person{
+
+	public Boss() {
+		super();
+		this.setJob("老板");
+	}
+	public void fire(){
+		System.out.println("老板解雇了一个人");
+	}
+	
+}

@@ -1,0 +1,19 @@
+package com.lanou3g.homework;
+
+public class Cooker extends Person implements UserInter{
+	public Cooker(){
+		this.setJob("³øÊ¦");
+	}
+	public void dianShao(){
+		System.out.println("³øÊ¦»áµßÉ×");
+	}
+	@Override
+	public void onLine() {
+		
+	}
+	@Override
+	public void offLine() {
+		// TODO Auto-generated method stub
+		
+	}
+}

@@ -1,0 +1,13 @@
+package mod;
+
+class Person{
+	private String head;
+	private String body;
+	private String foot;
+}
+
+public class BuildDemo {
+	public static void main(String[] args) {
+		
+	}
+}

@@ -1,0 +1,15 @@
+package com.lanou3g.normal;
+
+import java.util.Random;
+
+public class Main {
+
+	public static void main(String[] args) {
+		//取一个随机数
+		//需要用到Random这个工具类
+		Random random = new Random();
+		
+		random.nextInt();
+	}
+
+}

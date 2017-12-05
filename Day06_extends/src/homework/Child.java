@@ -1,0 +1,16 @@
+package homework;
+
+public class Child extends Person {
+	private String school;
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+	public void goToSchool(){
+		System.out.println("孩子("+getName()+")：去"+school+"上学");
+	}
+}

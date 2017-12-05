@@ -1,0 +1,11 @@
+package test;
+
+
+public class Main {
+	public static void main(String[] args) {
+		Student stu = new Student();
+		stu.smile();
+		int b = Integer.valueOf("541515");
+		System.out.println(b);
+	}
+}

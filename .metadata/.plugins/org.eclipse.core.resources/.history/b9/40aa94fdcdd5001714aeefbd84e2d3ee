@@ -1,0 +1,37 @@
+package pets;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		System.out.println("欢迎来到宠物商店\n给你的"
+				+ "宠物起个名字吧！");
+		Pets.setName(new Scanner(System.in).next());
+		System.out.println("请选择要领养的宠物类型（1、狗狗 2、企鹅）");
+		if("1".equals(new Scanner(System.in).next())){
+			Dog dog = new Dog();
+			System.out.println("请选择狗狗的品种（1、聪明的拉布拉多犬  2、酷酷的雪纳瑞）");
+			if("1".equals(new Scanner(System.in).next())){
+				dog.setVariety("聪明的拉布拉多犬");
+			}else if("2".equals(new Scanner(System.in).next())){
+				dog.setVariety("酷酷的雪纳瑞");
+			}else {
+				System.out.println("请输入1或2");
+			}
+		}else if("2".equals(new Scanner(System.in).next())){
+			Penguin penguin = new Penguin();
+			System.out.println("请选择企鹅的品种（1、Q仔  2、Q妹）");
+			if("1".equals(new Scanner(System.in).next())){
+				penguin.setSex("Q仔");
+			}else if("2".equals(new Scanner(System.in).next())){
+				penguin.setSex("Q妹");
+			}else {
+				System.out.println("请输入1或2");
+			}
+		}else System.out.println("请输入1或2");
+		
+		
+	}
+
+}
