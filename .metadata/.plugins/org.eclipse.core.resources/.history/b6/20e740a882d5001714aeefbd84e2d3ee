@@ -1,7 +1,0 @@
-package com.lanou3g.abs;
-
-public abstract class Person {
-	public void work(){
-		System.out.println("工作使我亢奋");
-	}
-}

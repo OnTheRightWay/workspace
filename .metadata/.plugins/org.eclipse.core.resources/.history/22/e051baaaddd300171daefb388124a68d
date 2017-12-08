@@ -1,6 +1,0 @@
-一，Student stu;
-	这是在定义，是在声明。
-	stu是一个引用。
-	Student s = new Student();
-	stu = s;
-	这是引用之间，传递对象的地址值。

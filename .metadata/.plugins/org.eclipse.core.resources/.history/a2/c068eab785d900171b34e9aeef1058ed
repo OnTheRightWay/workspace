@@ -1,0 +1,88 @@
+package mod;
+//抽象工厂模式
+//interface Fruit{
+//	public void eat();
+//}
+//
+//class Apple implements Fruit{
+//	public void eat(){
+//		System.out.println("吃苹果");
+//	}
+//}
+//class Banana implements Fruit{
+//	public void eat(){
+//		System.out.println("吃香蕉");
+//	}
+//}
+//class Cherry implements Fruit{
+//	public void eat(){
+//		System.out.println("吃樱桃");
+//	}
+//}
+//interface Factory{
+//	public Fruit buyFruit();
+//}
+//class AppleFactory implements Factory{
+//	@Override
+//	public Fruit buyFruit() {
+//		return new Apple();
+//	}
+//}
+//class BananaFactory implements Factory{
+//	@Override
+//	public Fruit buyFruit() {
+//		return new Banana();
+//	}
+//}
+//class CherryFactory implements Factory{
+//	@Override
+//	public Fruit buyFruit() {
+//		return new Cherry();
+//	}
+//}
+interface Fruit{
+	void eat();
+}
+class Apple implements Fruit{
+	public void eat(){
+		System.out.println("吃的是苹果");
+	}
+}
+class Banana implements Fruit{
+	public void eat(){
+		System.out.println("吃的是香蕉");
+	}
+}
+class Cherry implements Fruit{
+	public void eat(){
+		System.out.println("吃的是樱桃");
+	}
+}
+interface Factory{
+	Fruit getInstance();
+}
+class AppleFactory implements Factory {
+	public Fruit getInstance(){
+		return new Apple();
+	}
+}
+class BananaFactory implements Factory {
+	public Fruit getInstance(){
+		return new Banana();
+	}
+}
+class CherryFactory implements Factory{
+	public Fruit getInstance(){
+		return new Cherry();
+	}
+}
+String [] [] a =new String[][]{{},{},{},{},{}};
+public  class FactoryDemo {
+	public static void main(String[] args) {
+//		Factory factory=new AppleFactory();
+//		Fruit fruit = factory.buyFruit();
+//		fruit.eat();
+		Fruit f = new CherryFactory().getInstance();
+		f.eat();
+	}
+}

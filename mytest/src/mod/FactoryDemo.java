@@ -1,61 +1,20 @@
 package mod;
-//³éÏó¹¤³§Ä£Ê½
-//interface Fruit{
-//	public void eat();
-//}
-//
-//class Apple implements Fruit{
-//	public void eat(){
-//		System.out.println("³ÔÆ»¹û");
-//	}
-//}
-//class Banana implements Fruit{
-//	public void eat(){
-//		System.out.println("³ÔÏã½¶");
-//	}
-//}
-//class Cherry implements Fruit{
-//	public void eat(){
-//		System.out.println("³ÔÓ£ÌÒ");
-//	}
-//}
-//interface Factory{
-//	public Fruit buyFruit();
-//}
-//class AppleFactory implements Factory{
-//	@Override
-//	public Fruit buyFruit() {
-//		return new Apple();
-//	}
-//}
-//class BananaFactory implements Factory{
-//	@Override
-//	public Fruit buyFruit() {
-//		return new Banana();
-//	}
-//}
-//class CherryFactory implements Factory{
-//	@Override
-//	public Fruit buyFruit() {
-//		return new Cherry();
-//	}
-//}
 interface Fruit{
 	void eat();
 }
 class Apple implements Fruit{
 	public void eat(){
-		System.out.println("³ÔµÄÊÇÆ»¹û");
+		System.out.println("ï¿½Ôµï¿½ï¿½ï¿½Æ»ï¿½ï¿½");
 	}
 }
 class Banana implements Fruit{
 	public void eat(){
-		System.out.println("³ÔµÄÊÇÏã½¶");
+		System.out.println("ï¿½Ôµï¿½ï¿½ï¿½ï¿½ã½¶");
 	}
 }
 class Cherry implements Fruit{
 	public void eat(){
-		System.out.println("³ÔµÄÊÇÓ£ÌÒ");
+		System.out.println("ï¿½Ôµï¿½ï¿½ï¿½Ó£ï¿½ï¿½");
 	}
 }
 interface Factory{
@@ -76,8 +35,7 @@ class CherryFactory implements Factory{
 		return new Cherry();
 	}
 }
-String [] [] a =new String[][]{{},{},{},{},{}};
-public class FactoryDemo {
+public  class FactoryDemo {
 	public static void main(String[] args) {
 //		Factory factory=new AppleFactory();
 //		Fruit fruit = factory.buyFruit();

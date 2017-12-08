@@ -1,8 +1,0 @@
-package homework;
-
-public class Fruit {
-	private String color;
-	public beEat(){
-		System.out.println("±ª≥‘¡À");
-	}
-}

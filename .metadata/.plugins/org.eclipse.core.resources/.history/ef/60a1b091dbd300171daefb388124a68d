@@ -1,6 +1,0 @@
-
-public class Student {
-	public void smile(){
-		Systes.out.println("心里是乐开了花啊");
-	}
-}

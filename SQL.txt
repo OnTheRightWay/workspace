@@ -1,0 +1,104 @@
+5  SELECT [DISTINCT] *|列[别名],列[别名],列[别名],列[别名]
+1  FROM 表名称[别名]
+2  [WHERE 限定条件]
+3  [GROUP BY]
+4  [HAVING]
+6  [ORDER BY 排序字段[ASC|DESC],排序字段[ASC|DESC],...]；
+DISTRAINT
+FOREIGN  REFERENCES
+
+
+ASC:升序，默认是升序
+DESC：降序
+
+任何数据与null运算 为null
+
+
+IS NULL 判断是否为空
+
+与ANG 或OR 非NOT
+> < >= <= <> !=
+BETWEEN  AND（性能优化）
+
+
+IN（1,5,6,9,5）
+NOT IN（里面不能有null）
+
+模糊查询：LIKE（核心）
+  。“_”:匹配任意的一位符号
+  。“%”:匹配任意的符号
+sno LIKE “_A%”
+
+hiredate公用日期
+
+
+笛卡尔积永远存在
+没有关联的表不能进行多表查询
+SELECT e.*,d.name
+FORM emp e,dept.d
+WHERE e.deptno=d.deptno;（消除笛卡尔积显示)
+
+
+常用数据类型：
+    。字符串：VARCAHR（n）
+    。数字：INT 4字节
+    。日期：DATE （YYYY-MM-DD）
+            TIME （HH：MM：SS）
+    。大文本数据（字符串）：CLOB （4G）
+    。大对象数据 （二进制）：BLOB
+
+删除表
+   DROP TABLE 表名；
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
