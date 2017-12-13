@@ -3,7 +3,9 @@ package study;
 import org.dom4j.DocumentException;
 import study.exception.LoginException;
 import study.exception.RegisterException;
+import study.exception.WeatherFindException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -53,8 +55,20 @@ public class Main {
         String s = input.nextLine();
         switch (s){
             case "1":
+                try {
+                    System.out.println(GetWeather.getWeather("beijing"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (WeatherFindException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "2":
+                try {
+                    System.out.println(GetPhone.getPhone("15171444165"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "3":
                 try {
