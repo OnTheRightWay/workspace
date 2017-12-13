@@ -2,7 +2,12 @@ package study;
 
 import study.util.Tool;
 
-public class Weather {
+import java.io.IOException;
 
-//    Tool<W> tool =new Tool<W>();
+public class Weather {
+    public static void weather(String address) throws IOException {
+//        Tool.getInstence("http://api.k780.com/?app=weather.future&weaid="+address+"&&appkey=10003" +
+//                "&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json",);
+    }
+
 }

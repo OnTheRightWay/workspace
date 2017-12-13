@@ -7,8 +7,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class Tool<T> {
-    public  T getInstence(String url,T t) throws IOException {
+public class Tool {
+    public static <T> T getInstence(String url,T t) throws IOException {
         URL u = new URL(url);
         URLConnection conn = u.openConnection();
         InputStream is = conn.getInputStream();
