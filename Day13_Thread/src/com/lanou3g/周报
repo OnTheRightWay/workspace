@@ -1,0 +1,161 @@
+集合和数组类似，是用来存放一组数据的
+使用数组时，我们发现数组的长度是固定的，不可改变
+而集合也可以用来装载数据，并且长度可以改变
+
+List和Set都是Collection（集合）的子接口
+List中存放的数据，是有序的（按照存入的顺序），可重复的
+List常用实现类：ArrayList(线程不安全) Vector(线程安全) LinkedList(链表)
+Set中存放的数据，是无序的（更存入数据顺序无关），并且不可重复
+Set常用实现类:HashSet TreeSet
+
+List中常用方法有：
+list.add（）;向List集合中添加元素
+list.size（）;取得List集合的长度
+list.get（index);取的对应的值
+list,remove(index);删除元素
+
+由于Set无序，所以Set中没有get(index)之类的方法
+
+基本数据类型包装类
+(int Integer)(char Character)(short Short)(long Long)(byte Byte)
+(float Float)(double Double)(boolean Boolean)
+
+Map集合，Map也是集合，但它装载的是键值对（Key-value 一个key和一个value对应）
+Map接口不是Collection的子接口
+Map的常用实现类：HashMap（线程不安全，允许key或value为空） HashTalble（线程安全，不允许key或value为空）
+public V put(K key,V value)   向集合中追加数据;
+public V get(Object Key)   根据key返回相应的value;
+public Set<K> keySet() 返回Map中所有的key，key不能重复;
+public Set<Map.Entry<K,V>> entrySet() 将Map中的键值对打包到Map.Entry类并转为Set集合;
+Map的四种遍历方式
+①根据keySet（）方法获得所有的key，然后根据get（key）方法获得所有对应key的value
+②使用entrySet（）方法将Map打包成Map.Entry类并装在Set集合中；使用foreach循环，遍历
+  这个集合去除键值对，然后使用getKey（）方法取出key，使用getValue（）方法取出value
+③使用Iterator（迭代器）对Map.Entry类进行遍历
+④使用values（）方法获得Map集合中的values，foreach遍历。但无法获得对应的key值
+
+Iterator（迭代器）
+Iterator接口是java提供给我们的用来对集合进行遍历的接口
+Iterator通过集合对象调用iterator（）方法来获得对象
+Iterator iter = list.iterator();
+Iterator有这样两个方法
+iter.hasNext();判断集合中有没有下一个元素，返回boolean
+iter.next();取得集合中的下一个元素，返回该元素
+while(iter.hasNext()){
+    iter.next();
+}
+
+泛型可以用来表示一个类
+类或接口中的泛型：class Person<T>{}  interface Person<T>{}
+T用来表示一个类，当我们将T改为一个指定的类时，Person中所有使用到T到地方都变成这个类
+class Person<Student>{}
+方法中的泛型：public <T> void sleep(T t){}
+在方法的返回值前面定义泛型，当第一次使用T时，将T指定为你所使用的类
+public void sleep(T t){}
+
+可变参数：public void print(Object... obj){}
+可变参数可以看成一个数组，可以接受0个到多个参数，并可以在方法中使用索引遍历它
+参数列表中可以传入多个对应类型的数据,也可以传入一个对应类型的数组，但不能同时传入数据和数组
+
+反射：反射可以用来得到一个不明确的类的对应对象，通常和泛型一起使用
+Class<T> clazz ;T t = clazz.newInstence();
+只要知道类名的字符串就能获得这个类的类对象
+Class<?> aClass = Class.forName("Student");
+通过类对象，获取该类型的对象
+Object o = aClass.newInstance();
+带参数的构造方法
+Object o = aClass.getConstructor(String.class).newInstance("盖伦");
+通过类对象的方法，获得该类的name属性
+Field name = aClass.getDeclaredField("name");
+打破权限的限制
+name.setAccessible(true);
+调用name的set方法
+name.set(o,"张三");
+通过类对象的方法，获得该类的print方法
+Method method = aClass.getMethod("print",String.class);
+让该类型的对象调用这个方法
+show.invoke(o,"钓个鱼");
+
+递归：就是方法自己调用自己
+当程序需要重复执行同一段带码，而且不确定要重复多少次才结束，这时
+可以使用递归
+
+异常：Exception
+Error:程序运行前产生的错误，一般是JVM错误，我们无法处理
+Exception:程序运行时产生的异常，可以被处理
+ClassCastException  OutOfBoundsException  NullPionterException
+throw 在方法中抛出一个异常
+throws 在方法声明中声明可能会抛出的异常类型
+try{}catch（XXXException XXXe）{
+}finally{
+}捕获try中的异常，并在catch块中处理它
+不管有没有捕获异常，finally块中的代码一定会运行，即使在try或catch中return了；
+可以用多个catch块处理多种异常，但范围大的异常一定要放在下面
+异常可以用来控制流程，向外界传出信息
+
+XML文档
+xml由标签组成 标签成对出现
+<XXX>开始标签   </XXX>结束标签
+标签里面可以添加属性和值
+<XXX name="zhangSan"> name是属性   zhangSan是属性的值
+最外层的标签称为xml文件的根元素，一个xml文件有且只有一个根标签
+
+XML解析：
+读取xml文档：使用dom4j jar包中的 SAXReader类帮我们读取xml文档中的内容
+SAXReader saxReader = new SAXReader();
+将xml文档抽象为java中的Document类的对象
+Document document = saxReader.reader(new File（"xml文件路径"）);
+获取根元素
+Element root = document.getRootElement();
+Element child = root.element("标签名");//获取root下指定标签
+List<Element> list = root.elements();//获取root下所有标签
+getText();//获取标签下的text
+List<Attribute> attr = root.Attributes();//获取root下所有属性
+getValue();//获取属性的值
+写入xml文档：使用DocumentHelper创建一个Document对象
+Document document = DocumentHelper.createDocument();
+Element student = doucument.addElement("student");//添加一个标签
+student.addText();//添加文本
+student.addAttribute("name","张三");//添加一个属性
+OutputFormat output = OutputFormat.createPrettyPrint();//设置写入格式
+output.setEncoding("UTF-8");//设置编码
+使用XMLWriter类将document写入xml中
+XMLWriter xmlWriter = new XMLWriter(new FileWriter("xml文件路径"),output);
+xmlWriter.write(document);
+xmlWriter.close();//关闭数据流
+
+匿名内部类：
+内部类：写在一个类的内部的类就叫内部类
+匿名内部类：写在类的内部，并且这个类没有名字，就叫匿名内部类
+匿名内部类可以用来简化代码，匿名内部类没有名字，所以只能使用一次
+使用匿名内部类还有个前提条件：必须继承一个父类或实现一个接口
+
+线程：Thread
+线程与进程：当程序运行时就会创建一个进程，线程依赖于进程而存在，一个进程包含多个线程
+创建线程：Thread thread = new Thread();
+可以通过创建继承Thread的类实现多线程
+看可以通过实现Runnable接口实现对run方法的复写
+Thread thread = new Thread(new Runnable(){
+    public void run(){
+    }
+});
+Thread的静态方法currentThread能帮我们获得
+当期正在运行的线程，调用这个线程的getName方法获得
+这个线程的名字
+开启线程：通过调用线程类中的start()方法，开启一个线程；
+        通过start()方法开启的线程在进程中一起运行
+GC：GC是java中的回收机制，它能帮我们销毁内存中的垃圾空间
+    GC也是一个线程，当main运行时，一个GC线程也被创建
+    GC的执行时间是随机的，不能主动调用它来主动回收空间
+线程的抢占式：
+当多个线程同时运行时，线程之间会抢夺CPU的运行权，谁抢到了，就运行谁，所以我们能看到线程的交互运行
+当多个线程同时访问一个变量时，他们可能取得同一时刻变量的值，导致运行结果错误
+线程的同步：synchronized：同步
+同步：线程会在某些条件下，等待其他线程先运行，叫做同步
+异步：线程自己运行自己的，互不干扰，就叫异步
+synchronized就是给方法加了一个锁
+给方法上锁时，用的是当前类的类对象
+当一个线程调用这个方法时，该线程就会持有这个类对象
+其他线程想进入这个方法时，没有类对象，所以进不去
+这时候，就只能等上一个线程执行完这个方法之后，再调用这个方法
+这个现象，就是同步

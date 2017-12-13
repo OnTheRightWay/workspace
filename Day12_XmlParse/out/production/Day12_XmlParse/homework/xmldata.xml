@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Persons> 
+  <Person name="张三"> 
+    <name>张三</name>  
+    <age>18</age>  
+    <gender>男</gender>  
+    <job>工人</job> 
+  </Person>  
+  <Person name="李四"> 
+    <name>李四</name>  
+    <age>19</age>  
+    <gender>女</gender>  
+    <job>老板</job> 
+  </Person>  
+  <Person name="王五"> 
+    <name>王五</name>  
+    <age>20</age>  
+    <gender>男</gender>  
+    <job>厨师</job> 
+  </Person>  
+  <Person name="赵六">
+    <name>赵六</name>
+    <age>22</age>
+    <gender>女</gender>
+    <job>医生</job>
+  </Person>
+</Persons>

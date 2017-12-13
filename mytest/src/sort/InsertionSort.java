@@ -4,7 +4,6 @@ import java.util.Arrays;
 public class InsertionSort {
 
 	public static void main(String[] args) {
-		// 这里初始化数组
 		int [] array ={8,9,6,0,7,5,3,1,4,2};
 		
 		for(int i=1;i<array.length;i++){

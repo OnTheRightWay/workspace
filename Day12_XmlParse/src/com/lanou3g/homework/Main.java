@@ -1,6 +1,7 @@
 package com.lanou3g.homework;
 
 import com.lanou3g.homework.exception.*;
+import homework.XMLDemo;
 import org.dom4j.DocumentException;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		boolean comeIn = false;
 		while (!comeIn){
-			System.out.println("1.注册	2.登录");
+			System.out.println("1.注册	2.登录	3.注销用户");
 			String scan1 = scanner.nextLine();
 			switch (scan1){
 				case "1":
@@ -43,6 +44,26 @@ public class Main {
 						break;
 					}
 					comeIn = true;
+					break;
+				case "3":
+					try {
+						System.out.println("输入用户名");
+						String s1 = scanner.nextLine();
+						System.out.println("确定要移除"+s1+"这个用户？(Y/N)\nY.是	N.否");
+						String s2 = scanner.nextLine();
+						if (s2.equalsIgnoreCase("Y")) {
+							try {
+								XMLData.removeUser(s1);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							System.out.println(s1+"已移除");
+						}
+					} catch (DocumentException e) {
+						e.printStackTrace();
+					} catch (UserNameNotExistsException e) {
+						e.printStackTrace();
+					}
 					break;
 				default:
 					System.out.println("输入错误，请选择 1 或 2");
@@ -129,7 +150,4 @@ public class Main {
 
 		return UserOperate.login(userName, passWord);
 	}
-
-
-
 }

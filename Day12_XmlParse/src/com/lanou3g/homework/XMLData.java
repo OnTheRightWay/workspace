@@ -1,5 +1,6 @@
 package com.lanou3g.homework;
 
+import com.lanou3g.homework.exception.UserNameNotExistsException;
 import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
@@ -44,6 +45,9 @@ public class XMLData {
         xmlWriter.close();
     }
     public static String readXMLData(String userName,String whatYouWant) throws DocumentException {
+        if (!file.exists()){
+            return null;
+        }
         Document document = saxReader.read(file);
         return allXML(document.getRootElement(),userName,whatYouWant);
     }
@@ -69,6 +73,24 @@ public class XMLData {
         for (int i = 0; i < list.size(); i++)
             return allXML(list.get(i),userName,whatYouWant);
         return null;
+    }
+    public static void removeUser(String userName) throws DocumentException, UserNameNotExistsException, IOException {
+        if (!file.exists()){
+            throw new UserNameNotExistsException();
+        }
+        Document document = saxReader.read(file);
+        Element element = document.getRootElement();
+        List<Element> elements = element.elements();
+        for (Element e :elements) {
+            if(e.attribute("userName").getValue().equals(userName)){
+                element.remove(e);
+            }
+        }
+        OutputFormat outputFormat = OutputFormat.createPrettyPrint();
+        outputFormat.setEncoding("UTF-8");
+        XMLWriter writer = new XMLWriter(new FileWriter(file),outputFormat);
+        writer.write(document);
+        writer.close();
     }
 
 }

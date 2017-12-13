@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<user> 
-
-  <person userName="liSi777">
-    <name name="李四"/>
-    <userName userName="liSi777"/>
-    <password password="liSi777"/>
-    <job job="Doctor"/>
-  </person>
+<user>
   <person userName="zhangSan">
     <name name="张三"/>
     <userName userName="zhangSan"/>
     <password password="zhangSan666"/>
     <job job="Boss"/>
+  </person>
+  <person userName="liSi777">
+    <name name="李四"/>
+    <userName userName="liSi777"/>
+    <password password="liSi777"/>
+    <job job="Cooker"/>
+  </person>
+  <person userName="wangWu888">
+    <name name="王五"/>
+    <userName userName="wangWu888"/>
+    <password password="wangWu888"/>
+    <job job="Doctor"/>
+  </person>
+  <person userName="zhaoLiu999">
+    <name name="赵六"/>
+    <userName userName="zhaoLiu999"/>
+    <password password="zhaoLiu999"/>
+    <job job="Worker"/>
   </person>
 </user>

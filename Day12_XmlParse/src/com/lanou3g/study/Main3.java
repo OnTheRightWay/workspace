@@ -33,7 +33,7 @@ public class Main3 {
 
         OutputFormat outputFormat = OutputFormat.createPrettyPrint();
 
-        outputFormat.setEncoding("UTF-8");char c = '\u0000';
+        outputFormat.setEncoding("UTF-8");
 
         XMLWriter xmlWriter = new XMLWriter(new FileWriter("src/output.xml"),outputFormat);
         xmlWriter.write(document);
