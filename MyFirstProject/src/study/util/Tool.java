@@ -7,8 +7,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class Tool {
-    public static <T> T getInstence(String url,T t) throws IOException {
+public class Tool<T> {
+    public  T getInstence(String url,Class c) throws IOException {
         URL u = new URL(url);
         URLConnection conn = u.openConnection();
         InputStream is = conn.getInputStream();
@@ -19,6 +19,6 @@ public class Tool {
             sb.append(new String(buff, 0, len));
         }
         JSONObject jsonObject = JSONObject.fromObject(sb);
-        return (T)JSONObject.toBean(jsonObject,t.getClass());
+        return (T)JSONObject.toBean(jsonObject,c);
     }
 }
