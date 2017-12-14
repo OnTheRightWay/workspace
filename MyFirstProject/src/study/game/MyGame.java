@@ -89,8 +89,10 @@ public class MyGame {
         boolean isTrue = false;
         while (!isTrue) {
             String ss = input.nextLine();
-            if (ss.equals(new String(sb))||ss.equals("quit")){
+            if (ss.equals(new String(sb))){
                 isTrue = true;
+            }else if(ss.equals("quit")){
+                return;
             }else {
                 System.out.println("输错了，再输一遍吧(我受不鸟了（输入quit退出）)\n"+sb);
             }
