@@ -4,6 +4,7 @@ import org.dom4j.DocumentException;
 import study.exception.LoginException;
 import study.exception.RegisterException;
 import study.exception.WeatherFindException;
+import study.game.FirstRank;
 import study.game.MyGame;
 import study.phone.GetPhone;
 import study.userdata.RegisterAndLogin;
@@ -105,6 +106,9 @@ public class Main {
                         }
                         break;
                     }
+                    if (num.equals("1")){
+                        FirstRank.getFirst();
+                    }
                     if (!num.equals("4")) {
                         MyGame.pullScore(Integer.parseInt(num));
                         break;
@@ -112,6 +116,8 @@ public class Main {
 
 
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (DocumentException e) {
                     e.printStackTrace();
                 }
                 break;
