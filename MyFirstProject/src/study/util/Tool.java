@@ -22,7 +22,6 @@ public class Tool {
         while ((len = is.read(buff))!=-1){
             sb.append(new String(buff,0,len));
         }
-        System.out.println(new String(sb));
         Map m = new HashMap();
         m.put("result",o);
 

@@ -9,8 +9,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+    private String userName;
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        String userName = null;
         boolean isCon = true;
         while (isCon) {
             System.out.println("欢迎来到超级系统（测试版）");
@@ -19,7 +22,7 @@ public class Main {
             switch (i) {
                 case "1":
                     try {
-                        String userName = RegisterAndLogin.Login();
+                        userName = RegisterAndLogin.Login();
                         if (userName != null){
                             isCon = false;
                             System.out.println("欢迎你---"+UserData.getName(userName));
@@ -51,7 +54,7 @@ public class Main {
         }
 
         System.out.println("请选择你想使用的功能:");
-        System.out.println("1、查询天气  2、查询手机号归属地  3、手速游戏  4、查询手速游戏前十用户");
+        System.out.println("1、查询天气  2、查询手机号归属地  3、手速游戏  4、查询手速游戏前十用户(待测试)");
         String s = input.nextLine();
         switch (s){
             case "1":
@@ -76,8 +79,10 @@ public class Main {
                 break;
             case "3":
                 try {
-                    MyGame.game();
+                    MyGame.game(userName);
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -85,16 +90,21 @@ public class Main {
                 try {
                     System.out.println("你要查询第几名的成绩？1：第一名 2：第二名 3：第三名 4：前十名");
                     String num = input.nextLine();
-                    if (num!="1"&&num!="2"&&num!="3"&&num!="4"){
+                    if (!(num.equals("1")||num.equals("2")||num.equals("3")||num.equals("4"))){
                         System.out.println("输入错误！！请选择1,2,3,4");
                         break;
                     }
-                    if (!num.equals(4)) {
+                    if (num.equals("4")) {
+                        for (int i = 1; i <= 10; i++) {
+                            MyGame.pullScore(i);
+                        }
+                        break;
+                    }
+                    if (!num.equals("4")) {
                         MyGame.pullScore(Integer.parseInt(num));
+                        break;
                     }
-                    for (int i =0 ; i < 10;i++){
-                        MyGame.pullScore(i);
-                    }
+
 
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -20,7 +20,7 @@ public class MyGame {
     private static final String MIDDLESTRING = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String SIMPLESTRING = "abcdefghijklmnopqrstuvwxyz0123456789";
 
-    public static void game() throws InterruptedException {
+    public static void game(String userName) throws InterruptedException, IOException {
         Scanner input = new Scanner(System.in);
         System.out.println("请选择难度 1，普通  2，中等  3，困难");
         int Grade = SIMPLE;
@@ -74,14 +74,21 @@ public class MyGame {
         Long endTime = System.currentTimeMillis();
         Long time = endTime-startTime;
         System.out.println("耗时："+time);
+        System.out.println("是否要上传你的成绩 1:是   2:否");
+        String ss = input.nextLine();
+        if (ss.equals("1")){
+            pushScore(userName,time);
+        }
 
-
-
+    }
+    public static void pushScore(String userName,long score) throws IOException {
+        URL url = new URL("http://192.168.20.221:8080/day16/insert?username="+userName+"&score="+score);
+        url.openConnection();
     }
 
     public static void pullScore(int i) throws IOException {
         TenUser[] tenUsers = (TenUser[]) Tool.getInstence("http://192.168.20.221:8080/day16/ten",TenUser.class);
-        System.out.println("第"+i+"名："+tenUsers[i].getNickName()+"分数:"+tenUsers[i].getScore());
+        System.out.println("第"+i+"名："+tenUsers[i-1].getNickname()+"分数:"+tenUsers[i-1].getScore());
     }
 
 
