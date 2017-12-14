@@ -1,14 +1,16 @@
 package study;
 
+import java.util.List;
+
 public class Weather{
 
     /**
      * success : 1
-     * result : {"weaid":"1","days":"2017-12-13","week":"星期三","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"0℃/-4℃","temperature_curr":"-2℃","humidity":"24%","weather":"晴转多云","weather_curr":"晴","weather_icon":"http://api.k780.com/upload/weather/d/0.gif","weather_icon1":"","wind":"南风","winp":"1级","temp_high":"0","temp_low":"-4","temp_curr":"-2","humi_high":"0","humi_low":"0","weatid":"1","weatid1":"","windid":"5","winpid":"201"}
+     * result : [{"weaid":"1","days":"2017-12-13","week":"星期三","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"0℃/-4℃","humidity":"0%/0%","weather":"晴转多云","weather_icon":"http://api.k780.com/upload/weather/d/0.gif","weather_icon1":"http://api.k780.com/upload/weather/n/1.gif","wind":"东南风","winp":"<3级","temp_high":"0","temp_low":"-4","humi_high":"0","humi_low":"0","weatid":"1","weatid1":"2","windid":"12","winpid":"395"},{"weaid":"1","days":"2017-12-14","week":"星期四","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"0℃/-5℃","humidity":"0%/0%","weather":"阴转多云","weather_icon":"http://api.k780.com/upload/weather/d/2.gif","weather_icon1":"http://api.k780.com/upload/weather/n/1.gif","wind":"南风转无持续风向","winp":"<3级","temp_high":"0","temp_low":"-5","humi_high":"0","humi_low":"0","weatid":"3","weatid1":"2","windid":"132","winpid":"395"},{"weaid":"1","days":"2017-12-15","week":"星期五","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"4℃/-6℃","humidity":"0%/0%","weather":"多云转晴","weather_icon":"http://api.k780.com/upload/weather/d/1.gif","weather_icon1":"http://api.k780.com/upload/weather/n/0.gif","wind":"无持续风向转西北风","winp":"3-4级转<3级","temp_high":"4","temp_low":"-6","humi_high":"0","humi_low":"0","weatid":"2","weatid1":"1","windid":"137","winpid":"402"},{"weaid":"1","days":"2017-12-16","week":"星期六","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"2℃/-8℃","humidity":"0%/0%","weather":"晴","weather_icon":"http://api.k780.com/upload/weather/d/0.gif","weather_icon1":"http://api.k780.com/upload/weather/n/0.gif","wind":"西北风转西风","winp":"<3级","temp_high":"2","temp_low":"-8","humi_high":"0","humi_low":"0","weatid":"1","weatid1":"1","windid":"57","winpid":"395"},{"weaid":"1","days":"2017-12-17","week":"星期日","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"5℃/-8℃","humidity":"0%/0%","weather":"晴","weather_icon":"http://api.k780.com/upload/weather/d/0.gif","weather_icon1":"http://api.k780.com/upload/weather/n/0.gif","wind":"西南风转西北风","winp":"<3级","temp_high":"5","temp_low":"-8","humi_high":"0","humi_low":"0","weatid":"1","weatid1":"1","windid":"56","winpid":"395"},{"weaid":"1","days":"2017-12-18","week":"星期一","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"6℃/-5℃","humidity":"0%/0%","weather":"多云","weather_icon":"http://api.k780.com/upload/weather/d/1.gif","weather_icon1":"http://api.k780.com/upload/weather/n/1.gif","wind":"西北风转北风","winp":"<3级","temp_high":"6","temp_low":"-5","humi_high":"0","humi_low":"0","weatid":"2","weatid1":"2","windid":"61","winpid":"395"},{"weaid":"1","days":"2017-12-19","week":"星期二","cityno":"beijing","citynm":"北京","cityid":"101010100","temperature":"4℃/-7℃","humidity":"0%/0%","weather":"晴","weather_icon":"http://api.k780.com/upload/weather/d/0.gif","weather_icon1":"http://api.k780.com/upload/weather/n/0.gif","wind":"西北风转西南风","winp":"<3级","temp_high":"4","temp_low":"-7","humi_high":"0","humi_low":"0","weatid":"1","weatid1":"1","windid":"82","winpid":"395"}]
      */
 
     private String success;
-    private ResultBean result;
+    private List<ResultBean> result;
 
     public String getSuccess() {
         return success;
@@ -18,11 +20,11 @@ public class Weather{
         this.success = success;
     }
 
-    public ResultBean getResult() {
+    public List<ResultBean> getResult() {
         return result;
     }
 
-    public void setResult(ResultBean result) {
+    public void setResult(List<ResultBean> result) {
         this.result = result;
     }
 
@@ -35,23 +37,20 @@ public class Weather{
          * citynm : 北京
          * cityid : 101010100
          * temperature : 0℃/-4℃
-         * temperature_curr : -2℃
-         * humidity : 24%
+         * humidity : 0%/0%
          * weather : 晴转多云
-         * weather_curr : 晴
          * weather_icon : http://api.k780.com/upload/weather/d/0.gif
-         * weather_icon1 :
-         * wind : 南风
-         * winp : 1级
+         * weather_icon1 : http://api.k780.com/upload/weather/n/1.gif
+         * wind : 东南风
+         * winp : <3级
          * temp_high : 0
          * temp_low : -4
-         * temp_curr : -2
          * humi_high : 0
          * humi_low : 0
          * weatid : 1
-         * weatid1 :
-         * windid : 5
-         * winpid : 201
+         * weatid1 : 2
+         * windid : 12
+         * winpid : 395
          */
 
         private String weaid;
@@ -61,17 +60,14 @@ public class Weather{
         private String citynm;
         private String cityid;
         private String temperature;
-        private String temperature_curr;
         private String humidity;
         private String weather;
-        private String weather_curr;
         private String weather_icon;
         private String weather_icon1;
         private String wind;
         private String winp;
         private String temp_high;
         private String temp_low;
-        private String temp_curr;
         private String humi_high;
         private String humi_low;
         private String weatid;
@@ -135,14 +131,6 @@ public class Weather{
             this.temperature = temperature;
         }
 
-        public String getTemperature_curr() {
-            return temperature_curr;
-        }
-
-        public void setTemperature_curr(String temperature_curr) {
-            this.temperature_curr = temperature_curr;
-        }
-
         public String getHumidity() {
             return humidity;
         }
@@ -157,14 +145,6 @@ public class Weather{
 
         public void setWeather(String weather) {
             this.weather = weather;
-        }
-
-        public String getWeather_curr() {
-            return weather_curr;
-        }
-
-        public void setWeather_curr(String weather_curr) {
-            this.weather_curr = weather_curr;
         }
 
         public String getWeather_icon() {
@@ -213,14 +193,6 @@ public class Weather{
 
         public void setTemp_low(String temp_low) {
             this.temp_low = temp_low;
-        }
-
-        public String getTemp_curr() {
-            return temp_curr;
-        }
-
-        public void setTemp_curr(String temp_curr) {
-            this.temp_curr = temp_curr;
         }
 
         public String getHumi_high() {

@@ -1,5 +1,14 @@
 package study;
 
+import study.util.Tool;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -64,8 +73,15 @@ public class MyGame {
         }
         Long endTime = System.currentTimeMillis();
         Long time = endTime-startTime;
-        System.out.println("耗时："+time+"微秒");
+        System.out.println("耗时："+time);
 
+
+
+    }
+
+    public static void pullScore(int i) throws IOException {
+        TenUser[] tenUsers = (TenUser[]) Tool.getInstence("http://192.168.20.221:8080/day16/ten",TenUser.class);
+        System.out.println("第"+i+"名："+tenUsers[i].getNickName()+"分数:"+tenUsers[i].getScore());
     }
 
 

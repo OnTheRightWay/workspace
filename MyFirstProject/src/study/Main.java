@@ -51,12 +51,14 @@ public class Main {
         }
 
         System.out.println("请选择你想使用的功能:");
-        System.out.println("1、查询天气（即将上线）  2、查询手机号归属地（即将上线）  3、手速游戏  4、查询手速游戏前十用户（即将上线）");
+        System.out.println("1、查询天气  2、查询手机号归属地  3、手速游戏  4、查询手速游戏前十用户");
         String s = input.nextLine();
         switch (s){
             case "1":
                 try {
-                    System.out.println(GetWeather.getWeather("beijing"));
+                    System.out.println("请输入你要查询的城市 例如：beijing");
+                    String c = input.nextLine();
+                    System.out.println(GetWeather.getWeather(c));
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (WeatherFindException e) {
@@ -65,7 +67,9 @@ public class Main {
                 break;
             case "2":
                 try {
-                    System.out.println(GetPhone.getPhone("15171444165"));
+                    System.out.println("请输入你要查询的手机号码");
+                    String phone = input.nextLine();
+                    System.out.println(GetPhone.getPhone(phone));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -78,6 +82,23 @@ public class Main {
                 }
                 break;
             case "4":
+                try {
+                    System.out.println("你要查询第几名的成绩？1：第一名 2：第二名 3：第三名 4：前十名");
+                    String num = input.nextLine();
+                    if (num!="1"&&num!="2"&&num!="3"&&num!="4"){
+                        System.out.println("输入错误！！请选择1,2,3,4");
+                        break;
+                    }
+                    if (!num.equals(4)) {
+                        MyGame.pullScore(Integer.parseInt(num));
+                    }
+                    for (int i =0 ; i < 10;i++){
+                        MyGame.pullScore(i);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
 
