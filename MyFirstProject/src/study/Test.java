@@ -9,8 +9,8 @@ public class Test {
 //        System.out.println(GetPhone.getPhone("15171444165"));
 //        System.out.println(GetWeather.getWeather("1"));
 //        MyGame.pullScore(1);
-        MyGame.pushScore("shiwo",6000);
-        for (int i = 1; i <=10;i++)
-        MyGame.pullScore(i);
+//        MyGame.pushScore("shiwo",8000);
+//        for (int i = 1; i <=10;i++)
+//        MyGame.pullScore(i);
     }
 }
