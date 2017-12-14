@@ -54,7 +54,7 @@ public class Main {
         }
 
         System.out.println("请选择你想使用的功能:");
-        System.out.println("1、查询天气  2、查询手机号归属地  3、手速游戏  4、查询手速游戏前十用户(待测试)");
+        System.out.println("1、查询天气  2、查询手机号归属地  3、手速游戏  4、查询手速游戏前十用户");
         String s = input.nextLine();
         switch (s){
             case "1":

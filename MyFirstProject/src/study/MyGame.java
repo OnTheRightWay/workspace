@@ -74,7 +74,7 @@ public class MyGame {
         Long endTime = System.currentTimeMillis();
         Long time = endTime-startTime;
         System.out.println("耗时："+time);
-        System.out.println("是否要上传你的成绩 1:是   2:否");
+        System.out.println("是否要上传你的成绩(未完成) 1:是   2:否");
         String ss = input.nextLine();
         if (ss.equals("1")){
             pushScore(userName,time);
