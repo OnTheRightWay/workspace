@@ -24,7 +24,7 @@ public class RegisterAndLogin {
         System.out.println("密码（包含大小写字母和数字）");
         System.out.print("password:");
         String password = input.nextLine();
-        if((!password.matches(".{7,13}"))||password.matches("[a-zA-Z]*|[0-9a-z]|[0-9A-Z]")){
+        if((!password.matches(".{7,13}"))||password.matches("[a-zA-Z]*|[0-9a-z]*|[0-9A-Z]*")){
             throw new UnsafePasswordException();
         }
         try {
