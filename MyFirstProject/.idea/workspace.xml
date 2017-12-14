@@ -12,10 +12,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/study/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
+            <state relative-caret-position="3837">
               <caret line="120" column="20" lean-forward="false" selection-start-line="120" selection-start-column="20" selection-end-line="120" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -24,10 +24,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FirstRank.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FirstRank.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/study/game/FirstRank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
+            <state relative-caret-position="89">
               <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
               <folding />
             </state>
@@ -330,12 +330,12 @@
       <updated>1513150544876</updated>
       <workItem from="1513150548894" duration="8882000" />
       <workItem from="1513162497008" duration="12135000" />
-      <workItem from="1513212670518" duration="11455000" />
+      <workItem from="1513212670518" duration="11502000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32472000" />
+    <option name="totallyTimeSpent" value="32519000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="262" y="99" width="1400" height="1000" extended-state="0" />
@@ -679,21 +679,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/study/game/FirstRank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/study/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
+        <state relative-caret-position="3837">
           <caret line="120" column="20" lean-forward="false" selection-start-line="120" selection-start-column="20" selection-end-line="120" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/study/game/FirstRank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
