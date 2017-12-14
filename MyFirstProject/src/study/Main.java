@@ -4,6 +4,11 @@ import org.dom4j.DocumentException;
 import study.exception.LoginException;
 import study.exception.RegisterException;
 import study.exception.WeatherFindException;
+import study.game.MyGame;
+import study.phone.GetPhone;
+import study.userdata.RegisterAndLogin;
+import study.userdata.UserData;
+import study.weather.GetWeather;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -25,7 +30,7 @@ public class Main {
                         userName = RegisterAndLogin.Login();
                         if (userName != null){
                             isCon = false;
-                            System.out.println("欢迎你---"+UserData.getName(userName));
+                            System.out.println("欢迎你---"+ UserData.getName(userName));
                         }
                     } catch (LoginException e) {
                         System.out.println(e.getMessage());

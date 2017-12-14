@@ -1,10 +1,8 @@
-package study;
+package study.phone;
 
 import study.util.Tool;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class GetPhone {
     public static String getPhone(String phone) throws IOException {

@@ -1,4 +1,4 @@
-package study;
+package study.userdata;
 
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class UserData {
     private static SAXReader saxReader = new SAXReader();
-    private static File file = new File("src/study.UserData.xml");
+    private static File file = new File("src/study.userdata.UserData.xml");
     public static void addUser(String name,String userName,String password) throws DocumentException, RegisterException, IOException {
         Document document = null;
         if(file.exists()){

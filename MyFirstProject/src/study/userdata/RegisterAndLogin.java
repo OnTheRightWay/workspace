@@ -1,4 +1,4 @@
-package study;
+package study.userdata;
 
 import org.dom4j.DocumentException;
 import study.exception.*;

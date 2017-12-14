@@ -2,7 +2,6 @@ package study.util;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import study.Weather;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,13 +1,10 @@
-package study;
+package study.weather;
 
-import net.sf.json.JSONObject;
 import study.exception.WeatherFindException;
 import study.util.Tool;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GetWeather {
     public static String getWeather(String address) throws IOException, WeatherFindException {

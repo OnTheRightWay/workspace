@@ -1,4 +1,4 @@
-package study;
+package study.game;
 
 public class TenUser {
 

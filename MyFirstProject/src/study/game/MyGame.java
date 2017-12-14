@@ -1,14 +1,11 @@
-package study;
+package study.game;
 
 import study.util.Tool;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
