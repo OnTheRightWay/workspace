@@ -1,4 +1,4 @@
-package study.game;
+package study.bean;
 
 public class TenUser {
 

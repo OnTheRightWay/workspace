@@ -20,7 +20,7 @@ public class FirstRank {
         SAXReader saxReader = new SAXReader();
         Document document = saxReader.read(url);
         Element root = document.getRootElement();
-        System.out.println("第一名："+root.attribute("nickname").getText()+"\t成绩："+root.attribute("score").getText());
-
+        System.out.println("第一名："+root.element("nickname").getText()+"\t成绩："+root.element("score").getText());
     }
+
 }

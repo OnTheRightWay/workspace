@@ -10,7 +10,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tool {
+public class URLTool {
     public static Object getInstence(String url, Class c,Class o) throws IOException {
         URL u = new URL(url);
         URLConnection conn = u.openConnection();

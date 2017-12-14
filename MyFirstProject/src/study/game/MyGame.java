@@ -1,11 +1,14 @@
 package study.game;
 
-import study.util.Tool;
+import study.bean.TenUser;
+import study.util.URLTool;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,11 +16,33 @@ public class MyGame {
     private static final int HARD = 30;
     private static final int MIDDLE = 20;
     private static final int SIMPLE = 10;
-    private static final String HARDSTRING = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*(){}[]\\/.,<>?_-+=";
-    private static final String MIDDLESTRING = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String SIMPLESTRING = "abcdefghijklmnopqrstuvwxyz0123456789";
+    private static List<String> hardString = new ArrayList<>();
+    private static List<String> middleString = new ArrayList<>();
+    private static List<String> simpleString = new ArrayList<>();
+    private static void setHardString(){
+        for (char c = 32;c<=126;c++){
+            hardString.add(Character.toString(c));
+        }
+    }
+    private static void setSimpleString(){
+        for (char c = 'a';c<='z';c++){
+            simpleString.add(Character.toString(c));
+        }
+        for (char b = '0';b<='9';b++){
+            simpleString.add(Character.toString(b));
+        }
+    }
+    private static void setMiddleString(){
+        middleString.addAll(simpleString);
+        for (char c = 'A';c<='Z';c++){
+            middleString.add(Character.toString(c));
+        }
+    }
 
     public static void game(String userName) throws InterruptedException, IOException {
+        setSimpleString();
+        setMiddleString();
+        setHardString();
         Scanner input = new Scanner(System.in);
         System.out.println("请选择难度 1，普通  2，中等  3，困难");
         int Grade = SIMPLE;
@@ -39,24 +64,24 @@ public class MyGame {
         long startTime = System.currentTimeMillis();
         StringBuffer sb = new StringBuffer();
         Random random = new Random();
-        String GradeString = null;
+        List<String> GradeString = null;
         switch (Grade){
             case HARD:
-                GradeString = HARDSTRING;
+                GradeString = hardString;
                 break;
             case MIDDLE:
-                GradeString = MIDDLESTRING;
+                GradeString = middleString;
                 break;
             case SIMPLE:
-                GradeString = SIMPLESTRING;
+                GradeString = simpleString;
                 break;
                 default:
-                    GradeString = SIMPLESTRING;
+                    GradeString = simpleString;
                     break;
         }
         for (int i = 0; i < Grade; i++) {
-            int index = random.nextInt(GradeString.length());
-            sb.append(GradeString.substring(index,index+1));
+            int index = random.nextInt(GradeString.size());
+            sb.append(GradeString.get(index));
         }
         System.out.println(sb);
 
@@ -90,7 +115,7 @@ public class MyGame {
     }
 
     public static void pullScore(int i) throws IOException {
-        TenUser[] tenUsers = (TenUser[]) Tool.getInstence("http://192.168.20.221:8080/day16/ten",TenUser.class);
+        TenUser[] tenUsers = (TenUser[]) URLTool.getInstence("http://192.168.20.221:8080/day16/ten",TenUser.class);
         System.out.println("第"+i+"名："+tenUsers[i-1].getNickname()+"\t分数:"+tenUsers[i-1].getScore());
     }
 

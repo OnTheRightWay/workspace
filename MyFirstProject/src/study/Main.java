@@ -22,7 +22,7 @@ public class Main {
         String userName = null;
         boolean isCon = true;
         while (isCon) {
-            System.out.println("欢迎来到超级系统（测试版）");
+            System.out.println("欢迎来到超级系统");
             System.out.println("您是否拥有一个账号   1、登录    2、注册");
             String i = input.nextLine();
             switch (i) {
@@ -70,17 +70,20 @@ public class Main {
                     System.out.println(GetWeather.getWeather(c));
                 } catch (IOException e) {
                     e.printStackTrace();
+                    break;
                 } catch (WeatherFindException e) {
                     e.printStackTrace();
+                    break;
                 }
                 break;
             case "2":
                 try {
                     System.out.println("请输入你要查询的手机号码");
                     String phone = input.nextLine();
-                    System.out.println(GetPhone.getPhone(phone));
+                    System.out.println(GetPhone.getPhoneAtt(phone));
                 } catch (IOException e) {
                     e.printStackTrace();
+                    break;
                 }
                 break;
             case "3":
@@ -88,8 +91,10 @@ public class Main {
                     MyGame.game(userName);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    break;
                 } catch (IOException e) {
                     e.printStackTrace();
+                    break;
                 }
                 break;
             case "4":
@@ -109,7 +114,7 @@ public class Main {
                     if (num.equals("1")){
                         FirstRank.getFirst();
                     }
-                    if (!num.equals("4")) {
+                    if (!(num.equals("4")||num.equals("1"))){
                         MyGame.pullScore(Integer.parseInt(num));
                         break;
                     }

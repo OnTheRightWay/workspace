@@ -1,4 +1,4 @@
-package study.weather;
+package study.bean;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package study.phone;
+package study.bean;
 
 public class Phone {
 
