@@ -6,10 +6,10 @@ import study.exception.RegisterException;
 import study.exception.WeatherFindException;
 import study.game.FirstRank;
 import study.game.MyGame;
-import study.phone.GetPhone;
+import study.util.GetPhone;
 import study.userdata.RegisterAndLogin;
 import study.userdata.UserData;
-import study.weather.GetWeather;
+import study.util.GetWeather;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -88,11 +88,14 @@ public class Main {
                 break;
             case "3":
                 try {
-                    MyGame.game(userName);
+                    MyGame.game(UserData.getName(userName));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     break;
                 } catch (IOException e) {
+                    e.printStackTrace();
+                    break;
+                } catch (DocumentException e) {
                     e.printStackTrace();
                     break;
                 }

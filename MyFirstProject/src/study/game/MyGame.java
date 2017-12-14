@@ -1,6 +1,7 @@
 package study.game;
 
 import study.bean.TenUser;
+import study.constant.Constant;
 import study.util.URLTool;
 
 import java.io.IOException;
@@ -87,10 +88,11 @@ public class MyGame {
 
         boolean isTrue = false;
         while (!isTrue) {
-            if (input.nextLine().equals(new String(sb))){
+            String ss = input.nextLine();
+            if (ss.equals(new String(sb))||ss.equals("quit")){
                 isTrue = true;
             }else {
-                System.out.println("输错了，再输一遍吧\n"+sb);
+                System.out.println("输错了，再输一遍吧(我受不鸟了（输入quit退出）)\n"+sb);
             }
         }
         Long endTime = System.currentTimeMillis();
@@ -104,7 +106,7 @@ public class MyGame {
 
     }
     public static void pushScore(String userName,long score) throws IOException {
-        URL url = new URL("http://192.168.20.221:8080/day16/insert?username="+userName+"&score="+score);
+        URL url = new URL("http://"+ Constant.URLBASE+"/day16/insert?username="+userName+"&score="+score);
         URLConnection conn = url.openConnection();
         InputStream is = conn.getInputStream();
         byte[] b =new byte[1024];
@@ -115,7 +117,7 @@ public class MyGame {
     }
 
     public static void pullScore(int i) throws IOException {
-        TenUser[] tenUsers = (TenUser[]) URLTool.getInstence("http://192.168.20.221:8080/day16/ten",TenUser.class);
+        TenUser[] tenUsers = (TenUser[]) URLTool.getInstence("http://"+Constant.URLBASE+"/day16/ten",TenUser.class);
         System.out.println("第"+i+"名："+tenUsers[i-1].getNickname()+"\t分数:"+tenUsers[i-1].getScore());
     }
 

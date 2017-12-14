@@ -1,4 +1,4 @@
-package study.weather;
+package study.util;
 
 import study.bean.Weather;
 import study.exception.WeatherFindException;

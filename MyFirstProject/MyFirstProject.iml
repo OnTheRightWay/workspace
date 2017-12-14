@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="dom4j-1.6.1" level="project" />
     <orderEntry type="library" name="json-lib-2.4-jdk15" level="project" />
+    <orderEntry type="library" name="xstream-1.4.7" level="project" />
   </component>
 </module>

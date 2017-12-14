@@ -1,6 +1,8 @@
 package study;
 
 import study.exception.WeatherFindException;
+import study.game.FirstRank;
+import study.game.MyGame;
 
 import java.io.IOException;
 
@@ -12,5 +14,6 @@ public class Test {
 //        MyGame.pushScore("shiwo",8000);
 //        for (int i = 1; i <=10;i++)
 //        MyGame.pullScore(i);
+//        FirstRank.getFirst("s");
     }
 }

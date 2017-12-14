@@ -1,4 +1,4 @@
-package study.phone;
+package study.util;
 
 import study.bean.Phone;
 import study.util.URLTool;
