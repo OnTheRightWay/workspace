@@ -1,0 +1,74 @@
+线程等待：当前运行的锁对象调用wait（）方法时，
+当前运行的线程陷入阻塞状态，失去执行权，并且失去抢夺执行权的资格，
+一旦锁对象调用notify（）方法，程序重新获得执行权，
+重新开始抢夺执行权。
+
+线程死锁：当两个线程互相等待对方释放锁对象是就陷入了死锁，
+此时程序无法继续进行下去。
+
+同步代码块：大括号就是代码块，
+synchronized修饰的代码块就是同步代码块，
+synchronized（）{}括号里要传入的就是锁对象：本类对象，本类类对象
+
+流：字节输出流：OutputStream
+    字节输入流：InputStream
+    字符输出流：Writer
+    字符输入流：reader
+
+socket：套接字，
+TCP：一种面向连接的，可靠的，基于字节流的传输层协议。
+UDP：一种无连接的传输层协议，提供面向事务的简单不可靠信息传送服务。
+
+TCP：
+接收端：1.创建一个接受方ServerSocket对象，构造方法中传入端口号
+        2.通过accept（）监听这个端口，accept是一个阻塞式方法，如果获得
+          不到发送方的socket，那么程序就会阻塞在这里
+        3.通过InputStream is = socket.getInputStream()获得读取发送方的字节流的对象
+        4.通过is.read();读取字节流。
+        5.close（）关闭接收端。
+发送端：1.创建一个Socket对象，构造方法中传入目标ip和端口号
+        2.获得字节输出流对象socket.getOutputStream
+        3.调用write方法，将要传入的内容通过字节流传过去
+        4.close（）关闭发送端
+UDP:
+接收端：1.创建一个DatagramSocket对象ds，构造方法中传入端口号
+        2.定义一个数据包，用来接收数据
+          byte[] buff = new byte[1024];
+          DatagramPacket dp = new DatagramPacket(buff,0,buff.length）；
+        3.调用ds的receive（dp）方法，将ds接收到的数据，存到dp中。
+        4.dp.getData()获得dp中的字节
+发送端：1.创建一个DatagramSocket对象ds，构造方法中传入端口号
+        2.创建一个地址对象，将ip地址传到构造方法中
+        3，创建一个数据包，构造方法中传入 字节数组，数组长度，ip，端口号
+        4.调用ds的send（dp）方法，发送数据包；
+
+SQL语句：
+5  SELECT [DISTINCT] *|列[别名],列[别名],列[别名],列[别名]
+1  FROM 表名称[别名]
+2  [WHERE 限定条件]
+3  [GROUP BY]
+4  [HAVING]
+6  [ORDER BY 排序字段[ASC|DESC],排序字段[ASC|DESC],...]；
+DDL：
+创建表	create table 表名（列名  列类型，列名  列类型，...）;
+删除表	drop table 表名;
+增加列	alter table 表名 新列名 列类型;
+改表名	alter table 表名 rename to 新表名;
+改列名	alter table 表名 change 列名 新列名 列类型；
+改列类型	alter table 表名 modify 列名 新类型；
+删除列	alter table drop 列名；
+DML:
+插入数据	insert into 表名 values（）；
+插入数据	insert into 表名（列名，列名，列名） values（）；
+删除数据，删除所有列	delete from 表名；
+删除数据，删除特定列	delete from 表名 where 条件；
+修改数据，修改该列所有	update 表名 set 列名=值；
+修改数据，修改特定	update 表名 set 列名=值；
+DQL:
+列运算	select 列名+列名 from 表名；
+模糊查询	select * from 表名 where name like ‘张%’
+模糊查询 %匹配任意数量字符 _匹配任意一个字符
+排序 asc：升序  desc：降序
+排序	order by 列名 asc|desc，列名 asc|desc，...
+聚合函数:count()求数据总数,min()最小值,max()最大值,avg()平均值,sum()求和
+

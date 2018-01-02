@@ -1,0 +1,183 @@
+数据库的导入导出:
+    备份数据库:
+        mysqldump -u用户名 -p --all-database>目标文件;
+        mysqldump -u用户名 -p 数据库名>目标文件;
+    恢复数据库:
+        恢复数据时，如果对应的数据库不存在，则需要先建立数据库;
+        mysqlDump -u用户名 -p密码 数据库名<目标文件;
+        source 文件路径;
+约束:
+    给列设置一个条件，使他必须满足这个条件;
+主键约束:
+1.非空:列的值不能为空;
+2.唯一:列的值不能重复;
+3.被引用:可以通过主键作为引用，找到唯一的一行;
+添加主键:
+1.create table 表名（列名 列类型 primary key）;
+2.create table 表名（列名 列类型,primary key(列名)）;
+3.alter table 表名 add primary key(列名);
+删除主键:
+alter table 表名 drop primary key;
+在一个表中，主键只能有一个
+主键自增长:auto_increment
+添加自增长:
+1.create table 表名（列名 列类型 primary key auto_increment）;
+2.alter table 表名 modify 列名 列类型 auto_increment;
+非空约束:not null
+唯一约束:unique
+外键约束:
+引用其他表的主键;
+constraint fk_** foreign key(列名) reference 表2(表2列名);
+合并结果集:union
+连接查询:
+1.内连接:不会取出不满足条件的数据
+    ①mysql方言:select * from 表1 别名1，表2 别名2 where 别名1.xx=别名2.xx
+    ②sql标准写法:select * from 表名1 别名1 inner join 表名2 别名2 on 别名1.xx=别名2.yy;
+    ③自然连接:select * from 表1 别名1 natural join 表2 别名2;
+2.外连接:
+    ①左外:不管左面表的数据是否满足条件，都取出left outer join;
+    ②右外:不管右面表的数据是否满足条件，都取出right outer join;
+子查询:
+    先查出一个结果，再把这个结果作为条件查出另一个结果
+select * from 表名1 where age >=(select age from 表名1 where id = 3);
+
+
+JDBC:Java Database Connection
+1.注册驱动
+Class.forName("com.mysql.jdbc.Driver");
+2.获得连接
+Connection conn = DiverManager.getConnection("jdbc:mysql://localhost:3306/数据库名"，用户名，密码);
+3.获得statement
+Statement state = conn.createStatement();
+4.执行SQL语句
+ResultSet rs = state.executeQuery(SQL语句);
+int i = state.executeUpdate(SQL语句);
+5.从ResultSet中取出数据
+while(rs.next()){
+    rs.getString(1);
+    rs.getString(2);
+    rs.getString(3);
+}
+6.关闭资源
+rs,close();
+state.close();
+conn.close();
+PrepareStatement类：
+    PrepareStatement类可以加载动态的参数；
+    PreparedStatement pstate = conn.prepareStatement("SELECT  * FROM hw_user WHERE loc=? AND age>?;");
+    pstate.setString(1,"北京");
+    pstate.setInt(2,20);
+    ResultSet rs = pstate.executeQuery();
+批处理:
+    添加批处理pstate.addBatch(SQL语句);
+    执行批处理pstate.executeBatch();
+事务:四个特性ACID
+    1.原子性:要么全执行，要么不执行
+    2.一致性
+    3.隔离型
+    4.持久性;
+    开启事务:conn.setAutoCommit(false);
+    提交事务:conn.commit();
+    回滚，取消操作conn.rollback();
+Properties配置文件:键值对，key=value
+    1.创建properties对象:Properties prop = new Properties()
+    2.加载properties文件:prop.load(new FileReader(文件路径));
+    3.获得值prop.getProperty(key名);
+DBUtils:
+    QueryRunner工具类
+    new QueryRunner().query(
+        连接对象Connection,
+        sql语句,
+        ResultSetHandler 实现类对象,
+        参数//对应SQL语句中的?
+    )
+    根据需求结果的类型
+        选择ResultSetHandler的实现类
+    如果结果集为单行单列:ScalarHandler
+    如果想要一个对象:BeanHandler
+    如果想要一个对象的集合:BeanListHandler
+    如果想要一个Map:MapHandler
+    如果想要一个Map集合:MapListHandler
+    如果想要一个数组:ArrayHandler
+    如果想要一个数组的集合:ArrayListHandler
+HTML标签:
+    h1-h6:标题
+    p:段落
+    a:超链接 <a href="">
+        href=网址 定位到网址
+        href=#XX 定位到id为XX的标签
+    img:图片
+        <img  src=图片路径 title="XXX"/>
+        title 1.当鼠标悬停到图片上时显示XXX
+              2.若找不到该图片,显示XXX
+        src路径 从当前路径开始../返回上一路径
+    table:表格
+        tr:表格的一行
+            th:表格的标题
+            td:表格的内容
+    from:表单
+        用来收集用户的信息，传递给服务器；
+        action属性:提交路径；
+        method属性: 表示提交的方式，一般表单的提交方式都是post；
+        <input type=""/>
+            type:text文本输入框
+                 password密码输入框
+                 checkbox多选框
+                 radio单选框
+                 submit提交按钮
+                 reset重置按钮
+列表：
+    有序列表ol li
+    无序列表ul li
+    定义列表dl dt dd
+
+id:不能重复，name:可以重复;
+标签的语义化:
+    q:引用，blockquote:大段引用，mark:标记
+    em:强调,斜体，strong:强调，加粗,i:斜体
+
+
+
+
+ CSS：Cascading Style Sheets 层叠样式表
+        1.外部CSS
+            将CSS代码，写在一个.css文件中
+            将这个.css文件，导入到当前html文件中
+        2.内部CSS
+            在<head>标签中写一个子标签<style>
+            将CSS代码，写在<style>内部
+        3.行内CSS
+            写在标签内部的，style属性上
+选择器的优先级:
+    行内样式>id选择器>类选择器>标签选择器
+
+CSS选择器:
+    类选择器: .d{} 选择所有类型为d的标签;
+    id选择器:#d{} 选择所有id为d的标签;
+    标签选择器:p{} 选择所有的p标签;
+    后代选择器:.d1 .d2{} 选择类型为d1标签下所有类型为d2的后代标签;
+    子类选择器:.d1>.d2{} 选择类型为d1标签下所有类型为d2的子标签;
+    兄弟选择器:.d1~.d2{} 选择类型为d1标签下所有类型为d2的子标签;
+               .d1+div{} 选择紧跟着类型为d1的标签后面的div;
+    组合选择器:.d1,.d2{} 选择所有类型为d1和d2的标签;
+    通用选择器:*{} 选择所有标签，优先级低;
+    属性选择器:[name]{} 选择所有为name属性设置过值的标签;
+               [name="pig"] 选择所有将name属性设置为pig的标签;
+浮动float:正常HTML元素是上下排列的;
+float：left 使元素从左向右排列;
+float：left 使元素从左向右排列;
+
+背景属性:background:背景颜色 url（图片路径） no-repeat 300px 300px 是否固定(fixed固定，scroll 不固定，默认是scroll)
+
+盒子模型:
+外边距margin;
+内边距padding;
+边距border:border：类型 像素大小 颜色;
+块级元素:独占一行，可以设置宽和高;
+行内元素:可以和其他元素共处一行，不能设置宽和高，内外间距;
+内联块状元素:可以和其他元素共处一行，可以设置宽和高，内外间距;
+
+定位:
+    绝对定位:absolute 如果父标签也设置了绝对定位，则相对于父标签移动，否则相对于body标签移动;
+    相对定位:relative 相对于本来应该在的位置移动，原来的位置依然会被占用;
+    固定定位:fixed 相对于浏览器移动，位置固定，始终处于浏览器的固定位置;

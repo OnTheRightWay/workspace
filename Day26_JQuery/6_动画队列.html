@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画队列</title>
+    <link href="css/myDiv.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div></div>
+</body>
+<script type="text/javascript">
+    $('div').click(function () {
+        for(i=1;i>0;i++){
+        $(this).animate(
+            {"marginLeft":"200px"},
+            800
+        ).animate(
+            {"marginTop":"200px"},
+            800
+        ).animate(
+            {"marginLeft":"0px"},
+            800
+        ).animate(
+            {"marginTop":"0px"},
+            800
+        )}
+    })
+</script>
+</html>

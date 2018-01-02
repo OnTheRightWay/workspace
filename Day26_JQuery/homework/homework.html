@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>homework</title>
+    <link href="homework.css" rel="stylesheet">
+    <script src="../js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div class="left">
+        <div id="setStyle">点击设置样式</div>
+        <div id="block">哈哈</div>
+    </div>
+    <div id="right">
+        <ul class="ul1"><div>选择背景</div>
+            <li id="red" style="background-color: red">红色</li>
+            <li id="yellow" style="background-color: yellow">黄色</li>
+            <li id="blue" style="background-color: blue">蓝色</li>
+        </ul>
+        <ul class="ul2"><div>选择宽度</div>
+            <li id="w1">100</li>
+            <li id="w2">200</li>
+            <li id="w3">300</li>
+        </ul>
+        <ul class="ul3"><div>选择高度</div>
+            <li id="h1">100</li>
+            <li id="h2">200</li>
+            <li id="h3">300</li>
+        </ul>
+        <div class="foot"><span id="back" style="margin: 20px">恢复</span><span id="sure">确认</span></div>
+    </div>
+    <div id="weather">
+        <button id="btn">查看天气</button>
+        <table border="1px"></table>
+    </div>
+</body>
+    <script type="text/javascript">
+        $('#setStyle').click(function () {
+            var right = document.getElementById("right");
+            right.style.visibility="visible";
+        });
+        $('#red').click(function () {
+            document.getElementById("block").style.backgroundColor="red";
+        });
+        $('#yellow').click(function () {
+            document.getElementById("block").style.backgroundColor="yellow";
+        });
+        $('#blue').click(function () {
+            document.getElementById("block").style.backgroundColor="blue";
+        });
+        $('#w1').click(function () {
+            document.getElementById("block").style.width="100px";
+        });
+        $('#w2').click(function () {
+            document.getElementById("block").style.width="200px";
+        });
+        $('#w3').click(function () {
+            document.getElementById("block").style.width="300px";
+        });
+        $('#h1').click(function () {
+            document.getElementById("block").style.height="100px";
+        });
+        $('#h2').click(function () {
+            document.getElementById("block").style.height="200px";
+        });
+        $('#h3').click(function () {
+            document.getElementById("block").style.height="300px";
+        });
+        $('#back').click(function () {
+            var style = document.getElementById("block").style;
+            style.color="white";
+            style.backgroundColor="black";
+            style.width="50px";
+            style.height="50px";
+            style.margin="auto";
+            style.lineHeight= "50px";
+            style.textAlign="center";
+
+        });
+        $('#sure').click(function () {
+            document.getElementById("right").style.visibility="hidden";
+        });
+
+        var url="http://api.k780.com/?app=weather.future&weaid=wuhan&&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json";
+        function btnClicked() {
+            $.ajax({type:'get',
+                    url : url,
+                    dataType : 'jsonp',
+                    jsonp:"jsoncallback",
+                    success  : function(data) {
+                        $('tr').remove();
+                        var result  = data.result;
+                        $('table').append(
+                            $("<tr><td>"+"日期"+"</td>+ "
+                                + "<td>"+"地区"+"</td>"
+                                + "<td>"+"天气"+"</td></tr>")
+                        )
+                        for (var i = 0 ; i < result.length ; i++){
+                            $('table').append(
+                                $("<tr><td>"+result[i].days+"</td>+ "
+                                    + "<td>"+result[i].citynm+"</td>"
+                                    + "<td>"+result[i].weather+"</td></tr>")
+                            )
+                        }
+                    },
+                }
+            );
+        }
+        $('#btn').click(btnClicked);
+    </script>
+</html>

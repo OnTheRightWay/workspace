@@ -1,0 +1,180 @@
+JS中的变量
+使用var关键字声明一个变量，
+任何非数值与数字做算术运算，得到的都是非数值，也就是得到的都是NaN
+如：a=10-"s";
+a = 10 + "s";是字符串拼接而不是算术运算；
+浏览器会根据需要，在进行算术运算时，自动判断是否可以将变量转化为数值；
+
+未定义和null
+undefined：未定义的，表示仅仅声明了变量，但是没有被赋值
+null：空，变量已经赋值了，值为null
+null在用作条件时，表示false，在用作算术元算时，表示0
+交互方式：
+1.window.alsert(),弹窗输出
+2.window.prompt();弹窗输入，如果用户取消窗口，则返回null，如果用户点击确定，
+则返回输入框中的数据
+3.window.confirm();弹窗确定，返回true或false
+
+JS中的数组：var array = [1,2,2,3]
+可以使用角标访问数组 array[i];
+使用forEach方法遍历数组:array.forEach(function(content,index));
+
+事件:
+onClick鼠标单击;ondblClick鼠标双击;onFocus获得焦点;onblur失去焦点等
+
+事件源:
+谁导致了事件的发生，谁就是事件源(this);
+在监听器中，通过this改变当前元素属性值
+
+三种交互方式：
+1.window.alsert(),弹窗输出
+2.window.prompt();弹窗输入，如果用户取消窗口，则返回null，如果用户点击
+    确定，则返回输入框中的数据
+3.window.confirm();弹窗确定，返回true或false
+
+函数function：
+用function声明一个函数   function XXX(){  };
+被声明的方法在被调用时，才会被执行  XXX();
+如果传入函数参数参数列表中的实参，少于形参，则未被赋值的参数的值为undefined;
+如果传入参数列表中的实参，多余形参，则多余的实参数据将被丢弃;
+我们定义的函数，实际上都是window的属性，方法;
+
+window.onload=function(){}:
+当html文档加载完毕时，会执行这个function，它是一个是回调函数
+innerText 将字符串以文本形式显示
+innerHTML() 会识别字符串中的标签并加载到HTML中
+
+JS中的对象：
+JS中，任意函数，都能看作是构造方法 var a = new XXX()；
+构造方法中 this关键字指对象的属性，其他属性是方法的局部变量；
+方法赋值时，带括号的方法是在执行方法，将方法的返回值返回给属性 var a = XXX();
+不带括号的方法，才是给方法赋值，是将方法整体赋值给其他方法；
+
+JS操作样式:
+根据id找到标签:document.getElementById(" ")
+改变标签的属性:a.style.color="red";
+
+删除节点与增加节点:
+增加节点:element.appendChild("h1")
+删除节点:element.removeChild(element)
+
+显示和隐藏:
+1.display:
+    ①t.style.display:"block"：显示；
+    ②t.style.display:"none"：既不显示，也不占位；
+2.visibility
+    ①t.style.visibility:hidden：显示；
+    ②t.style.visibility:visible：不显示，但是任占据初始的位置；
+
+定时执行：
+setTimeOut(function(){  },2000)：2000毫秒后执行一次function；
+setInterval(function(){  },1000)：每隔1000毫秒执行一次function；
+
+JQuery:
+$(' '):$声明接下来使用jq中的语法;
+括号中单引号内是选择器，表示对选中的标签进行操作
+
+使函数在文档加载完成后执行有两种方式：
+1.$(document).ready(function(){  });
+2.$(function(){ });
+
+鼠标进出：
+1.鼠标进出标签及其后代标签都触发事件：
+    $('XX').mouseover(function () { }鼠标进入；
+    $('XX').mouseout(function () { }鼠标移出；
+2.鼠标进出该标签触发事件，进出其后代标签不触发事件
+    $('XX').mouseenter(function () { }鼠标进入；
+    $('XX').mouseleave(function () { }鼠标移出；
+
+点击事件
+$('XX').click(function(){ });鼠标单击；
+$('XX').dblclick(function(){ });鼠标双击后执行function中的内容；
+
+text方法
+$(' XX ').text("xxx")参数列表中传入字符串，表示设置元素的文本；
+$(' XX ').text( )参数列表为空，表示获得元素的文本；
+
+添加和删除元素：
+$('XX').append()在标签中添加
+$('XX').before()在标签前添加
+$('XX').after()在标签后添加
+$('XX').append($('<p>').css())在标签中添加标签,并设置css
+$('XX').remove()删除选中标签（XX选择器选中的标签）
+
+操作css样式：
+选中要操作元素的标签：$('XX')；
+调用css方法：
+$('div').css({"width":"200px","height":"200px","backgroundColor":"red"})
+
+操作元素属性：
+选中要操作元素的标签：$('XX')
+调用attr方法进行设置：$('XX').attr({"class":"big","style":"color:red"});
+
+JQ动画：
+$('this').animate({"":""},2000,function(){ });
+第一个参数：怎么动，通过更改css样式来实现动画{"height":"100px"}
+第二个参数：多长时间完成动画，单位毫秒
+第三个参数：动画完成后进行什么操作，是一个回调函数
+
+JQ动画队列:
+ $(this).animate()返回的还是this，可以继续对其进行动画操作;
+ 例： $(this).animate({"color":"red"},800).animate({"color":"black"},800)
+ 可以连续进行动画效果
+
+ajax获取对象数组:
+$.get("http://192.168.20.221:8080/day16/ten",function (data,status) {}
+function中: 第一个参数：获得的数据
+            第二个参数：访问是否成功
+使用parseJSON方法将data数据即系成JS中的json对象；
+$.parseJSON(data);
+或直接使用$.getJSON获得json数据；
+
+Tomcat:
+Tomcat相当于一个简易版的服务器，我们可以吧自己写的后端
+应用程序部署到上面
+192.168.20.133:8080/day16/ten
+day16是我们写的程序的名字，Tomcat通过这个名字找到对应的应用程序
+ten表示，要访问的day16中的那个文件(HttpServlet)
+这个文件是我们自己写的一个类，这个类继承HttpServlet；
+这个文件的名字是我们在web.xml中配置的
+
+HttpServlet类是一个抽象类，
+我们通过写一个类继承他它使用这个类
+
+doGet()方法：protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {}
+req参数用来获得请求数据 req.getParameter()
+方法中传入的参数为:参数名,根据参数名获得参数值（类似键值对）
+resp参数用于将请求的结果返回给请求方
+resp.getWriter().write("XXX");给用户一个结果
+使用resp.setContentType("text/html;charset=utf-8");设置编码
+
+doPost()方法：protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {}
+使用req.setCharacterEncoding("utf-8");设置编码
+
+500或500+表示是服务器出错了
+404表示未找到资源，也就是你访问的路径，在服务器中并不存在
+
+web.xml
+1.web-app标签中创建servlet标签；
+2.servlet标签中创建一个servlet-name标签，这个标签中给我们写的那个继承
+    HttpServlet的类指定一个名字，就像上面提到的ten
+3.在servlet中创建一个servlet-class标签，这个标签中指定类的路径
+4.在web-app标签中创建servlet-mapping标签；
+5.在servlet-mapping标签中创建servlet-name标签，指定类的名字
+6.在servlet-mapping标签中创建url-pattern标签，给该类添加一个路径，路径前面
+    一定要加/
+
+Servlet接口中的方法：
+当第一次被访问时会执行init方法：生命周期开始
+需要获得servletConfig时，手动调用getServletConfig方法
+每次被访问，会执行service方法
+当需要得servletInfo时，手动调用getServletInfo方法
+服务器关闭前，会调用destroy方法，可以用来释放一些资源：生命周期结束
+
+GenericServlet类是一个抽象类
+我们只需要实现它的service方法
+GenericServlet在init（ServletConfig servletConfig）帮我们封装好了一步:
+            his.servletConfig = servletConfig;
+无参的init()方法不属于生命周期

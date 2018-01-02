@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transform变换</title>
+    <style type="text/css">
+        .outer{
+            width: 400px;
+            height: 400px;
+            background-color: #b5ceff;
+            /*transform-style: preserve-3d;*/
+            /*transform: rotateY(0deg);*/
+        }
+        .div{
+            /*margin:auto;*/
+            margin-top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 100px;
+            font-size: 30px;
+            background-color: red;
+            /*transform: translateX(200px)*/
+            /*translateY(200px) translateZ(200px);*/
+            /*transform: rotateX(60deg) rotateY(60deg);*/
+            /*transform: rotateZ(60deg);*/
+            /*transform: translateX(50%);*/
+        }
+    </style>
+</head>
+<body>
+<div class="outer">
+    <div class="div">
+        老庄睡着了
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>现实和隐藏</title>
+    <style type="text/css">
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            /*
+                inline表示行内
+                block表示块
+                这里就是:
+                    内联块级元素
+                也就是说，可以使用display
+                将元素的种类更改
+             */
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="text">知己者不由人，知命者不怨天</h1>
+    <button id="btn" onclick="btnClicked2()">点我</button>
+    <div></div>
+    <div></div>
+</body>
+<script type="text/javascript">
+    function btnClicked() {
+        var text = document.getElementById("text");
+        var btn = document.getElementById("btn");
+        if(text.style.display != "none"){
+            //既不显示，也不占位
+            text.style.display = "none";
+        } else {
+            text.style.display = "block";
+        }
+    }
+    function btnClicked2() {
+        var text = document.getElementById("text");
+        //只是让元素不在显示
+        //但是元素依然占据位置
+        if(text.style.visibility != "hidden"){
+            text.style.visibility = "hidden";
+        }else {
+            text.style.visibility = "visible";
+        }
+    }
+</script>
+</html>

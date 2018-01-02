@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮动</title>
+    <style type="text/css">
+        div{
+            margin: 2px;
+        }
+        .width{
+            height: 50px;
+            width: 365px;
+        }
+        .height{
+            width: 50px;
+            height: 195px;
+            background-color: blue;
+        }
+        .middle{
+            width: 252px;
+            height: 94px;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="width: 400px;height: 250px;border: 1px #000000">
+        <div style="background-color: chocolate" class="width" ></div>
+        <div style="width: 400px;height: 200px">
+            <div class="height" style="float: left"></div>
+            <div style="float: left">
+            <div class="middle" style="background-color: deeppink;margin-bottom: 5px"></div>
+            <div class="middle" style="background-color: chartreuse"></div>
+            </div>
+            <div class="height"style="float: left"></div>
+        </div>
+        <div class="width" style="background-color: aqua"></div>
+    </div>
+</body>
+</html>

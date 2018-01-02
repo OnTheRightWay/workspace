@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mybooks</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <form action="http://localhost:8080/insert" method="post">
+        <!--<label for="bkid">书id：</label>-->
+        <!--<input type="text" id="bkid" name="bkid">-->
+        <label for="bkname">书名：</label>
+        <input type="text" id="bkname" name="bkname">
+        <label for="author">作者：</label>
+        <input type="text" id="author" name="author">
+        <label for="tid">类型编号：</label>
+        <input type="text" id="tid" name="tid">
+        <input type="submit" value="新增书籍">
+    </form>
+<button>查看书籍</button>
+<table></table>
+</body>
+<script type="text/javascript">
+    $('button').click(function () {
+        $('tr').remove();
+        $('table').append(
+            $('<tr>')
+                .append($('<td>').text("书名"))
+                .append($('<td>').text("作者"))
+                .append($('<td>').text("类型编号"))
+        );
+        $.getJSON(
+            "http://localhost:8080/query",
+            function (data, status) {
+//                console.log(data);
+                if (status == "success"){
+//                    console.log(data);
+                    $.each(data,function(index,obj){
+                        var bkid = obj['bkid'];
+                        var bkname = obj['bkname'];
+                        var author = obj['author'];
+                        var tid = obj['tid'];
+                        $('table').append(
+                            $('<tr>')
+                                .append($('<td>').text(bkname))
+                                .append($('<td>').text(author))
+                                .append($('<td>').text(tid))
+                        );
+                    });
+                }
+            }
+        );
+    });
+</script>
+</html>

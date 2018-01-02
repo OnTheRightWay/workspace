@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>盒子模型</title>
+    <style type="text/css">
+        body{
+            /*padding: 0;*/
+            margin: 0;
+        }
+        .outer{
+            background-color: red;
+            padding:20px;/*上下左右的内间距都是20px*/
+            margin: 20px;
+            border: dashed 10px skyblue;
+            width:300px;
+            height: 100px;
+
+        }
+        .inner{
+            background-color:green;
+            margin: 20px 20px;
+            /*
+                上下是20px
+                左右是20px
+            */
+        }
+        span{
+        	/*因为span是内联元素*/
+        	/*所以对它设置宽高是无效的*/
+        	width: 200px;
+        	height: 50px;
+        	font-size: 30px;
+        	color: white;
+        	background-color: black;
+        	margin: 30px;
+        	padding: 30px;
+        }
+        img{
+        	width: 200px;
+        	height: 200px;
+        	background-color: yellow;
+        	padding: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="inner">1</div>
+    </div>
+    <div class="outer">1</div>
+    <!--
+    元素的类型（分类）
+        对于块级元素：
+            什么是块级元素？
+            独占一行
+            可以设置宽高属性
+        块级元素之间的margin属性
+        相遇是，会取较大值。
+        div，h1-h6,table,form,p
+
+        内联元素/行内元素
+            可以与其他元素共处一行
+            不可以设置宽高属性，上下外间距
+        span,input,em,strong,mark
+
+        内联块状元素
+            可以与其他元素同处一行
+            可以设置宽高属性，上下外间距
+        img
+
+    -->
+    <span>我是span</span>
+    <img src="https://img03.sogoucdn.com/net/a/04/link?url=http%3A%2F%2Fimg01.sogoucdn.com%2Fapp%2Fa%2F100520024%2F924055f74736446fb5253068062585c0&appid=122">
+</body>
+</html>

@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="day18">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="day19">
+      <Visible>1</Visible>
+    </schema>
+    <schema id="4" parent="1" name="day20"/>
+    <schema id="5" parent="1" name="homework"/>
+    <schema id="6" parent="1" name="information_schema"/>
+    <schema id="7" parent="1" name="mysql"/>
+    <schema id="8" parent="1" name="querymany"/>
+    <schema id="9" parent="1" name="test"/>
+    <schema id="10" parent="1" name="hw_sql">
+      <Visible>1</Visible>
+    </schema>
+    <schema id="11" parent="1" name="study">
+      <Visible>1</Visible>
+    </schema>
+    <table id="12" parent="2" name="hw_stu"/>
+    <table id="13" parent="2" name="student"/>
+    <table id="14" parent="2" name="teacher"/>
+    <table id="15" parent="3" name="book"/>
+    <table id="16" parent="3" name="comment"/>
+    <table id="17" parent="3" name="hw_user"/>
+    <table id="18" parent="3" name="type"/>
+    <table id="19" parent="3" name="u_coll_bk"/>
+    <table id="20" parent="10" name="hw_dmt">
+      <Comment>sql第二天的作业搭配的部门表</Comment>
+    </table>
+    <table id="21" parent="10" name="hw_emp">
+      <Comment>sql第二天的作业表</Comment>
+    </table>
+    <table id="22" parent="10" name="hw_stu"/>
+    <table id="23" parent="11" name="dmt"/>
+    <table id="24" parent="11" name="employee"/>
+    <table id="25" parent="11" name="paylevel"/>
+    <table id="26" parent="11" name="st_year"/>
+    <table id="27" parent="11" name="stu"/>
+    <table id="28" parent="11" name="test"/>
+    <column id="29" parent="12" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="30" parent="12" name="name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="31" parent="12" name="gender">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="32" parent="12" name="chinese">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="33" parent="12" name="math">
+      <Position>5</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="34" parent="12" name="english">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="35" parent="12" name="age">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="36" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="37" parent="13" name="name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <key id="38" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="39" parent="14" name="name">
+      <Position>1</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="40" parent="14" name="age">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="41" parent="14" name="gender">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="42" parent="14" name="score">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="43" parent="15" name="bkid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="44" parent="15" name="bkname">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="15" name="author">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="46" parent="15" name="tid">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="47" parent="15" name="book_fk_type">
+      <ColNames>tid</ColNames>
+    </index>
+    <key id="48" parent="15" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>bkid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="49" parent="15" name="book_fk_type">
+      <ColNames>tid</ColNames>
+      <RefSchemaName>day19</RefSchemaName>
+      <RefTableName>type</RefTableName>
+      <RefColNames>tid</RefColNames>
+    </foreign-key>
+    <column id="50" parent="16" name="comid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="51" parent="16" name="content">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="52" parent="16" name="bkid">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="53" parent="16" name="uid">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="54" parent="16" name="datetime">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="55" parent="16" name="comment_fk_bkid">
+      <ColNames>bkid</ColNames>
+    </index>
+    <index id="56" parent="16" name="comment_fk_uid">
+      <ColNames>uid</ColNames>
+    </index>
+    <key id="57" parent="16" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>comid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="58" parent="16" name="comment_fk_bkid">
+      <ColNames>bkid</ColNames>
+      <RefSchemaName>day19</RefSchemaName>
+      <RefTableName>book</RefTableName>
+      <RefColNames>bkid</RefColNames>
+    </foreign-key>
+    <foreign-key id="59" parent="16" name="comment_fk_uid">
+      <ColNames>uid</ColNames>
+      <RefSchemaName>day19</RefSchemaName>
+      <RefTableName>hw_user</RefTableName>
+      <RefColNames>uid</RefColNames>
+    </foreign-key>
+    <column id="60" parent="17" name="uid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="61" parent="17" name="uname">
+      <Position>2</Position>
+      <DataType>char(60)|0</DataType>
+    </column>
+    <column id="62" parent="17" name="age">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="63" parent="17" name="loc">
+      <Position>4</Position>
+      <DataType>char(50)|0</DataType>
+    </column>
+    <key id="64" parent="17" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>uid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="65" parent="18" name="tid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="66" parent="18" name="tname">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="67" parent="18" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>tid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="68" parent="19" name="uid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="69" parent="19" name="bkid">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="70" parent="19" name="uk_ucb">
+      <ColNames>uid
+bkid</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="71" parent="19" name="u_coll_bkid_fk_bkid">
+      <ColNames>bkid</ColNames>
+    </index>
+    <key id="72" parent="19" name="uk_ucb">
+      <ColNames>uid
+bkid</ColNames>
+      <UnderlyingIndexName>uk_ucb</UnderlyingIndexName>
+    </key>
+    <foreign-key id="73" parent="19" name="u_coll_bkid_fk_uid">
+      <ColNames>uid</ColNames>
+      <RefSchemaName>day19</RefSchemaName>
+      <RefTableName>hw_user</RefTableName>
+      <RefColNames>uid</RefColNames>
+    </foreign-key>
+    <foreign-key id="74" parent="19" name="u_coll_bkid_fk_bkid">
+      <ColNames>bkid</ColNames>
+      <RefSchemaName>day19</RefSchemaName>
+      <RefTableName>book</RefTableName>
+      <RefColNames>bkid</RefColNames>
+    </foreign-key>
+    <column id="75" parent="20" name="dmtid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="76" parent="20" name="dname">
+      <Position>2</Position>
+      <DataType>char(50)|0</DataType>
+    </column>
+    <column id="77" parent="20" name="dloc">
+      <Position>3</Position>
+      <DataType>char(50)|0</DataType>
+    </column>
+    <key id="78" parent="20" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>dmtid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="79" parent="21" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="80" parent="21" name="name">
+      <Position>2</Position>
+      <DataType>char(50)|0</DataType>
+    </column>
+    <column id="81" parent="21" name="job">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="82" parent="21" name="mgrid">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="83" parent="21" name="hiredate">
+      <Position>5</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="84" parent="21" name="pay">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="85" parent="21" name="prize">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="86" parent="21" name="dmtid">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="87" parent="21" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="88" parent="22" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="89" parent="22" name="name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="90" parent="22" name="gender">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="91" parent="22" name="chinese">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="92" parent="22" name="math">
+      <Position>5</Position>
+      <DataType>double(5,2)|0</DataType>
+    </column>
+    <column id="93" parent="22" name="english">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="94" parent="22" name="age">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="95" parent="23" name="dmtid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="96" parent="23" name="dmtname">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="97" parent="23" name="location">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <key id="98" parent="23" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>dmtid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="99" parent="24" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="100" parent="24" name="name">
+      <Position>2</Position>
+      <DataType>mediumtext|0</DataType>
+    </column>
+    <column id="101" parent="24" name="job">
+      <Position>3</Position>
+      <DataType>mediumtext|0</DataType>
+    </column>
+    <column id="102" parent="24" name="managerId">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="103" parent="24" name="hiredate">
+      <Position>5</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="104" parent="24" name="pay">
+      <Position>6</Position>
+      <DataType>double(8,2)|0</DataType>
+    </column>
+    <column id="105" parent="24" name="prize">
+      <Position>7</Position>
+      <DataType>double(8,2)|0</DataType>
+    </column>
+    <column id="106" parent="24" name="dmtid">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="107" parent="25" name="level">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="108" parent="25" name="lowest">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="109" parent="25" name="heightest">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="110" parent="26" name="year">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="111" parent="26" name="年利润_百万">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="112" parent="27" name="name">
+      <Position>1</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="113" parent="28" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="114" parent="28" name="d">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="115" parent="28" name="fk__">
+      <ColNames>d</ColNames>
+    </index>
+    <key id="116" parent="28" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="117" parent="28" name="fk__">
+      <ColNames>d</ColNames>
+      <RefSchemaName>study</RefSchemaName>
+      <RefTableName>dmt</RefTableName>
+      <RefColNames>dmtid</RefColNames>
+    </foreign-key>
+  </database-model>
+</dataSource>
