@@ -27,11 +27,11 @@ public class LoginServlet extends HttpServlet {
         }
         boolean login = RegisterAndLogin.login(user);
         if (!login){
-            response.sendRedirect("http://localhost:8080/login.html");
+            response.sendRedirect("http://localhost:8080/Day29/login.html");
             return;
         }
         getServletContext().setAttribute("user",user.getUsername());
-        response.sendRedirect("http://localhost:8080/homepage.html");
+        response.sendRedirect("http://localhost:8080/Day29/homepage.html");
 
     }
 

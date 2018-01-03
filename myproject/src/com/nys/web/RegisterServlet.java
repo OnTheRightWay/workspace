@@ -1,7 +1,6 @@
 package com.nys.web;
 
 import com.nys.bean.User;
-import com.nys.dao.Dao;
 import com.nys.util.RegisterAndLogin;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -28,10 +27,10 @@ public class RegisterServlet extends HttpServlet {
         }
         boolean register = RegisterAndLogin.register(user);
         if (!register){
-            response.sendRedirect("http://localhost:8080/register.html");
+            response.sendRedirect("http://localhost:8080/Day29/register.html");
             return;
         }
-        response.sendRedirect("http://localhost:8080/login.html");
+        response.sendRedirect("http://localhost:8080/Day29/login.html");
 
     }
 

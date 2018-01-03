@@ -9,7 +9,7 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Dao {
+public class UserDao {
     private static QueryUtil queryUtil = new QueryUtil();
     public static void insert(User user){
         try {
