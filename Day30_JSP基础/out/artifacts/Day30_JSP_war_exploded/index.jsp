@@ -11,6 +11,17 @@
     <title>$Title$</title>
   </head>
   <body>
-  <%=request.getAttribute("username")%>
+  <%--<%=request.getAttribute("username")%>--%>
+  <%
+    if(session.getAttribute("username")!=null){
+  %>
+        <h1>登录成功了，显示主页信息</h1>
+  <%
+    }else {
+  %>
+        <h1><a href="login.html">请去登录</a></h1>
+  <%
+    }
+  %>
   </body>
 </html>
