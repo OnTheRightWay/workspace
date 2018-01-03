@@ -2,7 +2,7 @@ package com.nys.dao;
 
 import com.nys.bean.User;
 import com.nys.util.JDBCUtil;
-import org.apache.commons.dbutils.handlers.BeanHandler;
+import com.nys.util.QueryUtil;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 

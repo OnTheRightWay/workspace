@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,7 +29,18 @@
                 <input name="username" type="text"class="username" style="font-size: 20px;font-family: 楷体"
                        placeholder="邮箱地址"
                        onfocus=usernameOnFocus(this)
-                       onblur=usernameOnBlur(this)>
+                       onblur=usernameOnBlur(this)
+                       <%
+                            String username = (String) session.getAttribute("username");
+                            if (username!=null)
+                            {
+                       %>
+                       value=<%=username%>
+                               <%
+                               }
+                               %>
+
+                >
                 <img id="u" src="img/用户.png">
                 <input name="password" type="password"class="password" style="font-size: 20px;font-family: 楷体"
                        placeholder="登录密码"

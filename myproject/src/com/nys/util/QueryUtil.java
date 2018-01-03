@@ -1,4 +1,4 @@
-package com.nys.dao;
+package com.nys.util;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -29,7 +29,7 @@ public class QueryUtil extends QueryRunner{
     @Override
     public int update(Connection conn, String sql, Object... params) throws SQLException {
         connection = conn;
-        int update = super.update(connection, sql, params[0],params[1]);
+        int update = super.update(connection, sql, params);
         connection.close();
         return update;
     }
