@@ -16,7 +16,7 @@
             <div class="word2">登录</div>
         </div>
         <ul>
-            <li style="border-right: solid 1px rgb(223,223,223)"><a href=""><span style="font-family: 鹿亡玫瑰海by木一">RW</span>首页</a></li>
+            <li style="border-right: solid 1px rgb(223,223,223)"><a href="index.jsp"><span style="font-family: 鹿亡玫瑰海by木一">RW</span>首页</a></li>
             <li><a href="">帮助与文档</a></li>
         </ul>
     </div>
@@ -31,7 +31,7 @@
                        onfocus=usernameOnFocus(this)
                        onblur=usernameOnBlur(this)
                        <%
-                            String username = (String) session.getAttribute("username");
+                            String username = (String) application.getAttribute("username");
                             if (username!=null)
                             {
                        %>

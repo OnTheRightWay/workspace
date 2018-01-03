@@ -42,6 +42,9 @@ public class HomepageServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String username =(String) request.getSession().getAttribute("username");
+        request.getSession().removeAttribute("username");
+        getServletContext().setAttribute("username",username);
+        response.sendRedirect("http://localhost:8080/Day29/login.jsp");
     }
 }

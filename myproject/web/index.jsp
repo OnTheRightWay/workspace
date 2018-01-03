@@ -29,7 +29,7 @@
     </div>
     <div class="word2">首页</div>
   </div>
-  <p style="float: right;line-height: 95px;margin-right: 40px"><a href="login.jsp">退出登录</a>
+  <p style="float: right;line-height: 95px;margin-right: 40px"><a href="home">退出登录</a>
   <div id="user" style="">
     <%
       String username = (String)session.getAttribute("username");
