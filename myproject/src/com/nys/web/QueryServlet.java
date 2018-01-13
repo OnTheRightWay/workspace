@@ -17,6 +17,7 @@ public class QueryServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=utf-8");
         User user = (User)getServletContext().getAttribute("user");
 //        response.getWriter().write(user);
         JSONObject jsonObject=JSONObject.fromObject(user);

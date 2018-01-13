@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>书籍详情</title>
@@ -18,12 +19,12 @@
 
 </body>
 <script type="text/javascript">
-    <%
-           request.setCharacterEncoding("utf-8");
-           String bname = request.getParameter("bname");
-       %>
+    <%--<%--%>
+           <%--request.setCharacterEncoding("utf-8");--%>
+<%--//           String bname = request.getParameter("bname");--%>
+       <%--%>--%>
     function show() {
-        var src="http://localhost:8080/Day29/register?bname=<%=bname%>";
+        var src="<c:url value="/register"/>"+"?bname=${param.bname}";
         $.getJSON(
             src,
             function (JSONData, status) {

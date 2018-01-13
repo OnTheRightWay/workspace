@@ -3,7 +3,7 @@ package com.nys.web;
 import com.nys.bean.Book;
 import com.nys.bean.User;
 import com.nys.dao.BookDao;
-import com.nys.util.RegisterAndLogin;
+import com.nys.service.UserService;
 import net.sf.json.JSONObject;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet(name = "RegisterServlet",urlPatterns = "/register")
@@ -30,12 +29,12 @@ public class RegisterServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        boolean register = RegisterAndLogin.register(user);
+        boolean register = UserService.register(user);
         if (!register){
-            response.sendRedirect("http://localhost:8080/Day29/register.html");
+            response.sendRedirect(request.getContextPath()+"register.html");
             return;
         }
-        response.sendRedirect("http://localhost:8080/Day29/login.jsp");
+        response.sendRedirect(request.getContextPath()+"login.jsp");
 
     }
 

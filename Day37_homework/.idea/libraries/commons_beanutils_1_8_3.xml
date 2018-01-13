@@ -1,0 +1,20 @@
+<component name="libraryTable">
+  <library name="commons-beanutils-1.8.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/jar包/BeanUtil/commons-beanutils-1.8.3.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/BeanUtil/commons-collections-3.2.1.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/BeanUtil/commons-logging-1.2.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/JSTL标签库/jstl-1.2.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/JSTL标签库/standard.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/mysql驱动/mysql-connector-java-5.1.18-bin.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/SQL工具/commons-dbutils-1.6.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/dbcp_jar包/commons-dbcp.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/dbcp_jar包/commons-dbutils-1.6.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/dbcp_jar包/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/dbcp_jar包/commons-pool-1.6.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/dbcp_jar包/mysql-connector-java-5.1.18-bin.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,139 @@
+发送邮件：
+   1、导入jar包 mail.jar
+   2、编写sendEmail方法
+   3、指定收件人邮箱
+    String to = ""；
+   4、指定发件人邮箱
+    String to = "" ；
+   5、指定发送邮件的主机为 smtp.qq.com(QQ邮件服务器)：
+    String to = "smtp.qq.com" ；
+   6、获取系统属性
+    Properties properties = System.getProperties();
+   7、设置邮件服务器
+    properties.setProperty("mail.smtp.host", host);
+    properties.put("mail.smtp.auth", "true");
+    MailSSLSocketFactory sf = new MailSSLSocketFactory();
+    sf.setTrustAllHosts(true);
+    properties.put("mail.smtp.ssl.enable", "true");
+    properties.put("mail.smtp.ssl.socketFactory", sf);
+   8、获取默认session对象
+    Session session = Session.getDefaultInstance(properties,new Authenticator(){
+        public PasswordAuthentication getPasswordAuthentication()
+        {
+            return new PasswordAuthentication(from, "*******"); //发件人邮件用户名、密码
+        }
+    });
+   9、创建默认的 MimeMessage 对象：
+    MimeMessage message = new MimeMessage(session);
+   10、邮件发送方
+    message.setFrom(new InternetAddress(from));
+   11、邮件接收方
+    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+   12、邮件标题
+    message.setSubject("我是标题");
+   13、邮件内容
+    message.setText("我是内容")
+   14、发送消息
+    Transport.send(message);
+
+servlet获取上传文件：上传文件的表单，无法通过request.getParameter()获取参数
+    1、判断表单是否包含enctype=multipart/form-data
+        ServletFileUpload.isMultipartContent(request)；
+    2、创建工厂，配置上传参数
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+    3、设置内存临界值 - 超过后将产生临时文件并存储于临时目录中
+        factory.setSizeThreshold(1024 * 1024 * 3);
+    4、设置临时存储目录
+        factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+    5、上传配置
+        ServletFileUpload upload = new ServletFileUpload(factory);
+    6、设置最大文件上传值
+        upload.setFileSizeMax(MAX_FILE_SIZE);
+    7、设置最大请求值 (包含文件和表单数据)
+        upload.setSizeMax(MAX_REQUEST_SIZE);
+    8、编码转换
+        upload.setHeaderEncoding("UTF-8");
+    9、构造文件的储存路径，这个路径相对当前应用的目录
+        String uploadPath = request.getServletContext().getRealPath("/book_img");
+    10、如果目录不存在则创建
+        File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+    11、储存表单数据
+        List<FileItem> formItems = null;
+        储存表单参数数据
+        Map<String,String> params = new HashMap<>();
+    12、解析表单数据，存入formItems中
+        formItems = upload.parseRequest(request);
+    13、如果表单不为空
+        if (formItems != null && formItems.size() > 0) {
+            // 迭代表单数据
+            for (FileItem item : formItems) {
+                if (item.isFormField()) {
+                    //取出表单中的参数，存入param中
+                    //如果你页面编码是utf-8的
+                    params.put(item.getFieldName(), item.getString("utf-8"));
+                }
+                // 处理不在表单中的字段
+                if (!item.isFormField()) {
+                    //得到文件名
+                    String fileName = new File(item.getName()).getName();
+                    String filePath = uploadPath + "/" + fileName;
+                    File storeFile = new File(filePath);
+                    // 保存文件到硬盘
+                    item.write(storeFile);
+                }
+            }
+图书商城：
+模块划分：
+前台：
+    用户模块：
+        注册/激活/登录/退出
+    分类模块：
+        查看所有分类
+    图书模块：
+        查询所有图书/按分类查询图书/查询图书详细（按id查）
+    购物车模块：
+        添加购物车条目/清空所有条目/删除指定条目/我的购物车（按用户查询购物车）
+    订单模块：
+        生成订单/我的订单（按用户查询订单）/按id查询订单/确认收货/付款功能（只是跳转到银行页面）
+        /付款回调功能（由银行来调用我们这个方法，表示用户已经付款成功）
+后台：
+    管理员：
+        登录
+    分类管理：
+        添加分类/查看所有分类/删除分类/按id查询/修改分类
+    图书管理（我的）:
+        查看所有图书/按id查询/删除图书/修改图书/添加图书（上传图片）
+    订单模块:查询所有订单/按状态查询订单/发货
+分包：
+    user：
+        domain/
+        dao/
+        service/
+        web.servlet;
+    category：
+        domain/
+        dao/
+        service/
+        web.servlet;
+    book：
+        domain/
+        dao/
+        service/
+        web.servlet;
+    cart：
+        domain/
+        web.servlet;
+    order：
+        domain/
+        dao/
+        service/
+        web.servlet;
+创建表：
+    tb_user
+    category
+    book
+    orders
+    orderitem

@@ -3,13 +3,13 @@ package com.nys.web;
 import com.nys.bean.Book;
 import com.nys.bean.User;
 import com.nys.dao.BookDao;
-import com.nys.util.RegisterAndLogin;
+import com.nys.service.UserService;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,14 +31,17 @@ public class LoginServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        boolean login = RegisterAndLogin.login(user);
+        boolean login = UserService.login(user);
         if (!login){
-            response.sendRedirect("http://localhost:8080/Day29/login.jsp");
+            response.sendRedirect(request.getContextPath()+"login.jsp");
             return;
         }
         getServletContext().setAttribute("user",user);
         request.getSession().setAttribute("username",user.getUsername());
-        response.sendRedirect("http://localhost:8080/Day29/index.jsp");
+        Cookie cookie = new Cookie("username",user.getUsername());
+        cookie.setMaxAge(60*60*24*10);
+        response.addCookie(cookie);
+        response.sendRedirect(request.getContextPath()+"/index.jsp");
 
     }
 

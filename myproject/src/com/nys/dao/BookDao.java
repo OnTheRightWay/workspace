@@ -50,4 +50,15 @@ public class BookDao {
         }
 
     }
+    public void deleteByBname(String bname){
+        try {
+            queryUtil.update(
+                    JDBCUtil.getConnection(),
+                    "delete from Book where bname=?",
+                    bname
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

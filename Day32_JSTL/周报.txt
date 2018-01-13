@@ -1,0 +1,180 @@
+@WebServlet	注解：
+    @WebServlet(name = "LoginServlet",urlPatterns = "/login");
+    name就是这个Servlet的名字，生成时默认使用类名，
+    urlPatterns就是访问这个Servlet时使用的路径
+
+响应头：响应头是一组键值对，用于后端向前端发送数据设置一些信息
+添加响应头：addHeader和setHeader
+set是给一个头设置内容，会覆盖改头之前的值
+add是给某一个头添加内容，如果改头之前有内容，此时会有多个值
+
+响应体：后端给前端的响应，例如“SUCCESS”后JSON数据，都属于响应体
+
+状态码：表示当次请求的状态
+请求成功（200），要求重定向（302），请求发生错误（404或405）
+
+请求头：请求头也是键值对，是浏览器发起请求时封装起来传输给服务器的
+通过Referrer请求头的值，可以判断当次请求是不是从本应用中发起的
+如果值为null：表示是从浏览器中直接进入的
+如果值不为null：表示是从本应用中发起的
+
+重定向sendRedirect（）
+    方法内传入绝对路径
+    response.sendRedirect("http://localhost:8080/index.jsp");
+重定向是让浏览器重新发起一个请求，路径可以使任意一个URL
+它的路径是一个绝对路径，可以访问外部的网站
+重定向会发起两个请求，第一次请求后，服务器返回一个状态码
+并指定第二个路径，服务器再向第二个路径发起请求
+重定向是浏览器在执行的，会改变浏览器地址栏中的地址
+
+请求转发与请求包含：
+1.只会请求一次
+2.地址栏路径不会发生改变
+3.只能转发到本应用中的资源
+4.相对路径
+5.请求转发：只有最后一个目标资源，可以响应浏览器
+    请求包含：多个Servlet可以同时响应浏览器
+
+请求转发/包含步骤：
+1.执行请求转发到某一资源，相对路径
+  RequestDispatcher dispatcher = request.getRequestDispatcher("/target");
+2.调用forward方法，就表示转发
+  dispatcher.forward(request,response);
+  调用include方法，表示请求包含
+  dispatcher.include(request,response);
+
+初始化参数：
+      全局参数：当应用启动时，就已经被设置好内容，每个Servlet都能用到
+      局部变量：为每个Servlet单独配置的初始化参数
+
+@WebServlet配置局部变量：
+@WebServlet(name = "ContextParamServlet",urlPatterns = "/cp",
+        initParams = {
+        @WebInitParam(name = "username",value = "王五"),
+        @WebInitParam(name = "age",value = "18")
+})；
+
+域对象：域表示一个范围，
+    参数是浏览器传递给服务器的
+    域对象是在服务器内部设置的
+    Servlet中的域：
+    1.request域：一次请求，从发起请求到响应结束
+    2.ServletContext域：当Servlet所处的服务器（Tomcat）启动时，该对象被创建
+            ，当服务器关闭时，该对象被销毁
+    3.session域：一次会话：即从服务器访问网站，到服务器关闭
+            session对象是服务器创建的，保存在服务器中
+            JSESSIONID保存在浏览器Cookie中
+
+JSP：JSP是一种运行在服务器端的脚本语言，使用来开发动态
+    网页的是JavaWeb程序开发的重要技术
+
+    当JSP页面被第一次访问时，服务器会把JSP文件编译成java文件（就是一个Servlet类）
+    然后编译成.class文件，执行.class文件创建该类对象，调用service方法
+    第二次请求同一jsp文件时，如果该文件未被改动，直接调用service方法
+
+JSP被淘汰的三种脚本语言：
+<%...%>用于定义Java语句，是在service方法中的
+<%=...%>用于输出一个变量
+<%!...%>用于定义方法和成员变量，是在类中，方法外的
+
+include静态包含：<%@include file="index.jsp"%>
+是在index.jsp被编译成.java文件之前就添加进本页面中了
+只会生成一个.java文件
+请求包含：<jsp:include page="index.jsp"/> 是动态包含
+会先创建出两个.jsp文件，再包含进本文件会生成两个.java文件
+
+请求转发：<jsp:forward page="index.jsp"/>
+
+JSP域：
+    PageContext（代理域）当前的jsp页面
+    Request一个请求链
+    Session整个会话
+    Application（ServletContext）整个应用程序
+
+JSP九大内置对象：
+1,application   2,config    3,exception 4,out   5,page
+6,PageContext   7,request   8,response  9，session
+
+pageContext对象：代理域
+使用PageContext，可以向其他域对象中设置属性，列如：
+pageContext.setAttribute("game","Session",PageContext.SESSION_SCOPE);
+pageContext.findAttribute("XXX");会在所有域中查找，从小到大查找
+可以在参数中指定查找的域pageContext.findAttribute("XXX"，PageContext.REQUEST_SCOPE);
+
+exception对象：
+只会产生在错误处理页面<%@page isErrorPage="true" %>
+可以指定当前页面为错误页面
+jsp可以设置当出现异常时转发到一个错误处理页面
+可以在错误处理页面使用内置对象exception
+
+设置Cookie：
+1.设置响应头  response.addHeader("Set-Cookie","name=zhangSan")
+设置响应头,cookie名字为name，值为zhangSan
+2.使用Cookie对象
+Cookie c = new Cookie("name","zhangSan");
+c.setPath("")设置cookie路径
+response.addCookie(c);添加cookie
+
+Cookie存活时间：
+1.默认情况下，一个Cookie的到期时间为会话结束时，就是浏览器关闭时
+2.使用c.setMaxAge(50);设置存活时间，单位秒
+设置为负数，表示到期时间为会话结束
+设置为0，表示销毁该cookie
+设置为正数，表示存活秒数
+取得Cookie：Cookie[] cookie = request.getCookies();
+
+EL表达式：
+EL表达式代替的是<%=...%>,也就是作为输出
+当El获得的属性不存在时，不会显示null，会输出空字符串
+El表达式可以获得JSP四大域中的域属性，和pageContext类似
+
+JavaBean导航：
+JavaBean导航就是通过“."获得属性
+等同于在使用get方法获取属性
+例：${session.name.value}
+
+EL内置对象：
+EL有11个内置对象，其中10个是Map类型，只有PageContext不是Map类型
+而是PageContext类型
+
+EL域：pageScope，requestScope，sessionScope，applicationScope
+
+获得参数：
+param（Map（String，String））得到单值参数
+paramValues（Map（String，String[]））得到多字参数
+
+pageContext可以通过该对象获得jsp九大内值对象中的其他八个
+
+EL函数库
+指定函数库：<%@taglib prefix="fn" uri="http://java:sun.com/jsp/jstl/functions"%>
+fn:contains判断字符串是否包含另一个字符串
+
+c:set 操作属性
+创建属性：<c:set var="name" value="张三" scope="request"/>
+    var：属性名，value：属性值，scope：域
+修改属性：<c:set target="${user}" property="gender" value="女"/>
+0
+    property：要修改的属性，
+    value：；要修改成什么值；
+
+c:out 输出
+<c:out value="你好"/>直接显示在jsp页面中
+<c:out value="${requestScope.user.gender}" default=""/>value中使用El表达式查找域属性
+
+c:if 条件判断
+<c:if test="${6 >= 6}" var="result" scope="request">
+test：判断条件，var：属性名（将这个判断语句存入这个属性中），scope：属性的域；
+如果以后用到相同的判断条件，可以直接使用变量result来判断：<c:if test="${result}">
+
+c:forEach 循环
+1.for循环<c:forEach begin="0" end="10" step="2">
+    begin：循环初始值，end：循环结束值，step：每次循环增加多少
+2.增强for循环<c:forEach var="user" items="${requestScope.users}" varStatus="vs">
+    var：变量（取出的值），items集合对象，varStatus：循环状态角标：${vs.index}
+                                                    第几个：${vs.count}
+                                                    当前对象：${vs.current}
+
+
+c:url 路径
+<a href="<c:url value="/index.jsp"/>">访问主页</a>
+会在value指向的路径前面，加上项目名

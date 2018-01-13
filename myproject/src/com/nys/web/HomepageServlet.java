@@ -31,20 +31,20 @@ public class HomepageServlet extends HttpServlet {
         double price = book.getPrice();
         String cover = book.getAuthor();
         if (bname==null||cover==null){
-            response.sendRedirect("http://localhost:8080/Day29/index.jsp");
+            response.sendRedirect(request.getContextPath()+"/index.jsp");
             System.out.println("book插入失败");
             return;
         }
         bookDao.insert(book);
         System.out.println("book插入成功");
-        response.sendRedirect("http://localhost:8080/Day29/index.jsp");
+        response.sendRedirect(request.getContextPath()+"/index.jsp");
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username =(String) request.getSession().getAttribute("username");
         request.getSession().removeAttribute("username");
-        getServletContext().setAttribute("username",username);
-        response.sendRedirect("http://localhost:8080/Day29/login.jsp");
+//        getServletContext().setAttribute("username",username);
+        response.sendRedirect(request.getContextPath()+"/login.jsp");
     }
 }

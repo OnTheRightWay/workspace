@@ -7,7 +7,7 @@
     end         将光标移动到行首
     shift+F10   运行，上一次运行的程序
     ctrl+shift+F10  运行当前的程序
-    双击shift   查找摸个文件
+    双击shift   查找某个文件
     shift+F6    对某个文件，某个对象，某个方法更名
     ctrl+alt+l  代码格式化
 

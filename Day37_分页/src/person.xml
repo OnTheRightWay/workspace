@@ -1,0 +1,16 @@
+<xml.Person>
+  <users>
+    <xml.User>
+      <name>liSi</name>
+      <password>123</password>
+    </xml.User>
+    <xml.User>
+      <name>zhangSan</name>
+      <password>123</password>
+    </xml.User>
+    <xml.User>
+      <name>wangWu</name>
+      <password>123</password>
+    </xml.User>
+  </users>
+</xml.Person>

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -16,6 +17,22 @@
     a{
       text-decoration-line: none;
       color: black;
+    }
+
+    td{
+      width: 100px;
+      height: 50px;
+      border: solid 1px black;
+    }
+    table{
+      width: 700px;
+      height: 500px;
+    }
+    tr{
+      text-align: center;
+      line-height: 50px;
+      width: 100px;
+      height: 50px;
     }
   </style>
 
@@ -31,25 +48,18 @@
   </div>
   <p style="float: right;line-height: 95px;margin-right: 40px"><a href="home">退出登录</a>
   <div id="user" style="">
-    <%
-      String username = (String)session.getAttribute("username");
-      if (username!=null){
-    %>
-          当前用户：<%=username%>
-    <%
-      }else {
-    %>
-          <a href="login.jsp" id="quit">请登录</a>
-    <%
-      }
-    %>
+  <c:if test="${sessionScope.username!=null}" var="user" scope="request">
+    当前用户：${sessionScope.username}
+  </c:if>
+  <c:if test="${!requestScope.user}">
+    <a href="login.jsp" id="quit">请登录</a>
+  </c:if>
+
   </div>
 </div>
 <div class="body">
   <div class="nav">
-    <%
-      if (username!=null){
-    %>
+    <c:if test="${requestScope.user}">
     <form action="home" method="post">
     书名：<input type="text" name="bname">
     <br>
@@ -59,23 +69,22 @@
     <br>
     <input type="submit" value="确定" id="submit">
     </form>
-    <%
-      }
-    %>
+    <br>
+    <form action="remove" method="post">
+      移除本书：<input type="text" name="bname">
+      <input type="submit" value="删除">
+    </form>
+    </c:if>
   </div>
-  <%
-    if (username!=null){
-  %>
-  <table id="show">
-  </table>
-  <%
-    }
-  %>
+  <c:if test="${requestScope.user}">
+    <table id="show">
+    </table>
+  </c:if>
 </div>
 </body>
 <script type="text/javascript">
   function show() {
-      var url= "http://localhost:8080/Day29/login";
+      var url= "<c:url value="/login"/>";
   $.getJSON(
       url,function (JSONData, status) {
           if (status=="success"){
@@ -86,7 +95,7 @@
               );
               $.each(JSONData,function (index, data) {
                   $('table').append(
-                      $('<tr>').append($('<td>').append($('<a>').attr({"href":"http://localhost:8080/Day29/show.jsp?bname="+data['bname']}).text(data['bname'])))
+                      $('<tr>').append($('<td>').append($('<a>').attr({"href":"/Day29/show.jsp?bname="+data['bname']}).text(data['bname'])))
                           .append($('<td>').text(data['author']))
                           .append($('<td>').text(data['price']))
                   );
