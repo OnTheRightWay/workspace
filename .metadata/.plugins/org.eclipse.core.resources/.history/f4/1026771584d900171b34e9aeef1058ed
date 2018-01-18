@@ -1,9 +1,0 @@
-package sort;
-
-public class Words {
-
-	public static void main(String[] args) {
-		int[] array = {2,4,3,5,1};
-	}
-
-}

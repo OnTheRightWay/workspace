@@ -1,9 +1,0 @@
-package com.lanou3g.study;
-
-public class Company {
-	private Teacher t;
-	private Doctor doc;
-	
-	
-	
-}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="add" extends="struts-default">
+
+        <global-results>
+            <result name="success">index.jsp</result>
+        </global-results>
+        <action name="addList" class="MyAction" method="addList"/>
+        <action name="addBook" class="MyAction" method="addBook"/>
+        <action name="addMap" class="MyAction" method="addMap"/>
+    </package>
+</struts>

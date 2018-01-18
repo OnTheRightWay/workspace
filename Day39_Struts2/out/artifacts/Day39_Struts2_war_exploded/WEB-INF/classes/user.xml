@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.devMode" value="true"/>
+    <package name="user" extends="struts-default" namespace="/user">
+
+
+    <action name="add" class="UserAction" method="add">
+
+        <result name="success">add.jsp</result>
+    </action>
+
+        <action name="delete" class="UserAction" method="delete">
+            <result name="success">delete.jsp</result>
+        </action>
+        
+        <action name="modify" class="UserAction" method="modify">
+            <result name="success">modify.jsp</result>
+        </action>
+
+        <action name="*_*" class="UserAction" method="{1}">
+            <result name="success">{2}.jsp</result>
+        </action>
+
+    </package>
+
+
+</struts>

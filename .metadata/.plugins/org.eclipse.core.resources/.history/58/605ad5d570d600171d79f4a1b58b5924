@@ -1,7 +1,0 @@
-package com.lanou3g.normal;
-
-public class CalendarDemo {
-	public static void main(String[] args) {
-		Date data = new Date()
-	}
-}

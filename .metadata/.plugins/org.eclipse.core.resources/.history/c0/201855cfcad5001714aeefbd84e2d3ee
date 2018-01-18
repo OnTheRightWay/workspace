@@ -1,6 +1,0 @@
-package pets;
-
-public class Pets {
-	private String Name;
-	
-}

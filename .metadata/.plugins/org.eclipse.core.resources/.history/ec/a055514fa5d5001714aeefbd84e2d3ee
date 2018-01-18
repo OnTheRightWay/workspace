@@ -1,8 +1,0 @@
-package sort;
-
-public class SelectSort {
-	public static void main(String[] args) {
-		int [] array={6,5,1,8,9,7,10,5,2,3,6};
-	}
-	public static void selectSort(Object [] array){}
-}
