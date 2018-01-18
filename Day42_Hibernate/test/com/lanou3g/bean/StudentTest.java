@@ -102,6 +102,7 @@ public class StudentTest {
                 return session.get(Student.class, 1L);
             }
         });
+//        HibernateUtil.handle(session -> session.get(Student.class,1L));
         System.out.println(student);
     }
 }
