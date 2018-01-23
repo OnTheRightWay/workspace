@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Day45_午分享:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Day45__war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Day45_午分享_源生js获取json数据/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Day45_午分享_源生js获取json数据" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Struts 2" />
+          <element id="library" level="project" name="jstl-1.2" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

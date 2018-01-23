@@ -4,12 +4,28 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:mysql://localhost:3306/hibernate02</property>
-    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-     <property name="connection.username">root</property>
-     <property name="connection.password">123</property>
+    <!--开启二级缓存-->
+    <property name="hibernate.cache.use_second_level_cache">true</property>
+    <!--指定缓存产品提供商-->
+    <property name="hibernate.cache.region.factory_class">
+      org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+    <!--
+      开启二级缓存的统计机制
+      可以获得含有多少个数据
+    -->
+    <property name="generate_statistics">true</property>
 
-    <!-- DB schema will be updated if needed -->
+    <!--
+      开启查询缓存
+    -->
+    <property name="hibernate.cache.use_query_cache">true</property>
+
+   <property name="connection.url">jdbc:mysql://localhost:3306/hibernate02</property>
+   <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+   <property name="connection.username">root</property>
+   <property name="connection.password">123</property>
+
+     <!-- DB schema will be updated if needed -->
     <property name="hbm2ddl.auto">update</property>
 
 
@@ -24,5 +40,13 @@
     <property name="current_session_context_class">thread</property>
     <mapping resource="com/lanou3g/bean/Clazz.hbm.xml"/>
     <mapping resource="com/lanou3g/bean/Student.hbm.xml"/>
+      <mapping resource="com/lanou3g/bean/onetoone/Husband.hbm.xml"/>
+      <mapping resource="com/lanou3g/bean/onetoone/Wife.hbm.xml"/>
+    <mapping resource="com/lanou3g/bean/manytomany/Role.hbm.xml"/>
+    <mapping resource="com/lanou3g/bean/manytomany/User.hbm.xml"/>
+
+
+    <!--指定哪些实体使用二级缓存-->
+    <class-cache class="com.lanou3g.bean.Clazz" usage="read-write"/>
   </session-factory>
 </hibernate-configuration>

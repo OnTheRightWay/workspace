@@ -24,10 +24,10 @@
         <input type="text" name="map.stu3">
         <s:submit/>
     </s:form>
-    <s:form action="addBook" method="POST">
-        <input type="text" name="book.bname">
-        <input type="text" name="book.author">
-        <input type="number" name="book.price">
+    <s:form action="addSet" method="POST">
+        <input type="text" name="set.makeNew(0).bname">
+        <input type="text" name="set.makeNew(0).author">
+        <input type="text" name="set.makeNew(0).price">
         <s:submit/>
     </s:form>
 </body>

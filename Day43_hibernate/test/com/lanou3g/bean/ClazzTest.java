@@ -1,10 +1,15 @@
 package com.lanou3g.bean;
 
 import com.lanou3g.util.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ClazzTest {
     /**
@@ -131,6 +136,60 @@ public class ClazzTest {
 
             session.save(s1);
             session.save(s2);
+
+            return null;
+        });
+    }
+    @Test
+    public void validateSecond(){
+        HibernateUtil.handle(session -> {
+            //查找数据库，得到数据
+            //将数据存到一级缓存中，存到二级缓存中
+            Clazz clazz = session.get(Clazz.class,1);
+            //这里，发现从一级缓存中有该数据
+            //则直接从一级缓存中获取，不再查找数据库
+            clazz = session.get(Clazz.class,1);
+            return null;
+        });
+        HibernateUtil.handle(session -> {
+            //这里，已经不再是上一个session了
+            //是一个新的session了
+            //所以一级缓存中，肯定没有数据
+            //那么去二级缓存中找，也找到了
+            //所以也不会去查找数据库
+            Clazz clazz = session.get(Clazz.class,1);
+            return null;
+        });
+    }
+    @Test
+    public void query(){
+        HibernateUtil.handle(session -> {
+            //from后面跟着的是类的全名
+            Query query = session.createQuery("from " + Clazz.class.getName());
+            List<Clazz> list = query.list();
+
+            for (Clazz clazz : list) {
+                System.out.println(clazz);
+            }
+            //输出，二级缓存中数据总数
+            //这个得在配置文件中，配置开启二级缓存统计
+            System.out.println(
+                    session.getSessionFactory().getStatistics()
+                    .getEntityLoadCount()
+            );
+            return null;
+        });
+    }
+    @Test
+    public void queryCache(){
+        HibernateUtil.handle(session -> {
+            Query query = session.createQuery("from " + Clazz.class.getName());
+            //手动开启查询缓存
+            query.setCacheable(true);
+
+            List list = query.list();
+
+            System.out.println(Arrays.toString(list.toArray()));
 
             return null;
         });

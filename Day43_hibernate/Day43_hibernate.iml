@@ -30,5 +30,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="hinernate_util" level="project" />
+    <orderEntry type="library" name="hinernate_util (2)" level="project" />
   </component>
 </module>

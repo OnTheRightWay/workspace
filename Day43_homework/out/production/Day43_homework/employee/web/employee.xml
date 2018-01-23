@@ -1,0 +1,38 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <package name="employee" extends="struts-default">
+        <result-types>
+            <result-type name="findAll" class="employee.web.FindAllResult"/>
+        </result-types>
+        <interceptors>
+            <interceptor name="login1" class="util.LoginInterceptor"/>
+            <interceptor-stack name="login">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="login1"/>
+            </interceptor-stack>
+        </interceptors>
+        <global-results>
+            <result name="login">login.jsp</result>
+        </global-results>
+        <action name="findAll" class="employee.web.EmployeeAction" method="findAll">
+            <interceptor-ref name="login"/>
+            <result name="success" type="findAll"/>
+        </action>
+        <action name="add" class="employee.web.EmployeeAction" method="add">
+            <interceptor-ref name="login"/>
+            <result name="input">index.jsp</result>
+            <result name="success">index.jsp</result>
+        </action>
+        <action name="toModify" class="employee.web.EmployeeAction" method="toModify">
+            <interceptor-ref name="login"/>
+            <result name="success">modify.jsp</result>
+        </action>
+        <action name="modify" class="employee.web.EmployeeAction" method="modify">
+            <interceptor-ref name="login"/>
+            <result name="input" >modify.jsp</result>
+            <result name="success">index.jsp</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,343 @@
+Struts2是一个javaweb框架。Struts2并不是在Struts1基础上改进的
+一个框架。Struts2是基于MVC开发模型的一个框架，基于表现层框架
+
+Action的配置
+1、创建一个类继承于ActionSupport
+2、编写一个返回值为String的方法，返回一个字符串，例：“success”
+3、在struts.xml文件中，插入一个package标签，指定name，extends
+    java类与类之间，通过包来区分，这里action之间，通过package来区分
+    name：包的名字；extends：这个包继承那个包，我们自定义的package，一定都会
+        直接或间接的继承struts-default
+4、在package标签中插入action标签，指定name和class
+5、在action标签中插入result标签，指定name=返回的字符串，例“success
+    标签中的文档中填入目标路径（默认为请求转发）
+
+若果在Struts配置文件中，没有滴定action要执行的action类中的对应的方法，
+就会默认的执行action类中的execute（）方法，该execute方法返回值是success，
+所以也能找到到result标签中对应name为success的路径
+
+可以使用通配符“*”作为action的路径，可以扩展方法的结果
+在name属性中定义*，在后面使用的时候，用{i}代表使用第几个通配符
+
+通过<constant name="struts.action.extension" value="yy"/>设置action的后缀名
+设置后，访问action时就需要加上这个后缀名
+
+设置开发者模式<constant name="struts.devMode" value="true"/>
+设置后，使得程序员改变xml文件后，不必重启服务器，只需更新资源即可
+
+struts2配置文件加载顺序：
+struts.xml;struts.properties;web.xml;后加载文件中的配置会将先加载的文件中的
+配置覆盖
+
+Struts2运行流程：
+    当请求发起时，先通过struts2自带的一些过滤器，然后到struts.xml
+    文件中找到对应的action和对应的class与method，运行找到的方法，的
+    到返回值，根据返回值到struts.xml文件中找到对应的result。
+
+Action的几种创建方式：
+    1、创建POJO类：局势简单的Java类，没有实现任何接口，也没有实现任何类；
+    2、创建一个类实现Action接口：
+            这个接口中，定义了一些全局常量，和一个execute方法
+    3、创建一个类，继承ActionSupport类：ActionSupport类实现了Action接口
+
+Action获取域属性：
+    1、通过ServletActionContext类的静态方法获得
+        ServletActionContext.getRequest().setAttribute("users",users);
+    2、通过实现xxxAware接口的方式获得ServletAPI，实现setServletXXX方法
+          public void setServletRequest(HttpServletRequest httpServletRequest) {
+                  this.request=httpServletRequest;
+              }设置成员变量接收得到的request对象
+
+        当只使用一次域对象时，可以使用ServletActionContext.getRequest()直接获得
+        当重复使用同一个与对象时，通过实现接口的方法，更简便。
+
+转发到不同包：
+   转发到不同的包，需要设置参数指定action的命名空间和acting的名字
+   <param name="namespace">/global</param>
+   <param name="actionName">gr</param>
+设置全局结果：
+    设置全局结果后，当action找不到对应的result时，就会到全局结果中找对应的result
+
+静态参数：
+    直接定义在配置文件中的参数称为静态参数
+    只需要在action类中有对应属性的set/get方法，struts就能帮我们将参数设置到属性中
+动态参数：
+    不会在配置文件中设置固定的值，从表单中提交的值，会被设置到对应的属性中
+    ，属性必须含有set方法，如果在表单中要传递给对象的属性，name前面要加上对象名.
+
+ModelDriven:模型驱动
+    通过实现ModelDriven接口，也可以实现对成员变量的赋值
+    ModelDriven可以指定一个泛型但确定类型后，就只能赋值一种对象的属性了
+    模型驱动不会帮助我们创建对象，需要我们手动创建
+    在getModel方法中要将对象返回
+    使用模型驱动设置对象的属性，用用在表单的name属性前面加对象名.
+
+生成验证码：
+    VerifyCode.getInstance().output(
+                    ServletActionContext.getResponse().getOutputStream()
+            );
+自定义result的type属性：
+    1、创建一个类实现Result接口
+    2、在package标签中定义type
+        <result-types>
+            <result-type name="codeImg" class="result.CodeImgResult"/>
+        </result-types>
+    3、在result标签的type属性中使用自定义的type
+
+验证：
+    一、在Action类中实现validate方法，验证这个类
+        @Override
+            public void validate() {
+                //判断是否为空
+                if(StringUtils.isBlank(student.getUsername())){
+                    addFieldError("errorMsg","用户名不能为空");
+                }
+            }
+        运行到addFieldError方法时，会自动返回input
+        可以使用@SkipValidation注解，让验证跳过指定方法，不验证这个方法
+    二、添加一个方法，方法名为validate+要验证的方法名
+        这个方法会由struts2帮我们调用，帮我们验证指定的方法
+    三、创建创建DecValAction-validation.xml文件，验证DecValAction类
+        或者创建DecValAction-show-validation.xml文件，验证DecValAction类的show方法
+        指定要验证哪个属性
+            <field name="name">
+                <field-validator type="required">
+                    <message>name不能为空</message>
+                </field-validator>
+                <field-validator type="requiredstring">
+                    <message>name不能为空的字符串</message>
+                </field-validator>
+            </field>
+拦截器：
+    1、创建一个类继承AbstractInterceptor
+    2、复写intercept方法，该方法的参数，actionInvocation决定是否放行
+        执行actionInvocation.invoke();时表示放行
+    3、在package标签中声明拦截器
+        <interceptors>
+              <interceptor name="my" class="interceptor.MyInterceptor"/>
+        </interceptors>
+        拦截器的声明，必须放在第一行
+    4、在action标签中使用如下标签使用该拦截器
+      <interceptor-ref name="my"/>
+拦截器栈：
+    创建一个拦截器类
+    在struts.xml文件package标签中声明这个拦截器
+    在package标签中声明拦截器栈，在拦截器栈的标签中将我们创建的拦截器添加到栈中
+    但是，使用这个拦截器栈，会导致默认的拦截器栈被覆盖，我们需要在我们自己声明的拦截器栈中，将默认的拦截器栈添加进来
+    <interceptor-ref name="defaultStack"/>
+    如果在创建拦截器类的时候，选择继承MethodFilterInterceptor类，那么
+    在声明拦截器的时候，可以在声明拦截器标签的地方，使用包含，排除，子标签
+    选择拦截器包含或者排除哪个方法
+    param name="includeMethods">method1,method2</param><!-- 拦截的方法 -->
+    <param name="excludeMethods"></param><!-- 不拦截的方法-->
+
+下载文件
+在Action类中，通过servletContext.getResourceAsStream("文件相对路径")
+得到文件的字节流
+在result标签中设置type属性为stream，在result标签体中，将文件流的属性名字
+加入到里面，即可实现在网页中显示该图片
+若想下载该图片，还需在标签中加入如下标签
+<!--指定输入流名字-->
+<param name="inputName">stream</param>
+<param name="contentDisposition">attachment;filename=${filename}</param>
+<param name="contentType">application/octet-stream</param>
+filename可以在，action中设置
+
+OGNl标签获得数据：
+     <s:property value="'hello'.length"/>获得属性
+     在value属性中只有用单引号括起来的才会被认为是字符串
+     如果不用单引号括起来，OGNL会认为，这是一个表达式
+     在标签中同样可以使用字符串的length方法，获得字符串的长度
+     如果要使用静态方法直接使用两个@<s:property value="@@abs(-100)"/>
+     默认是不允许使用静态方法的，需要在struts标签中添加
+     <s:property value="@@abs(-100)"/>
+
+获得域属性：
+    使用#，调用域对象，使用. 找到对象中的属性
+    <s:property value="#request.hello"/>
+
+ActionContext：
+    ActionContext相当于每个Action的上下文
+    通过ActionContext.getContext();获得ActionContext
+    ActionContext是一个Map集合，存放键值对，使用put方法，添加数据
+    ActionContext中存放有域属性
+
+值栈ValueStack
+    值栈存放在ActionContext中，可以通过ActionContext.getContext().getValueStack();获得值栈
+    值栈是以栈的形式存放数据的，数据先进后出
+    CompoundRoot root = valueStack.getRoot();获得栈顶对象
+    向栈中存放数据，是从栈顶压入的，也叫压栈root.push("我是一个数据");
+    root.peek();方法用来获取栈顶的数据
+    出栈：root.pop();将栈顶的数据弹出
+
+获取contextMap中的数据
+    要用#开头
+    <s:property value="#show"/>
+    该标签作用为：获取ActionContext中的键值对，键为show，输出对应的值
+
+获取栈中对象的属性
+    <s:property value="name"/>
+    会从栈顶的对象一直向下查找，找到后停止，相当于El中的全域查找
+
+设置域属性
+    <s:set var="v" value="'value'" scope="session"/>
+    设置session域属性，名为v，值为value
+
+创建Hibernate：
+    创建一个Hibernate工程，导入Hibernate相应的jar包
+    在hibernate.cfg.xml中设置配置信息
+    配置连接方式及数据库路径，指定驱动，用户名和密码
+    <propertyname="connection.url">jdbc:mysql://localhost:3306/hibernate01</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password">123</property>
+    指定数据库方言：mysql5以前的使用MYSQLDialect，mysql5以后的使用MYSQL5Dialect
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    设置是否执行ddl，update表示每次运行都更新表结构
+
+根据实体类，更新表
+    1、创建实体类Student
+    2、创建Student.hnm.xml配置文件
+    3、导入声明
+    <!DOCTYPE hibernate-mapping PUBLIC
+            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+            "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    4、创建hibernate-mapping标签，在这个标签里创建class标签，指定name为实体类的路径，再class标签内可
+    以设置table属性，表示生成的表名，如果不指定默认表名与类名相同
+    5、在class标签中创建id标签，指定主键，name属性名，column字段名
+    	可以设置id标签的子标签<generator class="increment"/>设置为主键自增长
+    	或<generator class="uuid"/>主键为UUID
+    6、设置id标签的兄弟标签，指定name属性名，column字段名，type类型；
+    	可以设置子标签column标签，其中设置sql-type属性指定SQL中的类型
+    7、在hibernate.cfg.xml中导入配置信息
+    	<mapping resource="Student.hbm.xml"/>
+    8、只要运行new Configuration().configure().buildSessionFactory();访问配置文件
+    就会在数据库中生成对应的表
+
+改变对象的属性：
+    使用session.get(Student.class,1L)方法,取出类型为student，id为1的对象
+    使用student的setName方法，改变对象的name属性
+    此时不需要再执行session.update方法,数据库中的数据已经被改变了
+    注意不要忘了提交事务
+
+对象的状态：
+    hibernate中的对象有三种状态：临时状态，持久化状态，游离状态
+    new直接创建出来的对象就是临时状态，在数据库中找不到对应的数据
+    save方法可以将对象从临时状态转化为持久化状态
+    get取出的对象也是持久化状态的
+    对持久化的数据进行更改，会直接改变数据库中的数据
+    session.evict(student);可以把一个持久性对象变为游离状态
+    当一个对象变成游离状态时，hibernate就不会再对这个对象进行维护
+    维护：hibernate保证对象的属性值与数据库中的一致
+    update可以使一个对象变成持久性状态
+    clear方法可以使hibernate中所有的持久性对象变成游离状态
+
+将对象存入数据库中：
+    1、创建一个装载配置信息的对象
+    Configuration config = new Configuration();
+    2、加载配置信息
+     config.configure();
+    3、创建一个SessionFactory类，这个类负责创建Session
+    SessionFactory sf = config.buildSessionFactory();
+    4、开启一个session，在hibernate中session就相当于jdbc中的connection
+    Session session = sf.openSession();
+    5、开启事务，返回一个事务对象
+     Transaction transaction = transaction.begin();
+    6、调用save方法存入对象
+    session.save(teacher);
+    7、提交事务，只有提交了事务，上述操作才会被更新到数据库中
+    transaction.commit();
+    8、关闭session
+    session.close();
+
+一级缓存
+    一级缓存随着session产生而产生，session关闭而消失；
+    一级缓存是存在于session中的一个map集合；
+    当执行save或get方法后，对象会被保存到一级缓存中；
+    当我们执行get方法时，会去缓存中找有没有相应的对象如果有，则不会执行sql语句
+    直接从缓存中获取数据；
+    当我们执行过session.evict(clazz)方法后，对象会从缓存中清除
+    ，再次执行get方法时，会再去数据库中查找
+
+一对多关系
+    1、在“一”类中，创建一个Set集合，用来存放“多”的类的对象，Set必须初始化
+    2、在“一”的类的配置文件中（Class.hbm.xml）hibernate-mapping标签内添加set标签
+    3、在set标签中添加属性name，指定Set集合的引用名称；
+    4、set标签中添加key子标签，key标签的column属性，指定“多”的表的外键
+    5、添加set的子标签one-to-many标签，指定class属性为“多”的类的名字
+    6、在“多”的类中创建一个“一”类的类型的成员变量，创建getter/setter方法
+    7、在“多”的类的class标签中添加many-to-one子标签，指定name属性为”一“类成员变量的名称，
+    class属性为”一“类成员变量的类名
+    8、在多类的配置文件中，set标签中添加属性cascade="save-update"
+
+级联操作
+    cascade：级联操作；
+    save-update：保存和更新是级联操作；如果设置成all表示所有操作都是级联操作；
+    级联操作：对设置了级联操作的表进行操作时，对应的表也会被操作
+    session.save(clazz);如果设置了级联操作，在保存clazz时也会保存它对应的student
+
+逆：
+    set标签中设置inverse="true"设置为逆；默认为false
+    逆就是把一对多关系反转过来，相当于变成了多对一
+    原来维护关系的一方是设置cascade的一方，设置为逆之后，维护关系的一方就变成了对面的那一方
+    维护：一对多关系是由表中的外键来确定的
+    维护关系就是在维护外键
+
+使用当前的session：
+    因为不同的session缓存不同，事务也不同，有的时候需要在一个事务中完成，就需要使用当前的session，而不是再创建一个session
+    可以使用getCurrentSession方法获得当前的session
+    必须在hibernate.xml文件中设置
+    <property name="current_session_context_class">thread</property>
+    才能使用getCurrentSession方法
+
+多对多：
+    1、在两个类中分别添加对方的类的Set集合
+    2、在两个配置文件中都添加set标签，设置name和级联cascade
+    3、set中添加可key标签和many-to-many标签
+    4、不用在数据表中添加对应的外键
+
+一对一：
+    1、在两个类中都添加对方类型的成员变量，set/get方法
+    2、都在xml配置文件中添加one-to-one标签
+    3、在one-to-one标签中添加属性
+    name：成员变量的名字
+    cascade：级联操作
+    class：对方的类的类名
+    4、在其中一个xml文件中给one-to-one标签添加一个属性constrained="true"
+    ，将这个表设置为主表，当删除和更新这个表时，都要先删除和更新两一个表
+
+二级缓存：
+    1、导入jar包
+    2、添加ehcache.xml配置文件
+    3、在hibernate.xml文件中添加
+    <property name="hibernate.cache.use_second_level_cache">true</property>
+    开启二级缓存
+    4、<property name="hibernate.cache.region.factory_class">
+          org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+    指定缓存产品提供商
+    5、在mapping标签下面，添加兄弟标签
+    <class-cache class="com.lanou3g.bean.Clazz" usage="read-write"/>
+    指定哪些实体使用二级缓存，没有指定的实体都无法使用二级缓存
+    在查找一个对象数据的时候，会先去一级缓存中查找，若果没有，再去二级缓存中查找，如果还没有，
+    才会去数据库中获取数据，并将获取到的数据存放到一级缓存和二级缓存之中
+
+统计缓存：
+    使用 session.getSessionFactory().getStatistics()
+                        .getEntityLoadCount()查询二级缓存中的数据总数
+    需要先在hibernate.xml中配置
+    开启二级缓存的统计机制，可以获得含有多少个数据
+    <property name="generate_statistics">true</property>
+
+查询缓存：
+    在hibernate,xml中添加
+    <property name="hibernate.cache.use_query_cache">true</property>
+    开启查询缓存
+    查询缓存需要手动开启
+    query.setCacheable(true);
+    查询缓存中使用时间戳缓存盘端数据是否更新
+
+缓存总结：
+    一级缓存：在一次请求中尽量减少和数据库的交互次数。在session.flush之前，改变的是以及缓存对象的属性。当
+    session.flush是才和数据库交互，以及缓存解决不了查询重复的问题。一级缓存是对象缓存
+    二级缓存：把经常不改变，常用的，公共的数据存放进来。可以重复插叙。利用get/iterate可以的到二级缓存数据
+    查询缓存：可以缓存对象或数据。可以利用list得到查询缓存数据。查询缓存中存放的是数据，是数据缓存

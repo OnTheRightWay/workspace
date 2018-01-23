@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="hinernate_util (2)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/hinernate_util.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="car"
+          class="com.lanou.di.Car">
+        <constructor-arg name="name"
+                         value="辉腾"/>
+    </bean>
+    <bean id="car2"
+          class="com.lanou.di.Car">
+        <constructor-arg name="name"
+                         value="大众"/>
+    </bean>
+    <bean id="car3"
+          class="com.lanou.di.Car">
+        <constructor-arg name="name"
+                         value="奥迪"/>
+    </bean>
+    <bean id="per"
+          class="com.lanou.di.Person" init-method="init">
+        <constructor-arg name="name"
+                         value="张三"/>
+        <constructor-arg name="age"
+                         value="111"/>
+        <constructor-arg name="gender"
+                         value="太监"/>
+        <constructor-arg name="car"
+                         ref="car3"/>
+        <property name="list">
+            <list>
+                <value>自行车</value>
+                <ref bean="car2"/>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>三轮车</value>
+                <ref bean="car"/>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="车">
+                    <ref bean="car2"/>
+                </entry>
+                <entry key="房子">
+                    <value>没有</value>
+                </entry>
+            </map>
+        </property>
+        <!--<property name="properties">-->
+            <!--<props>-->
+                <!--<prop key="姓名">张三</prop>-->
+                <!--<prop key="年龄">111</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+        <property name="objects">
+            <array>
+                <value>摩托</value>
+                <ref bean="car3"/>
+            </array>
+        </property>
+    </bean>
+</beans>

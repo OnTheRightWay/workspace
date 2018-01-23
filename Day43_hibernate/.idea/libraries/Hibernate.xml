@@ -13,6 +13,9 @@
       <root url="jar://$USER_HOME$/Desktop/jar包/hibernate_含domej4（XML）含mysql驱动/jboss-logging-3.3.0.Final.jar!/" />
       <root url="jar://$USER_HOME$/Desktop/jar包/hibernate_含domej4（XML）含mysql驱动/mysql-connector-java-5.1.18-bin.jar!/" />
       <root url="jar://$USER_HOME$/Desktop/jar包/hibernate_含domej4（XML）含mysql驱动/required.zip!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/hibernate_含domej4（XML）含mysql驱动/二级缓存/ehcache-2.10.1.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/hibernate_含domej4（XML）含mysql驱动/二级缓存/hibernate-ehcache-5.1.5.Final.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/hibernate_含domej4（XML）含mysql驱动/二级缓存/slf4j-api-1.7.7.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

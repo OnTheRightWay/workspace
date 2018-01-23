@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="hinernate_util">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/hinernate_util.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="jar://$PROJECT_DIR$/libs/hinernate_util.jar!/" recursive="false" />
+  </library>
+</component>

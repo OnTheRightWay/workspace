@@ -11,7 +11,7 @@
             <result name="success">index.jsp</result>
         </global-results>
         <action name="addList" class="MyAction" method="addList"/>
-        <action name="addBook" class="MyAction" method="addBook"/>
+        <action name="addSet" class="MyAction" method="addSet"/>
         <action name="addMap" class="MyAction" method="addMap"/>
     </package>
 </struts>

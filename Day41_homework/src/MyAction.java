@@ -1,12 +1,15 @@
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.util.Element;
+import com.opensymphony.xwork2.util.KeyProperty;
 
 import java.util.*;
 
-public class MyAction extends ActionSupport {
+public class MyAction extends ActionSupport{
     private List<String> list;
     private Map<String,String> map;
-    private Book book;
-
+//    @KeyProperty("bname")
+//    @Element(Book.class)
+    private Set<Book> set = new HashSet<>();
     public String addList(){
         System.out.println(list);
         return SUCCESS;
@@ -17,8 +20,8 @@ public class MyAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String addBook(){
-        System.out.println(book);
+    public String addSet(){
+        System.out.println(set);
         return SUCCESS;
     }
 
@@ -39,11 +42,11 @@ public class MyAction extends ActionSupport {
         this.map = map;
     }
 
-    public Book getBook() {
-        return book;
+    public Set<Book> getSet() {
+        return set;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setSet(Set<Book> set) {
+        this.set = set;
     }
 }
