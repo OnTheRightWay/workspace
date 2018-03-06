@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="courseType" extends="common">
+        <action name="courseTypeAction_*" class="com.nys.crm.courseType.web.action.CourseTypeAction" method="{1}">
+            <result name="findAllByPage" type="redirectAction">courseTypeAction_findAllByPage.action?pc=1</result>
+            <allowed-methods>findAllByPage,addOrEditCourseType,toEdit</allowed-methods>
+        </action>
+    </package>
+</struts>

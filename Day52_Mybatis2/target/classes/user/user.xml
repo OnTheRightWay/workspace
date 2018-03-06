@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nys.mybatis映射文件.dao.UserDao">
+    <resultMap id="userResultMap" type="user">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="sex" property="gender"/>
+        <result column="birthday" property="birthday"/>
+        <result column="address" property="address"/>
+    </resultMap>
+
+    <!--创建SQL片段，把重复的SQL语句抽出来-->
+    <!--使用sql片段时使用include标签，把片段id传入ref属性中-->
+    <!--
+        foreach:forEach循环
+        collection:集合参数的名称，如果是直接传入集合参数，则
+                该出的参数只能写成list
+        item:定义遍历集合之后的参数名称
+        open：开始遍历之前需要拼接的Sql串
+        close：结束遍历之后需要拼接的sql串
+        separator：遍历出的每个对象之间需要拼接的字符
+    -->
+    <sql id="where">
+        <if test="userExt!=null">
+            <if test="userExt.gender != null and userExt.gender != ''">
+                AND sex = #{userExt.gender}
+            </if>
+            <if test="userExt.username != null and userExt.username != ''">
+                AND username LIKE '%${userExt.username}%'
+            </if>
+        </if>
+
+        <if test="idList != null and idList.size > 0">
+            <foreach collection="idList" item="id"
+                     open="AND id IN (" close= ")" separator=",">
+              #{id}
+            </foreach>
+        </if>
+    </sql>
+    <select id="findUserById" parameterType="int" resultMap="userResultMap">
+        SELECT * FROM USER WHERE id=#{id}
+    </select>
+    <insert id="insertUser" parameterType="user">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO USER (username,sex,birthday,address)
+        VALUES (#{username},#{gender},#{birthday},#{address})
+    </insert>
+    <select id="findUsersByQueryV0" parameterType="userQueryV0"
+            resultMap="userResultMap">
+        SELECT * FROM USER
+        <where>
+          <include refid="where"/>
+        </where>
+    </select>
+    <select id="findUsersCount"
+            parameterType="userQueryV0"
+            resultType="int">
+        SELECT count(1) FROM USER
+        <where>
+            <include refid="where"/>
+        </where>
+    </select>
+
+    <select id="findUserList"
+            parameterType="userQueryV0"
+            resultMap="userResultMap">
+        SELECT * FROM USER
+        <where>
+            <include refid="where"/>
+        </where>
+    </select>
+    <select id="findUserByIdList" parameterType="java.util.List"
+            resultType="user">
+        SELECT * FROM USER
+        <where>
+            <if test="list !=null and list.size > 0">
+                <foreach collection="list" item="id"
+                         open="AND id IN (" close=")" separator=",">
+                  #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

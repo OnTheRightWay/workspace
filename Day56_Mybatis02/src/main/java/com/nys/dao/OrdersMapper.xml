@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nys.dao.OrdersMapper">
+    <!--定义两个字段-->
+    <sql id="select_orders">
+        orders.id oid,
+        orders.user_id,
+        orders.number
+    </sql>
+    <sql id="select_user">
+        user.id uid,
+        user.username,
+        user.address
+    </sql>
+    <select id="findOrdersUser"
+            resultMap="findOrdersUser">
+        SELECT
+        <include refid="select_orders"/>,
+        <include refid="select_user"/>
+        FROM orders,USER
+        WHERE orders.user_id=USER.id
+    </select>
+    <resultMap id="findOrdersUser" type="com.nys.domain.Orders">
+        <id property="id" column="oid"/>
+        <result property="number" column="number"/>
+        <result property="user_id" column="user_id"/>
+
+        <!--
+            映射关系
+        -->
+        <association property="user" javaType="com.nys.domain.User">
+            <id property="id" column="uid"/>
+            <result property="username" column="username"/>
+            <result property="birthday" column="birthday"/>
+            <result property="address" column="address"/>
+        </association>
+    </resultMap>
+    <!--
+        extends:继承的关系，所以也能找到User
+    -->
+    <resultMap id="findOrderDetails" type="com.nys.domain.Orders" extends="findOrdersUser">
+        <collection property="orderDetails" ofType="com.nys.domain.OrderDetail">
+            <id property="id" column="did"/>
+            <result column="items_id" property="items_id"/>
+            <result column="orders_id" property="orders_id"/>
+        </collection>
+    </resultMap>
+
+    <select id="findOrdersAll" resultMap="findOrderDetails">
+      SELECT
+      <include refid="select_orders"/>,
+      <include refid="select_user"/>,
+        orderDetail.orders_id,
+        orderDetail.items_id
+        FROM
+        user,orders,orderdetail
+        WHERE
+        user.id = orders.user_id
+        AND
+        orderDetail.orders_id = orders.id
+    </select>
+
+    <resultMap id="findItems" type="com.nys.domain.Orders" extends="findOrdersUser">
+        <collection property="orderDetails" ofType="com.nys.domain.OrderDetail">
+            <id property="id" column="did"/>
+            <result column="items_id" property="items_id"/>
+            <result column="orders_id" property="orders_id"/>
+            <association property="items" javaType="com.nys.domain.Items">
+                <id property="id" column="iid"/>
+                <result property="name" column="name"/>
+            </association>
+        </collection>
+    </resultMap>
+    <select id="findItems" resultMap="findItems">
+        SELECT
+        <include refid="select_orders"/>,
+        <include refid="select_user"/>,
+        orderDetail.id did,
+        orderDetail.orders_id,
+        orderDetail.items_id,
+        items.id iid,
+        items.name
+        FROM user,orders,items,orderDetail
+        WHERE
+        user.id = orders.user_id
+        AND
+        orderDetail.orders_id = orders.id
+        AND
+        items.id=orderDetail.items_id
+    </select>
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--引用java配置文件-->
+    <context:property-placeholder location="db.properties"/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${db.driver}"/>
+        <property name="jdbcUrl" value="${db.url}"/>
+        <property name="user" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+
+        <property name="initialPoolSize" value="${db.initialPoolSize}"/>
+        <property name="maxIdleTime" value="${db.maxIdleTime}"/>
+        <property name="maxPoolSize" value="${db.maxPoolSize}"/>
+        <property name="minPoolSize" value="${db.minPoolSize}"/>
+
+        <!--两次连接中间隔时间-->
+        <property name="acquireIncrement" value="${db.acquireIncrement}"/>
+
+        <!--在从数据库获取连接失败后重复尝试的次数。default：30-->
+        <property name="acquireRetryAttempts" value="${db.acquireRetryAttempts}"/>
+        <!--
+            获取连接失败将会引起所有等待连接池来获取连接的线程抛
+            出异常。但是数据源人有效保留，并在下次调用getConnection()
+            的时候继续尝试获取连接。
+
+            如果设为true，那么在尝试
+            获取连接失败后该数据源将申明已断开并用具关闭
+            default：false
+        -->
+        <property name="acquireRetryDelay" value="${db.acquireRetryDelay}"/>
+        <property name="breakAfterAcquireFailure" value="${db.breakAfterAcquireFailure}"/>
+    </bean>
+
+    <!--Spring对SQLSessionFactory进行管理配置-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--指定mybatis的配置文件-->
+        <property name="configLocation" value="classpath:SqlMapConfig.xml"/>
+        <!--指定dataSource-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--设置事务(切面)-->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*"/>
+            <tx:method name="delete*"/>
+            <tx:method name="update*"/>
+            <tx:method name="find*"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <!--配置切入点-->
+        <aop:pointcut id="pointcut"
+                      expression="execution(* com.nys.*.dao.*.*(..))"/>
+        <!--通知-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
+    </aop:config>
+    <!--由spring管理dao的方式-->
+    <!--方式一-->
+    <!--<bean id="userDao"-->
+    <!--class="com.nys.dao....">-->
+    <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
+    <!--</bean>-->
+
+    <!--方式二-->
+    <!--
+        mapper代理开发方式批量mapper配置
+        1、通过MapperScannerConfigurer创建代理对象，
+            这样就不用定义dao的接口对象
+        2、bean的名字默认为mapper接口类名的首字母小写
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--指定批量mapper配置的包名-->
+        <property name="basePackage" value="com.nys.*.dao"/>
+        <!--指定使用的SQLSessionFactory-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+</beans>

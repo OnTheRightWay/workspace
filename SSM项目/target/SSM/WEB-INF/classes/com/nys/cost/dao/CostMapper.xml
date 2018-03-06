@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nys.cost.dao.CostMapper" >
+  <resultMap id="BaseResultMap" type="com.nys.cost.domain.Cost" >
+    <constructor >
+      <idArg column="cost_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="base_duration" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="base_cost" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="unit_cost" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="descr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="creatime" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="startime" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="cost_type" jdbcType="CHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <resultMap id="costMap" type="com.nys.cost.domain.Cost">
+    <id property="costId" column="cost_id"/>
+    <result property="name" column="name"/>
+    <result property="baseDuration" column="base_duration"/>
+    <result property="baseCost" column="base_cost"/>
+    <result property="unitCost" column="unit_cost"/>
+    <result property="status" column="status"/>
+    <result property="descr" column="descr"/>
+    <result property="creatime" column="creatime"/>
+    <result property="startime" column="startime"/>
+    <result property="costType" column="cost_type"/>
+  </resultMap>
+  <select id="findAllCost" resultMap="costMap">
+    SELECT * FROM cost
+  </select>
+    <insert id="save" parameterType="com.nys.cost.domain.Cost">
+        <selectKey keyProperty="costId"
+                   resultType="java.lang.Integer"
+                   order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO cost
+        ( name, base_duration,
+        base_cost, unit_cost, status,
+        descr, creatime, startime,
+        cost_type)
+        VALUES
+        (#{name}, #{baseDuration},
+        #{baseCost}, #{unitCost}, #{status},
+        #{descr}, #{creatime}, #{startime},
+        #{costType})
+    </insert>
+  <sql id="Base_Column_List" >
+    cost_id, name, base_duration, base_cost, unit_cost, status, descr, creatime, startime, 
+    cost_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="costMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cost
+    where cost_id = #{costId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cost
+    where cost_id = #{costId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nys.cost.domain.Cost">
+    insert into cost (cost_id, name, base_duration,
+      base_cost, unit_cost, status, 
+      descr, creatime, startime, 
+      cost_type)
+    values (#{costId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{baseDuration,jdbcType=INTEGER},
+      #{baseCost,jdbcType=INTEGER}, #{unitCost,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, 
+      #{descr,jdbcType=VARCHAR}, #{creatime,jdbcType=DATE}, #{startime,jdbcType=DATE}, 
+      #{costType,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nys.cost.domain.Cost" >
+    insert into cost
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="costId != null" >
+        cost_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="baseDuration != null" >
+        base_duration,
+      </if>
+      <if test="baseCost != null" >
+        base_cost,
+      </if>
+      <if test="unitCost != null" >
+        unit_cost,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="descr != null" >
+        descr,
+      </if>
+      <if test="creatime != null" >
+        creatime,
+      </if>
+      <if test="startime != null" >
+        startime,
+      </if>
+      <if test="costType != null" >
+        cost_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="costId != null" >
+        #{costId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="baseDuration != null" >
+        #{baseDuration,jdbcType=INTEGER},
+      </if>
+      <if test="baseCost != null" >
+        #{baseCost,jdbcType=INTEGER},
+      </if>
+      <if test="unitCost != null" >
+        #{unitCost,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="descr != null" >
+        #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="creatime != null" >
+        #{creatime,jdbcType=DATE},
+      </if>
+      <if test="startime != null" >
+        #{startime,jdbcType=DATE},
+      </if>
+      <if test="costType != null" >
+        #{costType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nys.cost.domain.Cost" >
+    update cost
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="baseDuration != null" >
+        base_duration = #{baseDuration,jdbcType=INTEGER},
+      </if>
+      <if test="baseCost != null" >
+        base_cost = #{baseCost,jdbcType=INTEGER},
+      </if>
+      <if test="unitCost != null" >
+        unit_cost = #{unitCost,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="descr != null" >
+        descr = #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="creatime != null" >
+        creatime = #{creatime,jdbcType=DATE},
+      </if>
+      <if test="startime != null" >
+        startime = #{startime,jdbcType=DATE},
+      </if>
+      <if test="costType != null" >
+        cost_type = #{costType,jdbcType=CHAR},
+      </if>
+    </set>
+    where cost_id = #{costId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nys.cost.domain.Cost" >
+    update cost
+    set name = #{name,jdbcType=VARCHAR},
+      base_duration = #{baseDuration,jdbcType=INTEGER},
+      base_cost = #{baseCost,jdbcType=INTEGER},
+      unit_cost = #{unitCost,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      descr = #{descr,jdbcType=VARCHAR},
+      creatime = #{creatime,jdbcType=DATE},
+      cost_type = #{costType,jdbcType=CHAR}
+    where cost_id = #{costId,jdbcType=INTEGER}
+  </update>
+  <update id="updateStatusByCostId" parameterType="int">
+    UPDATE cost
+    SET status = '1'
+    WHERE cost_id=#{costId}
+  </update>
+  <update id="updateStartimeByCostId" parameterType="int">
+    UPDATE cost
+    SET startime = sysdate()
+    WHERE cost_id=#{costId}
+  </update>
+  <select id="findCount" resultType="int">
+    SELECT COUNT(*)
+    FROM cost
+  </select>
+  <select id="findCostByPc" parameterType="java.util.List" resultMap="costMap">
+    SELECT * FROM cost ORDER BY base_cost DESC,base_duration DESC limit
+    <foreach collection="list" item="list" separator=",">
+    #{list}
+  </foreach>
+  </select>
+  <select id="findCostByPcDurationUp" parameterType="java.util.List" resultMap="costMap">
+    SELECT * FROM cost ORDER BY base_cost DESC,base_duration ASC limit <foreach collection="list" item="list" separator=",">
+    #{list}
+  </foreach>
+  </select>
+  <select id="findCostByPcCostUp" parameterType="java.util.List" resultMap="costMap">
+    SELECT * FROM cost ORDER BY base_cost ASC ,base_duration DESC limit <foreach collection="list" item="list" separator=",">
+    #{list}
+  </foreach>
+  </select>
+  <select id="findCostByPcCostDurationUp" parameterType="java.util.List" resultMap="costMap">
+    SELECT * FROM cost ORDER BY base_cost ASC ,base_duration ASC limit <foreach collection="list" item="list" separator=",">
+    #{list}
+  </foreach>
+  </select>
+</mapper>

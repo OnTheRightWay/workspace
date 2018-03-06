@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="Spring" type="spring">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/aspectjrt.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/aspectjweaver.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/cglib.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/commons-logging-1.2.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/spring-aop-4.3.8.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/spring-beans-4.3.8.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/spring-context-4.3.8.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/spring-core-4.3.8.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/spring-expression-4.3.8.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/spring-jdbc-4.3.8.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/spring-orm-4.3.8.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/spring-tx-4.3.8.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/spring-web-4.3.8.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/spring含aop/struts2-spring-plugin-2.5.10.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

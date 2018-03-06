@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nys.admin.dao.AdminMapper" >
+
+  <resultMap id="AdminMap" type="com.nys.admin.domain.Admin">
+    <id property="adminId" column="admin_id"/>
+    <result property="adminCode" column="admin_code"/>
+    <result property="password" column="password"/>
+    <result property="name" column="adminName"/>
+    <result property="telephone" column="telephone"/>
+    <result property="email" column="email"/>
+    <result property="enrolldate" column="enrolldate"/>
+    <collection property="roles" ofType="com.nys.role.domain.Role">
+      <id property="roleId" column="role_id"/>
+      <result property="name" column="roleName"/>
+      <collection property="modules" ofType="com.nys.role.domain.Module">
+        <id property="moduleId" column="module_id"/>
+        <result property="name" column="moduleName"/>
+      </collection>
+    </collection>
+  </resultMap>
+
+
+
+  <resultMap id="BaseResultMap" type="com.nys.admin.domain.Admin" >
+    <constructor >
+      <idArg column="admin_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="admin_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="telephone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="enrolldate" jdbcType="DATE" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+
+  <update id="updatePasswordReset" parameterType="list">
+    UPDATE admin_info
+    SET password = '123456'
+    <where>
+      <foreach collection="list" item="list" open="admin_id in(" close=")" separator=",">
+        #{list}
+      </foreach>
+    </where>
+  </update>
+
+  <select id="findByAdminCode" parameterType="string" resultMap="AdminMap">
+    SELECT a.admin_id, a.admin_code, a.password, a.name adminName, a.telephone, a.email, a.enrolldate,
+    r.role_id,r.name roleName,
+    m.module_id,m.name moduleName
+    FROM admin_info a
+    LEFT JOIN admin_role ar
+    ON a.admin_id = ar.admin_id
+    LEFT JOIN role_info r
+    ON ar.role_id = r.role_id
+    LEFT JOIN role_module rm
+    ON r.role_id = rm.role_id
+    LEFT JOIN module_info m
+    ON rm.module_id = m.module_id
+    WHERE a.admin_code=#{value}
+  </select>
+  <select id="findAdminByPage" resultMap="AdminMap" parameterType="map">
+    SELECT a.admin_id, a.admin_code, a.password, a.name adminName, a.telephone, a.email, a.enrolldate,
+    r.role_id,r.name roleName,
+    m.module_id,m.name moduleName
+    FROM admin_info a
+    LEFT JOIN admin_role ar
+    ON a.admin_id = ar.admin_id
+    LEFT JOIN role_info r
+    ON ar.role_id = r.role_id
+    LEFT JOIN role_module rm
+    ON r.role_id = rm.role_id
+    LEFT JOIN module_info m
+    ON rm.module_id = m.module_id
+    <where>
+      <if test="(moduleId!=null &amp;&amp; moduleId.length()>0) ||(name!=null &amp;&amp; name.length()>0) ">
+        m.module_id=#{moduleId} or r.name=#{name}
+      </if>
+    </where>
+  </select>
+
+  <select id="findCountByPage" resultType="list" parameterType="map">
+    SELECT COUNT(a.admin_id)
+    FROM admin_info a
+    LEFT JOIN admin_role ar
+    ON a.admin_id = ar.admin_id
+    LEFT JOIN role_info r
+    ON ar.role_id = r.role_id
+    LEFT JOIN role_module rm
+    ON r.role_id = rm.role_id
+    LEFT JOIN module_info m
+    ON rm.module_id = m.module_id
+    <where>
+      <if test="moduleId!=null &amp;&amp; moduleId.length()>0">
+        AND m.module_id=#{moduleId}
+      </if>
+      <if test="name!=null &amp;&amp; name.length()>0">
+        AND r.name=#{name}
+      </if>
+    </where>
+    group by a.admin_id
+  </select>
+  <select id="findAdminsByAdminId" resultMap="AdminMap" parameterType="list">
+    SELECT a.admin_id, a.admin_code, a.password, a.name adminName, a.telephone, a.email, a.enrolldate,
+    r.role_id,r.name roleName,
+    m.module_id,m.name moduleName
+    FROM admin_info a
+    LEFT JOIN admin_role ar
+    ON a.admin_id = ar.admin_id
+    LEFT JOIN role_info r
+    ON ar.role_id = r.role_id
+    LEFT JOIN role_module rm
+    ON r.role_id = rm.role_id
+    LEFT JOIN module_info m
+    ON rm.module_id = m.module_id
+    <where>
+      <foreach collection="list" item="list" open="a.admin_id in(" close=")" separator=",">
+        #{list.adminId}
+      </foreach>
+    </where>
+  </select>
+  <insert id="insertRole" parameterType="com.nys.admin.domain.Admin">
+    INSERT INTO admin_role
+    VALUES
+    <foreach collection="roleIds" item="roleId" open="(#{adminId}," separator="),(#{adminId}," close=")">
+      #{roleId}
+    </foreach>
+  </insert>
+  <delete id="deleteRole" parameterType="int">
+    delete from admin_role
+    where admin_id = #{id}
+  </delete>
+  <select id="findAdminByAdminId" parameterType="int" resultMap="AdminMap">
+    SELECT a.admin_id, a.admin_code, a.password, a.name adminName, a.telephone, a.email, a.enrolldate,
+    r.role_id,r.name roleName,
+    m.module_id,m.name moduleName
+    FROM admin_info a
+    LEFT JOIN admin_role ar
+    ON a.admin_id = ar.admin_id
+    LEFT JOIN role_info r
+    ON ar.role_id = r.role_id
+    LEFT JOIN role_module rm
+    ON r.role_id = rm.role_id
+    LEFT JOIN module_info m
+    ON rm.module_id = m.module_id
+    WHERE a.admin_id = #{id}
+  </select>
+  <update id="updateAdmin" parameterType="com.nys.admin.domain.Admin">
+    UPDATE admin_info
+    SET name = #{name},
+    telephone = #{telephone},
+    email = #{email}
+    where admin_id = #{adminId}
+  </update>
+
+
+  <sql id="Base_Column_List" >
+    admin_id, admin_code, password, name, telephone, email, enrolldate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_info
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin_info
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nys.admin.domain.Admin" >
+  <selectKey keyProperty="adminId" resultType="int" order="AFTER">
+    SELECT LAST_INSERT_ID()
+  </selectKey>
+    insert into admin_info (admin_code, password,
+      name, telephone, email, 
+      enrolldate)
+    values (#{adminCode,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{enrolldate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nys.admin.domain.Admin" >
+    insert into admin_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="adminCode != null" >
+        admin_code,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="enrolldate != null" >
+        enrolldate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminCode != null" >
+        #{adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="enrolldate != null" >
+        #{enrolldate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nys.admin.domain.Admin" >
+    update admin_info
+    <set >
+      <if test="adminCode != null" >
+        admin_code = #{adminCode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="enrolldate != null" >
+        enrolldate = #{enrolldate,jdbcType=DATE},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nys.admin.domain.Admin" >
+    update admin_info
+    set admin_code = #{adminCode,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      enrolldate = #{enrolldate,jdbcType=DATE}
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+</mapper>

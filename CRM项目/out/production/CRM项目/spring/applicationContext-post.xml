@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="postDao" class="com.nys.crm.post.dao.impl.PostDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="postService" class="com.nys.crm.post.service.impl.PostServiceImpl">
+        <property name="postDao" ref="postDao"/>
+    </bean>
+    <!--<bean name="pageBeanPost" class="com.nys.paging.bean.PageBean"/>-->
+    <bean id="postAction" class="com.nys.crm.post.web.action.PostAction">
+        <property name="postService" ref="postService"/>
+        <property name="departmentService" ref="departmentService"/>
+        <property name="post" ref="post"/>
+        <property name="pageBean" ref="pageBeanBase"/>
+    </bean>
+    <bean id="post" class="com.nys.crm.post.domain.Post" scope="prototype"/>
+
+</beans>

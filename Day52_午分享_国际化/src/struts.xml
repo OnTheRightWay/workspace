@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.custom.i18n.resources" value="base"/>
+    <package name="day52" extends="struts-default">
+        <action name="show" class="action1.Action1" method="getValue">
+            <result name="success">index.jsp</result>
+        </action>
+        <action name="show2" class="action2.test.Action2" method="getValue">
+            <result name="success">index.jsp</result>
+        </action>
+        <action name="show3" class="action2.test.Action2">
+            <result name="success">index.jsp</result>
+        </action>
+        <action name="show4" class="action3.Action3" method="getValue">
+            <result name="success">index.jsp</result>
+        </action>
+    </package>
+</struts>

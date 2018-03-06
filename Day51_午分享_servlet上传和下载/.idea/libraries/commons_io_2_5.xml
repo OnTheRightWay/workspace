@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="commons-io-2.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/jar包/Servlet文件传输_含io2.5/commons-io-2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/jar包/Servlet文件传输_含io2.5/commons-fileupload-1.3.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

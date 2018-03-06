@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nys.dao.ClassesMapper">
+
+    <insert id="insertClasses"
+            parameterType="classes">
+        <selectKey keyProperty="id"
+                   resultType="int"
+                   order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO Classes VALUES (#{name},#{gender},#{id})
+    </insert>
+    <resultMap id="findByCondition" type="classes">
+        <id column="cid" property="id"/>
+        <result column="sex" property="gender"/>
+        <result column="name" property="name"/>
+    </resultMap>
+    <!--
+        创建一个sql片段
+    -->
+    <!--
+        后续的sql语句中如果用到了，
+        直接根据该片段的id导入即可
+    -->
+    <sql id="findByCondition">
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE '%${name}%'
+            </if>
+            <if test="gender != null and gender != ''">
+                AND sex=#{gender}
+            </if>
+        </where>
+    </sql>
+    <select id="findByCondition"
+            parameterType="classes"
+            resultMap="findByCondition">
+        SELECT * FROM Classes
+         <include refid="findByCondition"/>
+    </select>
+
+    <select id="findByIds"
+            parameterType="classes"
+            resultMap="findByCondition">
+        SELECT * FROM classes
+        <where>
+            <foreach collection="classesIds" item="id"
+                     open="and cid in (" close=")" separator=",">
+              #{id}
+            </foreach>
+        </where>
+    </select>
+</mapper>

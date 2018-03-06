@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nys.service.dao.ServiceMapper" >
+
+  <resultMap id="ServiceMap" type="com.nys.service.domain.Service">
+    <id property="serviceId" column="service_id"/>
+    <result property="accountId" column="account_id"/>
+    <result property="unixHost" column="unix_host"/>
+    <result property="osUsername" column="os_username"/>
+    <result property="loginPasswd" column="login_passwd"/>
+    <result property="status" column="status"/>
+    <result property="createDate" column="create_date"/>
+    <result property="pauseDate" column="pause_date"/>
+    <result property="closeDate" column="close_date"/>
+    <result property="costId" column="cost_id"/>
+    <association property="account" javaType="com.nys.account.domain.Account">
+      <id property="accountId" column="account_id"/>
+      <result property="recommenderId" column="recommender_id"/>
+      <result property="loginName" column="login_name"/>
+      <result property="loginPasswd" column="login_passwd"/>
+      <result property="status" column="status"/>
+      <result property="createDate" column="create_date"/>
+      <result property="pauseDate" column="pause_date"/>
+      <result property="realName" column="real_name"/>
+      <result property="idcardNo" column="idcard_no"/>
+      <result property="birthdate" column="birthdate"/>
+      <result property="gender" column="gender"/>
+      <result property="occupation" column="occupation"/>
+      <result property="telephone" column="telephone"/>
+      <result property="email" column="email"/>
+      <result property="mailaddress" column="mailaddress"/>
+      <result property="zipcode" column="zipcode"/>
+      <result property="qq" column="qq"/>
+      <result property="lastLoginTime" column="last_login_time"/>
+      <result property="lastLoginIp" column="last_login_ip"/>
+    </association>
+    <association property="cost" javaType="com.nys.cost.domain.Cost">
+      <id property="costId" column="cost_id"/>
+      <result property="name" column="name"/>
+      <result property="baseDuration" column="base_duration"/>
+      <result property="baseCost" column="base_cost"/>
+      <result property="unitCost" column="unit_cost"/>
+      <result property="status" column="status"/>
+      <result property="descr" column="descr"/>
+      <result property="creatime" column="creatime"/>
+      <result property="startime" column="startime"/>
+      <result property="costType" column="cost_type"/>
+    </association>
+  </resultMap>
+  <sql id="find">
+    <if test="osUsername!=null &amp;&amp; osUsername.length()>0">
+      and s.os_username = #{osUsername}
+    </if>
+    <if test="unixHost!=null &amp;&amp; unixHost.length()>0">
+      and s.unix_host = #{unixHost}
+    </if>
+    <if test="idcardNo!=null &amp;&amp; idcardNo.length()>0">
+      and a.idcard_no = #{idcardNo}
+    </if>
+    <if test="status!=null &amp;&amp; status.length()>0">
+      and s.status = #{status}
+    </if>
+  </sql>
+  <select id="findCountByPage" parameterType="com.nys.service.domain.ServicePage" resultType="int">
+    SELECT COUNT(*)
+    FROM service s INNER JOIN account a
+    ON s.account_id = a.account_id
+    <where>
+      <include refid="find"/>
+    </where>
+  </select>
+
+  <select id="findServiceByPage" parameterType="com.nys.service.domain.ServicePage"
+          resultMap="ServiceMap">
+    SELECT *
+    FROM service s INNER JOIN account a
+    ON s.account_id = a.account_id
+    INNER JOIN cost c
+    ON c.cost_id = s.cost_id
+    <where>
+      <include refid="find"/>
+    </where>
+    limit #{begin},#{size}
+  </select>
+
+  <update id="startService" parameterType="int">
+    UPDATE service
+    SET status='1'
+    WHERE service_id=#{id}
+  </update>
+  <update id="pauseService" parameterType="int">
+    UPDATE service
+    SET status='0'
+    WHERE service_id=#{id}
+  </update>
+  <update id="updatePauseDate" parameterType="int">
+    UPDATE service
+    SET pause_date=CURDATE()
+    WHERE service_id=#{id}
+  </update>
+  <update id="deletePauseDate" parameterType="int">
+    UPDATE service
+    SET pause_date=NULL
+    WHERE service_id=#{id}
+  </update>
+  <update id="deleteServiceByAccountId" parameterType="int">
+    UPDATE service
+    SET status='2'
+    WHERE account_id=#{id}
+  </update>
+  <update id="pauseServiceByAccountId" parameterType="int">
+    UPDATE service
+    SET status='0'
+    WHERE account_id=#{value}
+  </update>
+  <update id="updatePauseDateByAccoutId" parameterType="int">
+    UPDATE service
+    SET pause_date=CURDATE()
+    WHERE account_id=#{id}
+  </update>
+  <select id="findServiceByServiceId" parameterType="int" resultMap="ServiceMap">
+    SELECT *
+    FROM service s INNER JOIN account a
+    ON s.account_id = a.account_id
+    INNER JOIN cost c
+    ON c.cost_id = s.cost_id
+    <where>
+      AND s.service_id=#{id}
+    </where>
+  </select>
+  <update id="setStatus2" parameterType="int">
+    UPDATE service
+    SET status='2'
+    WHERE service_id=#{id}
+  </update>
+  <select id="findServiceByUnixHost" parameterType="string" resultMap="ServiceMap">
+    SELECT *
+    FROM service
+    WHERE unix_host=#{value}
+  </select>
+  <update id="updateService" parameterType="com.nys.service.domain.Service">
+    UPDATE service
+    SET cost_id=#{costId}
+    where service_id=#{serviceId}
+  </update>
+
+
+  <resultMap id="BaseResultMap" type="com.nys.service.domain.Service" >
+    <constructor >
+      <idArg column="service_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="account_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="unix_host" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="os_username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="login_passwd" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="create_date" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="pause_date" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="close_date" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="cost_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    service_id, account_id, unix_host, os_username, login_passwd, status, create_date, 
+    pause_date, close_date, cost_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from service
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from service
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nys.service.domain.Service" >
+    <selectKey keyProperty="serviceId"
+               resultType="java.lang.Integer"
+               order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into service (account_id, unix_host,
+      os_username, login_passwd, status, 
+      create_date, pause_date, close_date, 
+      cost_id)
+    values (#{accountId,jdbcType=INTEGER}, #{unixHost,jdbcType=VARCHAR},
+      #{osUsername,jdbcType=VARCHAR}, #{loginPasswd,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{createDate,jdbcType=DATE}, #{pauseDate,jdbcType=DATE}, #{closeDate,jdbcType=DATE}, 
+      #{costId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nys.service.domain.Service" >
+    insert into service
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        service_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="unixHost != null" >
+        unix_host,
+      </if>
+      <if test="osUsername != null" >
+        os_username,
+      </if>
+      <if test="loginPasswd != null" >
+        login_passwd,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="pauseDate != null" >
+        pause_date,
+      </if>
+      <if test="closeDate != null" >
+        close_date,
+      </if>
+      <if test="costId != null" >
+        cost_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=INTEGER},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="unixHost != null" >
+        #{unixHost,jdbcType=VARCHAR},
+      </if>
+      <if test="osUsername != null" >
+        #{osUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPasswd != null" >
+        #{loginPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="pauseDate != null" >
+        #{pauseDate,jdbcType=DATE},
+      </if>
+      <if test="closeDate != null" >
+        #{closeDate,jdbcType=DATE},
+      </if>
+      <if test="costId != null" >
+        #{costId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nys.service.domain.Service" >
+    update service
+    <set >
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="unixHost != null" >
+        unix_host = #{unixHost,jdbcType=VARCHAR},
+      </if>
+      <if test="osUsername != null" >
+        os_username = #{osUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPasswd != null" >
+        login_passwd = #{loginPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="pauseDate != null" >
+        pause_date = #{pauseDate,jdbcType=DATE},
+      </if>
+      <if test="closeDate != null" >
+        close_date = #{closeDate,jdbcType=DATE},
+      </if>
+      <if test="costId != null" >
+        cost_id = #{costId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nys.service.domain.Service" >
+    update service
+    set account_id = #{accountId,jdbcType=INTEGER},
+      unix_host = #{unixHost,jdbcType=VARCHAR},
+      os_username = #{osUsername,jdbcType=VARCHAR},
+      login_passwd = #{loginPasswd,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      create_date = #{createDate,jdbcType=DATE},
+      pause_date = #{pauseDate,jdbcType=DATE},
+      close_date = #{closeDate,jdbcType=DATE},
+      cost_id = #{costId,jdbcType=INTEGER}
+    where service_id = #{serviceId,jdbcType=INTEGER}
+  </update>
+</mapper>

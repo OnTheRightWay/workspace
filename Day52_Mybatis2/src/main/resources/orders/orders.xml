@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nys.映射关系.mapper.OrdersMapper">
+   <sql id="select_orders">
+       Orders.id ordersID,
+       Orders.user_id,
+       Orders.number,
+       Orders.createtime,
+       Orders.note
+   </sql>
+    <sql id="select_user">
+        USER.username,
+        USER.address,
+        user.id userID,
+        user.birthday,
+        user.sex
+    </sql>
+    <select id="findOrdersUser"
+            resultType="com.nys.映射关系.domain.OrdersExt">
+        SELECT
+        <include refid="select_orders"/>,
+        <include refid="select_user"/>
+        FROM Orders,user
+        WHERE Orders.user_id = user.id
+    </select>
+
+    <select id="findOrdersUserRstMap"
+            resultMap="OrdersUserRstMap">
+        SELECT
+        <include refid="select_orders"/>,
+        <include refid="select_user"/>
+        FROM orders,user
+        WHERE orders.user_id=user.id
+    </select>
+
+    <resultMap id="OrdersUserRstMap"
+               type="com.nys.映射关系.domain.Orders">
+        <id column="ordersID" property="id"/>
+        <result column="user_id" property="user_id"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createtime"/>
+        <result column="note" property="note"/>
+
+        <!--映射一对一关联关系的用户对象-->
+        <!--
+            property:指定关联关系要映射到Orders的那个属性上
+            JavaType：指定关联对象所要映射的java类型
+        -->
+        <association property="user" javaType="com.nys.映射关系.domain.User">
+            <id column="userID" property="id"/>
+            <result column="username" property="username"/>
+            <result column="address" property="address"/>
+            <result column="sex" property="gender"/>
+            <result column="birthday" property="birthday"/>
+        </association>
+    </resultMap>
+
+
+
+
+
+    <!--extend:继承已有的ResultMap，值为ResultMap的id-->
+    <resultMap id="OrdersAndOrderDetailRstMap" type="com.nys.映射关系.domain.Orders"
+                extends="OrdersUserRstMap">
+        <!--映射一对多关系-->
+        <!--
+            collection标签：定义一对多关系
+            ofType:指定该集合参数所映射的类型
+        -->
+        <collection property="orderDetails"
+                    ofType="com.nys.映射关系.domain.OrderDetail">
+            <id column="DID" property="id"/>
+            <result column="items_id" property="items_id"/>
+            <result property="items_num" column="items_num"/>
+        </collection>
+    </resultMap>
+
+    <select id="findOrdersAndOrderDetailRstMap" resultMap="OrdersAndOrderDetailRstMap">
+        SELECT
+        <include refid="select_orders"/>,
+        <include refid="select_user"/>,
+        OrderDetail.id DID,
+        OrderDetail.items_id,
+        OrderDetail.items_num
+        FROM orders,user,orderDetail
+        WHERE orders.user_id = user.id
+        AND orders.id = orderDetail.orders_id
+
+    </select>
+
+
+    <sql id="select_orderdetail">
+        OrderDetail.id DID,
+        OrderDetail.items_id,
+        OrderDetail.items_num
+    </sql>
+
+    <resultMap id="UserAndItemsRstMap" type="com.nys.映射关系.domain.User">
+        <id column="userID" property="id"/>
+        <result column="username" property="username"/>
+        <result column="address" property="address"/>
+        <collection property="ordersList" ofType="com.nys.映射关系.domain.Orders">
+            <id column="ordersID" property="id"/>
+            <result column="user_id" property="user_id"/>
+            <result column="number" property="number"/>
+            <result column="createtime" property="createtime"/>
+            <result column="note" property="note"/>
+            <collection property="orderDetails" ofType="com.nys.映射关系.domain.OrderDetail">
+                <id column="DID" property="id"/>
+                <result column="items_id" property="items_id"/>
+                <result column="items_num" property="items_num"/>
+                <association property="items" javaType="com.nys.映射关系.domain.Items">
+                    <id property="id" column="IID"/>
+                    <result column="name" property="name"/>
+                </association>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="findUserAndItemsRstMap" resultMap="UserAndItemsRstMap">
+        SELECT
+        <include refid="select_orders"/>,
+        <include refid="select_user"/>,
+        <include refid="select_orderdetail"/>,
+        items.name items_name
+        FROM orders,user,orderDetail,items
+        WHERE user.id = orders.user_id
+        AND orders.id = orderDetail.orders_id
+        AND orderDetail.items_id = items.id
+    </select>
+
+</mapper>

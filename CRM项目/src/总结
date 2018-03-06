@@ -1,0 +1,28 @@
+need lazy=false
+设置表与表之间的一对多，多对一关系时，必须给对相应的属性设置lazy=false
+
+设置好表之间的关系后，查询对象时，与对象有对应关系的对象也会被查询出来
+例如，查询员工时，员工的工作，工作的类型都会被查找出来
+
+only-read
+在对数据库进行更改数据的操作的时候，需要将service中对应的方法名字设置为
+add*,update*,delete*,就是在applicationContext.xml中tx:advice标签中没有被设置为只读的
+
+classCast
+在遇到类型转换异常，但是找不到对应的类，或相关配置的时候，将类名改为类的全名：包名+类型
+
+getHibernateTemplate().save()需要id属性，可以在映射文件中将id设置为自增长或uuid
+
+在使用getHibernateTemplate().update();getHibernateTemplate().update()修改数据库的时候
+，如果这个对象有关联属性，例如员工的工作属性，需要根据从表单中提交的id在数据库中查找出来
+再将结果赋值给要更改或保存的属性。之后才能进行更新数据库操作。不然会报主键重复异常
+
+多条件查询：使用字符串拼接的方式组成sql语句
+
+分页：pageBean中需要有当前页，总页数，每页数据量，参数，对象的集合；
+页码的链接中需要拼接参数
+
+上传：使用File xxx接收上传文件，String xxxFIleName可以接收上传文件的文件名
+使用文件输入流和文件输出流完成文件的读取和写入
+
+下载：在action中获得文件的输入流，在result中设置type=stream

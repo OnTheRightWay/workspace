@@ -1,0 +1,155 @@
+maven可以帮我们管理依赖，就是jar包
+
+maven配置
+1、下载maven并解压
+2、配置maven的环境变量，mvn -v命令查看是否配置成功
+3、配置本地库，在maven中conf文件夹下的settings.xml中添加一行
+<localRepository>本地仓库的路径</localRepository>
+4、在settings.xml中mirro中添加
+    <mirror>
+      <id>alimaven</id>
+      <mirrorOf>central</mirrorOf>
+      <name>aliyun maven</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+    </mirror>
+
+ maven结构:
+ src-main-java
+ src-test-java
+ target-classes
+
+ maven管理依赖（jar）:
+    maven在pom.xml中配置管理依赖
+    可以在properties标签中自定义常量<名字>值</名字>
+    通过${名字}使用自定义的常量
+    指定资源目录
+    指定源代码目录
+    指定编译用的jdk版本
+    添加jar包管理，可以在mvnrepository.com查询groupId和artifactId
+    <dependency>
+       <groupId>org.mybatis</groupId>
+       <artifactId>mybatis</artifactId>
+       <version>3.4.5</version>
+    </dependency>
+
+SqlMapConfig.xml的配置顺序:
+     1、properties（属性）
+     2、Settings（全局参数设置）
+     3、typeAliases（类型别名）
+     4、typeHandlers（类型处理器）
+     5、objectFactory（对象工厂）
+     6、plugins（插件）
+     7、environments（环境信息集合）
+        1、environment（单个环境信息）
+        2、transactionManger（事物）
+        3、dataSource（数据源）
+     8、mappers（映射器）
+
+mybatis使用：
+    1、创建db.properties
+    2、SqlMapConfig.xml中通过<properties resource="db.properties"/>加载数据库配置信息
+    3、配置mybatis的环境信息
+    <environments default="development">
+        <environment id="development">
+            <!-- 配置JDBC事务控制，由mybatis进 管  -->
+            <transactionManager type="JDBC"/>
+            <!-- 配置数据源，采dbcp连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${db.driver}"/>
+                <property name="url"
+                          value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    4、创建映射文件user.xml<mapper namespace="user"></mapper>
+    5、在mapper标签中配置SQL相关的配置
+    <insert id="insertUser" 标签id
+            parameterType="com.lanou.domain.User"传入参数类型
+            keyProperty="id"	主键
+            useGeneratedKeys="true">自增长
+        INSERT INTO USER VALUES
+        (#{id},#{username},#{sex},#{birthday},#{address})
+    </insert>
+    resultType指定返回值类型
+    6、在SqlMapConfig.xml中最下面，导入user.xml
+    <mappers>
+        <mapper resource="User.xml"/>
+    </mappers>
+    7、根据配置文件创建SqlSessionFactory
+    SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder()
+                    .build(Resources.getResourceAsStream("SqlMapConfig.xml")
+                    );
+    8、通过sessionFactory开启session
+    SqlSession sqlSession = sessionFactory.openSession();
+    9、通过SQLsession访问数据库
+    List<Object> objects = sqlSession.selectList("配置中标签id", "传入的参数");
+    10、提交session，关闭session
+    qlSession.commit();
+    qlSession.close();
+
+Mapper代理开发：
+    1-6：同上
+    7、创建mapper接口
+    接口的全限定名要与映射文件的namespace的值相同
+    接口的方法名要和映射文件的id相同，参数只能有一个，返回值要与映射文件中的resultType值保持一致
+    通过构造方法创建sessionFactory
+    8、通过sessionFactory开启session
+    SqlSession sqlSession = sessionFactory.openSession();
+    9、通过SQLSession去哦去mapper接口的动态代理对象
+    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    10、通过mapper调用接口的方法，传入参数
+    User userById = mapper.findUserById(14);
+    11、关闭sqlSession
+
+动态SQL:
+    where标签：添加条件语句，会自动去掉第一个and
+    if标签：判断，如果条件符合，则拼接条件
+        <if test="userExt!=null">
+            <if test="userExt.gender != null and userExt.gender != ''">
+                AND sex = #{userExt.gender}
+            </if>
+            <if test="userExt.username != null and userExt.username != ''">
+                AND username LIKE '%${userExt.username}%'
+            </if>
+        </if>
+    SQL片段：提高SQL语句的重用性:
+        创建sql片段，把重复使用的SQL语句抽出来<sql id=""></sql>
+        使用SQL片段时，使用include标签，把片段的id传入ref属性中
+    forEach标签：forEach循环:
+        collection:集合参数的名称，如果是直接传入集合参数，则该处的参数只能写成list
+        item:定义遍历集合之后的参数名称
+        open：开始遍历之前需要拼接的Sql串
+        close：结束遍历之后需要拼接的sql串
+        separator：遍历出的每个对象之间需要拼接的字符
+        <foreach collection="list" item="id"
+                       open="AND id IN (" close=")" separator=",">
+             #{id}
+        </foreach>
+
+一对一查询:
+    1、在Orders类中，添加User对象
+    2、在Orders映射文件中的resultMap中，映射一对一关系
+    3、使用association标签添加一对一映射
+        <association property="user" javaType="user">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+            <result column="address" property="address"/>
+        </association>
+         property:指定关联关系要映射到Orders的那个属性上
+         JavaType：指定关联对象所要映射的java类型
+         id标签，一定要添加
+    4、Mapper接口中添加查询方法
+
+一对多查询:
+    1、在“一”中添加对象的集合
+    2、在resultMap中添加一对多映射关系
+    3、使用collection标签映射多对多关系
+    <collection property="orderDetails" ofType="orderDetail">
+            <id column="id" property="id"/>
+            <result column="items_id" property="items_id"/>
+            <result property="items_num" column="items_num"/>
+        </collection>
+    </resultMap>

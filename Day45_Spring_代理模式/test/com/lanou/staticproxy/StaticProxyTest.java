@@ -2,8 +2,6 @@ package com.lanou.staticproxy;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class StaticProxyTest {
     @Test
     public void staticProxy() throws Exception {

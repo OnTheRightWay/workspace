@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <bean id="depDao" class="com.nys.crm.department.dao.impl.DepDaoImpl">
+       <property name="sessionFactory" ref="sessionFactory"/>
+   </bean>
+    <bean id="departmentService" class="com.nys.crm.department.service.impl.DepartmentServiceImpl">
+        <property name="depDao" ref="depDao"/>
+    </bean>
+    <!--<bean id="pageBeanDep" class="com.nys.paging.bean.PageBean"/>-->
+    <bean id="departmentAction" class="com.nys.crm.department.web.action.DepartmentAction">
+        <property name="departmentService" ref="departmentService"/>
+        <property name="department" ref="department"/>
+        <!--<property name="pageBean" ref="pageBeanBase"/>-->
+    </bean>
+    <bean id="department" class="com.nys.crm.department.domain.Department" scope="prototype"/>
+</beans>

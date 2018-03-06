@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="staff" extends="common" namespace="/">
+        <action name="staffAction_*" class="staffAction" method="{1}">
+            <result name="frame" type="redirect">/pages/frame.jsp</result>
+            <result name="updPwd">/pages/staff/updPwd.jsp</result>
+            <result name="findAllStaffItem" type="redirectAction">staffAction_findAllStaffItem.action</result>
+            <result name="addStaff">/pages/staff/addStaff.jsp</result>
+            <allowed-methods>add,login,logout,updatePsw,findAllStaffItem,showByStaffId,edit,findByParams,toAdd</allowed-methods>
+        </action>
+        <action name="staffAction_findAllStaffItem" class="staffAction" method="findAllStaffItem">
+
+        </action>
+    </package>
+</struts>

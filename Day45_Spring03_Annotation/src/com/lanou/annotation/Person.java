@@ -13,7 +13,7 @@ import javax.annotation.PreDestroy;
 //一般就是不知道这个类有什么具体的作用时，就用这个注解
 public class Person {
     @Qualifier("car1")
-    @Autowired(required = true)
+    @Autowired(required = false)
     private Car car;
 
     @Value("王二麻子")

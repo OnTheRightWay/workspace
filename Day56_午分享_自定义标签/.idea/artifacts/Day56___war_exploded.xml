@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Day56_午分享_自定义标签:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Day56___war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Day56_午分享_自定义标签/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Day56_午分享_自定义标签" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Struts 2" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

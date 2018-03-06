@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nys.mapper.UserMapper">
+    <resultMap id="userOrders" type="user">
+        <id property="uid" column="uid"/>
+        <result property="uname" column="uname"/>
+        <result property="gender" column="gender"/>
+        <result property="uid" column="uid"/>
+        <collection property="orders" ofType="orders">
+            <id column="oid" property="oid"/>
+            <result column="oname" property="oname"/>
+            <result column="date" property="date"/>
+            <collection property="items" ofType="items">
+                <id column="iid" property="iid"/>
+                <result column="oid" property="oid"/>
+                <result column="cid" property="cid"/>
+                <association property="cargo" javaType="cargo">
+                    <id column="cid" property="cid"/>
+                    <result column="cname" property="cname"/>
+                </association>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="findUserOrders" resultMap="userOrders">
+        SELECT *
+        FROM user,orders,items,cargo
+        WHERE user.uid = orders.uid
+        AND orders.oid = items.oid
+        AND items.cid = cargo.cid
+    </select>
+
+</mapper>

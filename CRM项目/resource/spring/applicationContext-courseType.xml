@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="courseTypeDao" class="com.nys.crm.courseType.dao.impl.CourseTypeDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="courseTypeService" class="com.nys.crm.courseType.service.impl.CourseTypeServiceImpl">
+        <property name="courseTypeDao" ref="courseTypeDao"/>
+    </bean>
+    <bean id="courseTypeAction" class="com.nys.crm.courseType.web.action.CourseTypeAction">
+        <property name="courseTypeService" ref="courseTypeService"/>
+        <property name="courseType" ref="courseType"/>
+        <!--<property name="pageBean" ref="pageBeanBase"/>-->
+    </bean>
+
+    <bean id="courseType" class="com.nys.crm.courseType.domain.CourseType" scope="prototype"/>
+</beans>

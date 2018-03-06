@@ -1,0 +1,235 @@
+Spring
+    构造方法传值的三种方式
+    1、根据参数名传值<constructor-arg name="xx" value="xxx"/>
+    2、根据参数在参数列表中的角标传值<constructor-arg index="1" value="xxx"/>
+    3、根据参数的类型传值<constructor-arg type="java.lang.String" value="xxx"/>
+
+    IOC：Spring的控制反转
+    1、创建applicationContext.xml配置文件
+    2、在配置文件中创建bean标签，指定对应的实体类，id：bean的名称，name：类名
+    3、在bean标签中使用constructor-arg标签，给构造函数中的参数传值值
+    4、使用new ClassPathXmlApplicationContext("applicationContext.xml" )加载配置
+    文件获得applicationContext，几乎所有的Spring操作都需要先获得这个对象，这个对象
+    可以帮助我们创建对象
+
+    @Before注解
+    @Before注解标注的方法，会在每个@Test方法前先执行一遍
+    可以通过这个注解帮我们创建applicationContext对象
+
+    bean的scope属性
+    singleton&prototype的区别：scope默认值为singleton
+    singleton：单例，只会创建一个对象；
+    singleton默认会在加载配置文件时就会创建一个对象
+    当在singleton模式下，将bean的lazy-init属性设置为true时，只有调用context.getBean()方法，
+    才会创建一个对象
+    prototype：多例，可以创建多个对象；
+    这个模式不会在加载配置文件时创建对象，只有调用了getBean方法才会创建对象
+    这个模式可以创建多个对象
+
+    name属性和id属性
+    name属性可以用逗号分隔开，赋予多个值，每个值都能找到对应的bean
+    id属性不能使用逗号分隔而赋值多个值，只有一个值，当使用逗号时，逗号也是id名称中的一部分，
+    即id="a,b",那么id就为a,b;name="a,b",name就为a或b
+
+    Spring对工厂模式的支持：
+    1、静态工厂：
+    只需要在bean标签中指定id：bean的id；class：工厂类；factory-method：工厂类中获取对象的方法，
+    就会自动榜我们调用工厂类获取对象
+    2、抽象工厂：
+    由于抽象工厂类中获得对象的方法不是静态的，所以我们需要先获得一个抽象工厂的对象，通过bean标签
+    创建对象
+    在要创建对象的bean中，添加factory-bean属性，指定值为创建工厂对象的那个bean的id，添加factory-method
+    方法指定创建工厂的方法
+    使用时，只需要调用getBean方法，直接就能通过工厂模式创建对象
+
+    引用类型属性的初始化：
+    String：<constructor-arg name="gender" value="XXX"/>
+    对象:<constructor-arg name="car" ref="car3"/>ref值为创建对象的bean的id
+    List：通过property标签初始化
+         <property name="list1">
+         <list>
+              <value>自行车</value>value标签添加基本数据类型或字符串类型
+              <ref bean="car2"/>ref标签添加对象
+         </list>
+         </property>
+    Set，同上，set标签；Properties，同上，props标签；Object[]，同上，array标签；
+    Map：<property name="map">
+                    <map>
+                        <entry key="车">
+                            <ref bean="car2"/>
+                        </entry>
+                        <entry key="没有">
+                            <value>五</value>
+                        </entry>
+                    </map>
+                </property>
+
+    spring生命周期：
+        可以在bean标签中指定init-method=方法名；destory-method=方法名
+        在init-method指定的方法中可以初始化一些必要的数据
+        destory-method指定的方法火灾对象销毁时执行，可以在这里释放一些资源
+
+        我们不能控制对象的销毁，但我们可以控制context的关闭，当context被关闭时，
+        我们认为这个对象被销毁了
+
+    Annotation：注解：
+        如果想要使用注解，必须在配置文件中添加一个标签<context：compent-scan base-package="包路径"/>
+        在idea中使用这句话，会自动在声明文件中添加配置xmlns:cpntext=...和xsi:schemaLocation
+
+        @Component("bean")：这个标签在不知道类的具体作用时（bean类）可以使用，如果不传入参数，默认的bean的值为，
+                            类名的小驼峰结构。可以在参数列表中指定bean的名字，使用getBean可以获得对象
+        @Repository：在DAO层，数据访问层的类中使用这个注解，也可以有参数
+        @Service：在业务层使用这个注解
+        @Controller：在action中使用这个注解
+        @Value：用于给属性赋值，参数列表中填入值；可以使用在成员变量声明时，也可以用在set方法上
+        @Autowired：自动装配，会自动按照对象的类型装配这个注解有一个require参数，设置为false时，表示这个
+                    属性不是必须的，可以为null，默认这个参数为true，可以使用在set方法上和字段上
+        @Qualifier("name"):按照bean的名字装配，缩小了装配的范围，可以配合@Autowired一起使用
+        @Resource(name = "name"):和@Autowired类似，不过默认按照name装配。如果指定了name属性，按照指定的name装配。如果没
+                    有指定name，先按照默认的属性装配，如果找不到依赖对象，会按照类型进行装配
+        @Require:应用于属性的set方法上，表示必须为这个属性指定一个值，如果值为null会报一个异常
+        @PostConstruct:应用于方法上，表示这个方法在构造方法之后执行
+        @PreDestory:应用于方法上，表示这个方法在对象销毁前执行
+
+    继承关系：
+        在父类bean中初始化一个属性，如name
+        在子类bean标签中添加一个属性parent，赋值为父类bean的id
+        由于父类bean中的name属性被赋值了，而子类的bean继承于父类的bean，所以
+        在获得子类对象的时候，name也是有值的
+
+    jdk动态代理:
+        代理类实现InvocationHandler接口实现invoke方法;
+        当用户调用，生成的代理对象的任意一个方法时，都会来执行这个invoke方法;
+        invoke参数：代理对象，要调用的方法对象，调用方法需要传入的参数;
+        代理类中，有一个目标对象；这个对象是可变的。所以使用Object类型接收;
+            有一个功能类的对象，要添加哪些功能;
+            通过构造方法传入目标对象与功能对象;
+        使用时，通过Proxy.newProxyInstance()方法获得被代理对象调用对象的方法，会执行被添加功能的方法
+        Proxy.newProxyInstance()方法的参数:
+            被代理对象的类加载器：对象.getClass().getClassLoader();
+            被代理的对象实现的接口数组:对象.getClass().getInterfaces();
+            代理类对象：就是实现InvocationHandler接口的类的对象;
+
+    CGLIB动态代理:
+        需要chlib.jar;
+        代理类实现MethodInterface接口，实现intercept方法;
+        代理类中，有一个目标对象；这个对象是可变的。所以使用Object类型接收;
+            有一个功能类的对象，要添加哪些功能;
+            通过构造方法传入目标对象与功能对象
+        使用：
+        创建一个代码增强类Enhancer enhancer = new Enhancer();
+        指定哪个拦截器来执行intercept方法enhancer.setCallback(cgProxy);参数为代理类对象
+        生成被代理对象的父类enhancer.setSuperclass(cgUserDao.getClass());参数为被代理对象的类类型
+        使用enhancer.create()得到接口对象
+        再调用方法，就是被增强的方法
+
+
+    Spring_AOP：面向切面编程:
+        Spring配置AOP：
+            1、导入相应的jar包
+            2、创建<aop:config>标签，引入命名空间
+            3、在aop：config标签中创建子标签确认目标类和目标类中的方法
+            <aop:pointcut id="pointcut"
+             expression="execution(* com.lanou.aop.UserDaoImpl.*(..))"/>
+            expression：切面表达式
+            4、指定切面<aop:aspect ref="transaction">
+            5、指定通知
+                前通知：参数：method：方法名；pointcut-ref：目标类
+                <aop:before method="begin" pointcut-ref="pointcut"/>
+                后通知
+                <aop:after method="commit" pointcut-ref="pointcut"/>
+
+    面向切面编程AOP：
+        1、切面Aspect：事务，权限等，与业务逻辑没有关系的部分；相当于Jdk代理中的功能类
+        2、连接点joinPoint：目标类的目标方法；相当于使用时调用的那个方法
+        3、切入点pointcut：指的是我们要拦截的那些方法，aop中目标类的方法；相当于被代理类中的方法的集合
+        4、通知Advice：拦截到连接点之后要做的事情就是通知，有前通知，后通知，异常通知，最终通知，环绕通知，
+                        就是切面要完成的功能；相当于jdk代理中，功能类中的方法
+        5、目标对象Target：代理的目标对象；相当于被代理类
+        6、织入Weaving：把切面融入到目标对象中得到新的对象；代理类生成被代理接口对象的过程
+
+    Spring_AOP_Annotation：
+        1、使用@Component,@Service,@Controller,@Repository注解标识各个类
+        2、在功能类中创建一个方法代表切入点，这个方法只是一个代表，表示所有选定的切入点，不会被执行
+        3、在代表切入点的方法上，使用@PointCut("execution(  )")注解指定切入点，
+            在参数中指定切入点表达式，在由切入点表达式找到指点的切入点
+        4、使用@Before("切入点的代表方法")注解定义通知
+        5、在spring-config配置文件中添加标签<aop:aspectj-autoproxy/>
+        6、使用时，直接使用getBean方法获得被代理对象，调用的方法都是被扩展过的方法
+
+    切入点表达式：execution(修饰符(可省略) 返回值类型 所在包和类(可省略) 方法名 参数 异常(可省略))
+
+    通知类型：
+        @Before(切入点)：前置通知：在连接点之前执行
+        @AfterThrowing()：异常通知：当方法抛出异常时会执行，可以通过
+                              @AfterReturning(value = "切入点",returning = "参数名")指定一个参数接收异常
+        @After()：最终通知：不管连接点实质性完了，还是抛出异常了，都会执行，相当于try-catch中的finally块
+        @AfterReturning()：返回值通知：当方法成功返回后会执行，若方法抛出异常则不会执行，可以通过
+                                @AfterReturning(value = "切入点",returning = "参数名")指定一个参数接收返回值
+        @Around()：环绕通知：@Around("pointCut()")
+                           public String around(ProceedingJoinPoint pjp) throws Throwable {
+                               System.out.println("---兄弟你看我快不快---");
+                               //继续去执行
+                               //这个返回值，就是连接点的返回值
+                               Object proceed = pjp.proceed();
+                               System.out.println("------around------");
+                               return proceed.toString();
+                           }
+                   如果不执行Object proceed = pjp.proceed();就不会执行连接点方法
+
+    Spring&Struts2整合
+    1、在web.xml中定义一个全局化参数，该参数在应用刚启动时就存在了
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring-config.xml</param-value>
+    </context-param>
+    2、定义一个监听器，可以监听到应用启动，当应用启动时，它就会找到spring的配置文件，并且创建好ApplicationContext
+    <listener>
+    	<listener-class>org.springframework.web.context.ContextLoaderListener
+    	</listener-class>
+    </listener>
+    3、若使用spring维护Action（使用bean创建Action或使用Annotation创建），可以在struts.xml文件中，定义action的时候，
+        将class属性指定为bean的id
+
+    Spring&Hibernate整合：
+        1、若果要使用c3p0，在hibernate.cfg,xml中只需要指定方言ddl和mapping即可
+        2、创建c3p0配置文件，指定jdbc.url;jdbc.driver;jdbc.usernane;jdbc.password
+        3、在spring-config.xml中，将c3p0的配置文件，导入到spring容器中
+            <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+                <property name="locations" value="classpath:c3p0.properties"/>
+            </bean>
+        4、创建一个ComboPooledDataSource类对象，为该对象指定四个属性，属性值从上面的配置文件中获得
+            <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                <property name="jdbcUrl" value="${jdbc.url}"/>
+                <property name="driverClass" value="${jdbc.driver}"/>
+                <property name="user" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </bean>
+        5、让spring帮我们创建sessionFactory对象，指定该对象的DataSource属性（c3p0中配置的信息）
+            指定configLocation（Hibernate的配置文件）
+             <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+                 <property name="dataSource" ref="datasource"/>
+                 <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+             </bean>
+
+        6、声明事务管理器：
+            <bean id="transactionManager"       class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+                <property name="sessionFactory" ref="sessionFactory"/>
+            </bean>
+        7、添加txAdivce和txPointcut
+            <tx:advice id="txAdvice" transaction-manager="transactionManager">
+                <tx:attributes>
+                    <tx:method name="add*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+                    <tx:method name="update*"/>
+                    <tx:method name="*" read-only="true"/>
+                </tx:attributes>
+            </tx:advice>
+
+            <aop:config>
+                <aop:pointcut id="txPointcut" expression="execution(* com.lanou.study.dao.*Impl.*(..))"/>
+                <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+            </aop:config>
+        8、注意检查第七步中expression的正确性、
+        9、让被代理的类（UserDaoImpl）继承HibernateDaoSupport类
+        10、在被代理类的bean中添加<property name="sessionFactory" ref="sessionFactory"/>
+        11、在Dao中直接使用getHibernateTemplate().save()的方法操作数据库

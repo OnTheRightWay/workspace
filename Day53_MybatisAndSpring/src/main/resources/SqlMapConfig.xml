@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--设置全局参数-->
+    <settings>
+        <!--lazyLoadingEnabled:延迟加载的开关，默认是false-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--默认为true，为true时上面的懒加载失效-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--开启二级缓存总开关-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+    <typeAliases>
+        <!--将包中的类都设置别名，别名就是类名，不区分大小写-->
+        <package name="com.nys"/>
+    </typeAliases>
+
+    <mappers>
+        <mapper resource="user/UserMapper.xml"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="dep" extends="common">
+        <action name="departmentAction_*" class="com.nys.crm.department.web.action.DepartmentAction" method="{1}">
+            <result name="listDepartment">/pages/department/listDepartment.jsp</result>
+            <result name="addOrEditDepartment">/pages/department/addOrEditDepartment.jsp</result>
+            <result name="findAllByPage" type="redirectAction">departmentAction_findAllByPage</result>
+            <allowed-methods>findAllByPage,toEdit,addOrEdit</allowed-methods>
+        </action>
+    </package>
+</struts>

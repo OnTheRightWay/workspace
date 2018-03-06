@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="paging:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/paging_jar</output-path>
+    <root id="root">
+      <element id="archive" name="paging.jar">
+        <element id="module-output" name="paging" />
+        <element id="javaee-facet-resources" facet="paging/web/Web" />
+      </element>
+    </root>
+  </artifact>
+</component>
