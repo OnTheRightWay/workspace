@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>唯聚一家</title>
+<link href="css/base.css" type="text/css" rel="stylesheet"/>
+<link href="css/style.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div class="top">
+  <div class="t_l"><a href="pro_detail.html"><img src="images/zjt.png"/></a></div>
+  <div class="t_c"><span>购物车</span></div>
+</div>
+<div class="content  content1">
+  <div class="main">
+     <ul class="gwc_list">
+         <li class="shdz">
+         <a href="dzwh.html">
+            <span class="ggdz">地址</span>
+            <p style=" margin-top:10px"><span class="name">陈伟</span><span class="tel">15807197602</span></p>
+            <p style=" margin-bottom:10px"><span class="addr">北京市丰台区星火科技大厦1212</span></p>
+         </a>
+         </li>
+     </ul>
+      <script type="text/javascript">
+          var a=0;
+          $(document).ready(function () {
+              test();
+          })
+          function test() {
+              $.get("http://192.168.11.232:8080/selectOrderByUid", {uid: (Number)(sessionStorage.getItem("uid"))}, function (data) {
+                  $.each(data,function (index,item) {
+                    var b =item.price;
+                    var c= item.count;
+                      a += b*c;
+                      $(".gwc_list").append(
+                          "<li id='a' style='position:relative'>"+
+                          "<a href='#' class='sc' data-oid='"+item.oid+"'><img src='images/scdz.png'/></a>" +
+                          " <div class='gwc_title'>"+item.aname+"</div>\n" +
+                          " <ul class='gwc_info'>\n" +
+                          "        <li><span class='label'>当前售价：</span><span class='red'>￥"+item.price+"</span></li>" +
+                          "        <li><span class='label'>商品数量：</span><span>"+item.acount+"</span></li>" +
+                          "        <li style='border:none;overflow:hidden'>" +
+                          "        <span class='label' style='display:inline-block; float:left'>选购数量：</span>" +
+                          "        <input value='—' type='button' class='plus' data-count='"+item.count+"' data-oid='"+item.oid+"'/>" +
+                          "        <input value='"+item.count+"' type='text' class='in'/>" +
+                          "        <input value='+' type='button' class='add' data-count='"+item.count+"' data-oid='"+item.oid+"'/></li>" +
+                          " </ul></li>"+
+                          " <li style='position:relative'>" +
+                          "          <textarea style='min-height:80px; width:96%; line-height:22px; margin:4px auto; background:#fff; border:none'>请输入备注信息</textarea>\n" +
+                          "</li>"
+                      )
+
+                  })
+                  $(".b_nav").append("<span class='gwc_zj'>总价：￥"+a+"元</span><span><a href='#' class='gwc_js'>结算</a></span>")
+                  //删除
+                  $("#a a").click(function () {
+                      $.get("http://192.168.11.232:8080/remove", {oid: (Number)(this.dataset.oid)}, function (data) {
+                          console.log(data)
+                          window.location="gwc.html"
+                      })
+                  })
+
+                  //更新商品数量
+                  $(".add").click(function () {
+                      var ct=parseInt(this.dataset.count)
+                      ct+=1;
+
+                      console.log(ct);
+                      console.log(this.dataset.oid);
+                      $.get("http://192.168.11.232:8080/updataOrder",{count:ct,oid:this.dataset.oid},function (data) {
+                          window.location="gwc.html"
+                      })
+                  })
+                $(".plus").click(function () {
+                    var oid=this.dataset.oid
+                    var ct=parseInt(this.dataset.count)
+                    ct-=1;
+                    console.log(ct)
+                    $.get("http://192.168.11.232:8080/updataOrder",{count:ct,oid:oid},function (data) {
+                        if(ct<1){
+                            $.get("http://192.168.11.232:8080/remove", {oid: oid}, function (data) {
+                                console.log("+++"+data)
+                                window.location="gwc.html"
+                            })
+                        }else {
+                            data?window.location="gwc.html":"更新失败";
+                        }
+
+
+                    })
+                })
+              })
+          }
+      </script>
+  </div>
+</div>
+
+<div class="b_nav"></div>
+</body>
+</html>

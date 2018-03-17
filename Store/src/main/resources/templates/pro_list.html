@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>唯聚一家</title>
+<link href="css/base.css" type="text/css" rel="stylesheet"/>
+<link href="css/style.css" type="text/css" rel="stylesheet"/>
+<script src="js/jquery-1.8.3.min.js" language="javascript" type="text/javascript"></script>
+</head>
+<body>
+<div class="top">
+  <div class="t_l"><a href="index.html"><img src="images/zjt.png"/></a></div>
+  <div class="t_c"><span class="search"><input type="text"  class="kuang" placeholder="商品名/货号/类型"/><input type="button" class="niu"/></span></div>
+  <div class="t_r"><a href="gwc.html"><img src="images/gwc.png"/></a> </div>
+</div>
+<div class="content">
+
+  <div class="main">
+     <ul class="pro_list">
+
+     </ul>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("+++"+sessionStorage.type)
+        test();
+    })
+    function test() {
+        $.get("http://192.168.11.232:8080/selectByType",{type:(Number)(sessionStorage.getItem("type"))},function (data) {
+            console.log("+++"+data[0].goods_id)
+            $.each(data,function (index,item) {
+                 console.log(item.goods_name)
+                $(".pro_list").append(
+                "<li data-id='"+item.goods_id+"'>"+
+                "<a href='#'>"+
+                "<div class='pro_pic'>"+
+                "<img src='"+item.file_id+"' height='180px' width='100%'/>"+
+                "<p class='pro_title'>"+item.goods_name+"</p>"+
+                "</div>"+
+                "<div class='pro_info'>"+
+                "<span class='xj'>￥"+item.price+"<span class='yj'>￥"+item.discount+"</span></span>"+
+                "<span class='sczg'> </span>"+
+                "</div>"+
+                "</a>"+
+                "</li>"
+                )
+            })
+            $(".pro_list:first li").on("click",function () {
+                console.log("dddddd"+sessionStorage.goods_id);
+                sessionStorage.goods_id=this.dataset.id;
+                window.location="pro_detail.html"
+            })
+        })
+    }
+</script>
+</html>
